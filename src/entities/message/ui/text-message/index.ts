@@ -1,5 +1,5 @@
 import render from './text-message.hbs'
-import * as s from './text-message.module.scss'
+import s from './text-message.module.scss'
 
 export type TextMessageProps = {
   variant: 'text'

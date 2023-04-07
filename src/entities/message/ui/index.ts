@@ -1,7 +1,7 @@
 import { ImageMessage, type ImageMessageProps } from './image-message'
 import { TextMessage, type TextMessageProps } from './text-message'
 
-import * as s from './message.module.scss'
+import s from './message.module.scss'
 import render from './message.hbs'
 import { getMessageTime } from '@shared/lib'
 

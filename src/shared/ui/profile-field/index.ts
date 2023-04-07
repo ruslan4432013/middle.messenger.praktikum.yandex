@@ -1,5 +1,5 @@
 import render from './profile-field.hbs'
-import * as s from './profile-field.module.scss'
+import s from './profile-field.module.scss'
 
 type Props = {
   label: string;

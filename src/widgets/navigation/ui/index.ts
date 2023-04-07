@@ -1,4 +1,4 @@
-import * as s from './navigation.module.scss'
+import s from './navigation.module.scss'
 import render from './navigation.hbs'
 import { Button } from '@shared/ui/button'
 

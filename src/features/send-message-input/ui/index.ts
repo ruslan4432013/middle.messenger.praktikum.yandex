@@ -1,4 +1,4 @@
-import * as s from './send-message-input.module.scss'
+import s from './send-message-input.module.scss'
 import render from './send-message-input.hbs'
 import sendIcon from './send-icon.svg'
 

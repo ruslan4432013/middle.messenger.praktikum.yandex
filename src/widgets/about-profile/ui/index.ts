@@ -4,7 +4,7 @@ import { ChangeProfile } from '@features/change-profile'
 import { ChangePassword } from '@features/change-password'
 import { Logout } from '@features/logout'
 
-import * as s from './about-profile.module.scss'
+import s from './about-profile.module.scss'
 import render from './about-profile.hbs'
 
 export const AboutProfile = () => {

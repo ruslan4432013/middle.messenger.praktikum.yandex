@@ -1,4 +1,4 @@
-import * as s from './change-avatar.module.scss'
+import s from './change-avatar.module.scss'
 import render from './change-avatar.hbs'
 
 export const ChangeAvatar = () => {

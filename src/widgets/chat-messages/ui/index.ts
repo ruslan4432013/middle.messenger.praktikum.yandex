@@ -1,4 +1,4 @@
-import * as s from './chat-messages.module.scss'
+import s from './chat-messages.module.scss'
 import render from './chat-messages.hbs'
 import { Message } from '@entities/message'
 

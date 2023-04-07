@@ -1,4 +1,4 @@
-import * as s from './button.module.scss'
+import s from './button.module.scss'
 import { $ } from '@shared/lib'
 
 type Props = {

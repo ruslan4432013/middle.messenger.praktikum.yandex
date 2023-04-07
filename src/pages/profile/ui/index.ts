@@ -1,4 +1,4 @@
-import * as s from './profile.module.scss'
+import s from './profile.module.scss'
 import render from './profile.hbs'
 import { AboutProfile } from '@widgets/about-profile'
 import { ProfileSidebar } from '@widgets/profile-sidebar'

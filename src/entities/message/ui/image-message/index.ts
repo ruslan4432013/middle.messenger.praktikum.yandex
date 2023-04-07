@@ -1,4 +1,4 @@
-import * as s from './image-message.module.scss'
+import s from './image-message.module.scss'
 import render from './image-message.hbs'
 
 export type ImageMessageProps = {

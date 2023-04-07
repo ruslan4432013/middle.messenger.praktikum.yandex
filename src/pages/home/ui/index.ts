@@ -4,7 +4,7 @@ import { Footer } from '@widgets/footer'
 import { ChatMessages } from '@widgets/chat-messages'
 
 import render from './home.hbs'
-import * as s from './home.module.scss'
+import s from './home.module.scss'
 
 
 type Props = {

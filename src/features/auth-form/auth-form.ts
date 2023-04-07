@@ -2,7 +2,7 @@ import { AuthField } from '@shared/ui/auth-field'
 import { Button } from '@shared/ui/button'
 
 import render from './auth-form.hbs'
-import * as s from './auth-form.module.scss'
+import s from './auth-form.module.scss'
 
 
 type Props = {
