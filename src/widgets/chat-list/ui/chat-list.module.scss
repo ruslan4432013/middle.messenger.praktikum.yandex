@@ -1,6 +1,7 @@
 @use "@styles" as *;
 
 .root {
+  min-width: 310px;
   width: 310px;
   background: var(--secondary-color);
   height: 100%;
