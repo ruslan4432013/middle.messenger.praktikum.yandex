@@ -1,0 +1,19 @@
+.root {
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: 200px;
+  z-index: 3000;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 3000;
+  margin-bottom: 5px;
+}
+
+.hide {
+  display: none;
+}

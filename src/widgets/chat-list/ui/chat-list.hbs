@@ -1,0 +1,13 @@
+<div class="{{ root }}">
+  <div class="{{ top }}">
+    <a class="{{ profile_link }}">Профиль</a>
+  </div>
+  <div class="{{ search_wrapper }}">
+    {{{ FindMessage }}}
+  </div>
+  <div class="{{ messages_wrapper }}">
+    {{#each messages}}
+      {{{.}}}
+    {{/each}}
+  </div>
+</div>

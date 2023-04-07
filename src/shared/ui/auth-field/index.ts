@@ -1,0 +1,13 @@
+import render from './auth-field.hbs'
+import * as s from './auth-field.module.scss'
+
+type Props = {
+  fieldType: 'password' | 'text' | 'email' | 'tel';
+  label: string;
+  id: string;
+}
+
+export const AuthField = (props: Props) => {
+  const context = {...props, ...s}
+  return render(context)
+}

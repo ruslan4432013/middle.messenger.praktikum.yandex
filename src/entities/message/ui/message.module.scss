@@ -1,0 +1,45 @@
+@use '@styles' as *;
+
+.message_wrapper {
+  max-width: 402px;
+  background: var(--message-bg-color);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+
+  &__owner {
+    background: var(--primary-light-color);
+  }
+}
+
+.time_wrapper {
+  position: absolute;
+  bottom: 11px;
+  right: 11px;
+  background: rgba(82, 82, 82, 0.5);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 30px;
+  height: 13px;
+  box-sizing: border-box;
+
+  &__owner {
+    background: none;
+  }
+}
+
+.right_message {
+  margin-left: auto;
+}
+
+.time_extra {
+  color: var(--light-color);
+  @include font-size(9px, 1);
+  &__owner {
+    color: var(--primary-color);
+  }
+}

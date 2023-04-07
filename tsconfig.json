@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2016",
+    "lib": [
+      "dom",
+      "es2021"
+    ],
+    /* Modules */
+    "module": "commonjs",
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@styles": [
+        "./src/shared/styles/index.scss"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@entities/*": [
+        "./src/entities/*"
+      ],
+      "@widgets/*": [
+        "./src/widgets/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ]
+    },
+    /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Type Checking */
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src",
+    "server",
+    "typings"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

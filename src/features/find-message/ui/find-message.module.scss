@@ -1,0 +1,17 @@
+.search_input {
+  padding: 10px 0;
+  background-color: var(--light-grey);
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  font-size: 12px;
+  &::placeholder {
+    text-align: center;
+    background-image: url("./search-icon.svg");
+    background-repeat: no-repeat;
+    background-position: 34% 50%;
+  }
+  &:focus::placeholder {
+    opacity: 0;
+  }
+}

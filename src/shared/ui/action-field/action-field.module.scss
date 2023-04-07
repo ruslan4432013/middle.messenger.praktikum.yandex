@@ -1,0 +1,25 @@
+@use "@styles" as *;
+
+.field_wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 10px;
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+.label_text {
+  @include font-size(13px, 1);
+
+  &.primary {
+    color: var(--primary-color);
+  }
+
+  &.error {
+    color: var(--error-color);
+  }
+}
+

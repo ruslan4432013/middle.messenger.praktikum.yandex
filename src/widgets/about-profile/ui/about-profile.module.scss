@@ -1,0 +1,28 @@
+.profile_container {
+  max-width: 510px;
+  margin: 60px auto 0;
+}
+
+.avatar_wrapper {
+  margin-bottom: 97px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 21px;
+}
+
+.user_name {
+  color: var(--dark-color);
+}
+
+.fields_wrapper, .actions_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.fields_wrapper {
+  margin-bottom: 60px;
+}

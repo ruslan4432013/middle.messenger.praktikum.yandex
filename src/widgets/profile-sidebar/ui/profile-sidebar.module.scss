@@ -1,0 +1,12 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--secondary-color);
+  padding: 18px;
+  border-right: 1px solid var(--border-color);
+  cursor: pointer;
+}
