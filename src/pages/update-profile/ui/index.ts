@@ -6,12 +6,12 @@ import { ProfileField } from '@shared/ui/profile-field'
 
 export const UpdateProfilePage = () => {
   const fields = [
-    ProfileField({ label: 'Почта', value: 'pochta@yandex.ru' }),
-    ProfileField({ label: 'Логин', value: 'ivanivanov' }),
-    ProfileField({ label: 'Имя', value: 'Иван' }),
-    ProfileField({ label: 'Фамилия', value: 'Иванов' }),
-    ProfileField({ label: 'Имя в чате', value: 'Иван' }),
-    ProfileField({ label: 'Телефон', value: '+7 (909) 967 30 30' }),
+    ProfileField({ label: 'Почта', value: 'pochta@yandex.ru', name: 'email' }),
+    ProfileField({ label: 'Логин', value: 'ivanivanov', name: 'login' }),
+    ProfileField({ label: 'Имя', value: 'Иван', name: 'first_name' }),
+    ProfileField({ label: 'Фамилия', value: 'Иванов', name: 'second_name' }),
+    ProfileField({ label: 'Имя в чате', value: 'Иван', name: 'display_name' }),
+    ProfileField({ label: 'Телефон', value: '+7 (909) 967 30 30', name: 'phone', fieldType: 'tel' }),
   ]
   const components = {
     EditProfile: EditProfile({ fields }),

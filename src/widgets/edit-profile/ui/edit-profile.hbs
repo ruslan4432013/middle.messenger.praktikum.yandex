@@ -1,9 +1,9 @@
 <main class="{{ profile_container }}">
-  <div class="{{ avatar_wrapper }}">
-    {{{ ChangeAvatar }}}
-    <h3 class="{{ user_name }}">Иван</h3>
-  </div>
   <form>
+    <div class="{{ avatar_wrapper }}">
+      {{{ ChangeAvatar }}}
+      <h3 class="{{ user_name }}">Иван</h3>
+    </div>
     <div class="{{ fields_wrapper }}">
       {{#each fields}}
         {{{.}}}

@@ -4,11 +4,12 @@ import s from './profile-field.module.scss'
 type Props = {
   label: string;
   value: string;
+  name: string;
   onlyRead?: boolean;
-  fieldType?: 'text' | 'password'
+  fieldType?: 'text' | 'password' | 'tel';
 }
 
 export const ProfileField = (props: Props) => {
-  const context = {...props, ...s}
+  const context = { ...props, ...s }
   return render(context)
 }
