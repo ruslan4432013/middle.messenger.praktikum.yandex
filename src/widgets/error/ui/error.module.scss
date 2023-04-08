@@ -1,6 +1,6 @@
 @use "@styles" as *;
 
-.root {
+.error {
   @include center-both;
   text-align: center;
   color: var(--dark-color);

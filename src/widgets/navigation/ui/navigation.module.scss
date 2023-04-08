@@ -1,4 +1,4 @@
-.root {
+.navigation_block {
   position: fixed;
   top: 0;
   right: 0;
@@ -6,7 +6,7 @@
   z-index: 3000;
 }
 
-.navigation {
+.navigation_buttons {
   display: flex;
   flex-direction: column;
   gap: 5px;

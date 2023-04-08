@@ -15,10 +15,8 @@ export const Navigation = ({ pages }: Props) => {
   const ButtonHide = Button({
     text: 'Скрыть',
     onClick: (evt) => {
-      const buttons = document.querySelectorAll(`.${s.navigation} > button`)!
-      buttons.forEach(el => {
-        el.classList.toggle(s.hide)
-      })
+      const buttonsBlock = document.querySelector(`.${s.navigation_buttons}`)!
+      buttonsBlock.classList.toggle(s.hide)
       if (evt.target && 'innerText' in evt.target) {
         evt.target.innerText = evt.target.innerText === 'Скрыть' ? 'Показать' : 'Скрыть'
       }
