@@ -9,12 +9,12 @@ import render from './about-profile.hbs'
 
 export const AboutProfile = () => {
   const fields = [
-    ProfileField({ label: 'Почта', value: 'pochta@yandex.ru', onlyRead: true }),
-    ProfileField({ label: 'Логин', value: 'ivanivanov', onlyRead: true }),
-    ProfileField({ label: 'Имя', value: 'Иван', onlyRead: true }),
-    ProfileField({ label: 'Фамилия', value: 'Иванов', onlyRead: true }),
-    ProfileField({ label: 'Имя в чате', value: 'Иван', onlyRead: true }),
-    ProfileField({ label: 'Телефон', value: '+7 (909) 967 30 30', onlyRead: true }),
+    ProfileField({ label: 'Почта', value: 'pochta@yandex.ru', onlyRead: true, name: 'email' }),
+    ProfileField({ label: 'Логин', value: 'ivanivanov', onlyRead: true, name: 'login' }),
+    ProfileField({ label: 'Имя', value: 'Иван', onlyRead: true, name: 'first_name' }),
+    ProfileField({ label: 'Фамилия', value: 'Иванов', onlyRead: true, name: 'second_name' }),
+    ProfileField({ label: 'Имя в чате', value: 'Иван', onlyRead: true, name: 'display_name' }),
+    ProfileField({ label: 'Телефон', value: '+7 (909) 967 30 30', onlyRead: true, name: 'phone', fieldType: 'tel' }),
   ]
   const actions = [
     ChangeProfile(),
