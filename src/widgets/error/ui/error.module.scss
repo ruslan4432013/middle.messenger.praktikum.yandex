@@ -1,0 +1,25 @@
+@use "@styles" as *;
+
+.error {
+  @include center-both;
+  text-align: center;
+  color: var(--dark-color);
+}
+
+.error_code {
+  @include font-size(40px, 1);
+  margin-bottom: 20px;
+  font-weight: $fw-medium;
+}
+
+.error_message {
+  @include font-size(20px, 1);
+  margin-bottom: 69px;
+  font-weight: $fw-medium;
+}
+
+.link {
+  color: var(--primary-color);
+  cursor: pointer;
+  @include font-size(11px, 1);
+}

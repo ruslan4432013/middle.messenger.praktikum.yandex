@@ -1,0 +1,68 @@
+@use "@styles" as *;
+
+.user_chat_card {
+  display: flex;
+  padding: 10px 0;
+  margin: 0 12px;
+  height: 71px;
+  max-height: 71px;
+  box-sizing: border-box;
+  border-top: 1px solid var(--border-color);
+  &:last-of-type {
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+.user_icon {
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  margin: auto 10px auto 0;
+}
+
+.message_info {
+  margin-right: 20px;
+}
+
+.user_name {
+  font-size: 13px;
+  font-weight: $fw-semibold;
+  color: var(--dark-color);
+  margin-bottom: 4px;
+}
+
+.user_message {
+  @include font-size(12px, 1.25);
+  color: var(--gray-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: 193px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message_time {
+  @include font-size(9px, 1.44);
+  color: var(--gray-color);
+}
+
+
+.message_extra {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new_message_count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--light-color);
+  @include font-size(11px, 1.1);
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,10 @@
+@use "@styles" as *;
+
+.text_block {
+  color: var(--dark-color);
+  display: flex;
+  padding: 11px;
+  @include font-size(12px, 1.25);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

@@ -1,0 +1,40 @@
+@use "@styles" as *;
+
+.sidebar {
+  min-width: 310px;
+  width: 310px;
+  background: var(--secondary-color);
+  height: 100%;
+}
+
+.top {
+  margin: 21px 22px 0 auto;
+  text-align: right;
+}
+
+.search_wrapper {
+  margin: 23px 10px 0;
+}
+
+.messages_wrapper {
+  margin-top: 14px;
+  height: calc(100% - 112px);
+  overflow: auto;
+}
+
+.profile_link {
+  font-size: 12px;
+  position: relative;
+  color: var(--gray-color);
+  cursor: pointer;
+  &::after {
+    content: '';
+    @include center-Y;
+    right: -10px;
+    display: block;
+    width: 6px;
+    height: 10px;
+    background-image: url("./right-arrow.svg");
+
+  }
+}

@@ -1,0 +1,14 @@
+<main class="{{ auth_form }}">
+  <h1 class="{{ title }}">{{ titleText }}</h1>
+  <form class="{{ form }}" style="min-height: {{ minHeight }}">
+    <div class="{{ fields_wrapper }}">
+      {{#each fields}}
+        {{{.}}}
+      {{/each}}
+    </div>
+    <div class="{{ button_wrapper }}">
+      {{{ Button }}}
+      <a href="#" class="{{ link }}">{{ linkText }}</a>
+    </div>
+  </form>
+</main>

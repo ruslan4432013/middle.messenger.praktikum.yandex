@@ -1,0 +1,27 @@
+@use "@styles" as *;
+
+.field {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  label {
+    color: var(--gray-color);
+    @include font-size(9px, 1);
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+    padding-bottom: 7px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid var(--primary-color);
+  }
+}
