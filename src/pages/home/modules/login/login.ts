@@ -5,8 +5,8 @@ import { Button } from '@shared/ui/button'
 
 export const LoginPage = () => {
   const fields = [
-    AuthField({ label: 'Логин', fieldType: 'text', id: 'login' }),
-    AuthField({ label: 'Пароль', fieldType: 'password', id: 'password' }),
+    AuthField({ label: 'Логин', fieldType: 'text', id: 'login', name: 'login' }),
+    AuthField({ label: 'Пароль', fieldType: 'password', id: 'password', name: 'password' }),
   ]
 
   const context = {

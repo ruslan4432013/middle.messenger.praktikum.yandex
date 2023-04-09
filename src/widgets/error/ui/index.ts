@@ -1,4 +1,4 @@
-import * as s from './error.module.scss'
+import s from './error.module.scss'
 import render from './error.hbs'
 
 type Props = {

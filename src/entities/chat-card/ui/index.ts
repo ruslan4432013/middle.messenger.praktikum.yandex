@@ -1,5 +1,5 @@
 import render from './chat-card.hbs'
-import * as s from './chat-card.module.scss'
+import s from './chat-card.module.scss'
 import { getMessageTime } from '@shared/lib'
 
 export const ChatCard = () => {

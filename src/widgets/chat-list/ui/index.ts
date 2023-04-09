@@ -1,5 +1,5 @@
 import render from './chat-list.hbs'
-import * as s from './chat-list.module.scss'
+import s from './chat-list.module.scss'
 import { FindMessage } from '@features/find-message'
 import { ChatCard } from '@entities/chat-card'
 import { range } from '@shared/lib'

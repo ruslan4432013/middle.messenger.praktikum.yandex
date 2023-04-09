@@ -1,5 +1,5 @@
 import render from './action-field.hbs'
-import * as s from './action-field.module.scss'
+import s from './action-field.module.scss'
 
 type Props = {
   label: string;

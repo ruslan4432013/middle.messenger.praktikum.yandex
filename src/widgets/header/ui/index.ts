@@ -1,6 +1,6 @@
 import render from './header.hbs'
 import menuIcon from './menu-icon.svg'
-import * as s from './header.module.scss'
+import s from './header.module.scss'
 
 export const Header = () => {
   const context = {

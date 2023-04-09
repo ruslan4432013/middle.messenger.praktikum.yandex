@@ -1,6 +1,6 @@
 import render from './attach-to-chat.hbs'
 import attachIcon from './attach-icon.svg'
-import * as s from './attach-to-chat.module.scss'
+import s from './attach-to-chat.module.scss'
 
 export const AttachToChat = () => {
   const context = { attachIcon }
