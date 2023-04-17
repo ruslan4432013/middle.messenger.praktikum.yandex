@@ -8,6 +8,7 @@
   max-height: 71px;
   box-sizing: border-box;
   border-top: 1px solid var(--border-color);
+
   &:last-of-type {
     border-bottom: 1px solid var(--border-color);
   }
@@ -33,6 +34,7 @@
 
 .user_message {
   @include font-size(12px, 1.25);
+
   color: var(--gray-color);
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -44,6 +46,7 @@
 
 .message_time {
   @include font-size(9px, 1.44);
+
   color: var(--gray-color);
 }
 
@@ -60,7 +63,9 @@
   justify-content: center;
   align-items: center;
   color: var(--light-color);
+
   @include font-size(11px, 1.1);
+
   background-color: var(--primary-color);
   border-radius: 50%;
   width: 20px;

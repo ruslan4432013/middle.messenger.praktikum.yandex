@@ -14,11 +14,13 @@
 
 .label_text {
   @include font-size(13px, 1);
+
   color: var(--dark-color);
 }
 
 .value_text {
   @include font-size(13px, 1);
+
   color: var(--gray-color);
   background: transparent;
   border: none;

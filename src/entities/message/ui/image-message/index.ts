@@ -1,5 +1,4 @@
 import render from './image-message.hbs';
-import s from './image-message.module.scss';
 
 export type ImageMessageProps = {
   variant: 'image';
@@ -7,6 +6,6 @@ export type ImageMessageProps = {
 };
 
 export const ImageMessage = (props: ImageMessageProps) => {
-  const source = { ...s, ...props };
+  const source = { ...props };
   return render(source);
 };

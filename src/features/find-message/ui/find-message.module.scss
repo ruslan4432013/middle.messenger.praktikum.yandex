@@ -5,12 +5,14 @@
   width: 100%;
   border: none;
   font-size: 12px;
+
   &::placeholder {
     text-align: center;
     background-image: url("./search-icon.svg");
     background-repeat: no-repeat;
     background-position: 34% 50%;
   }
+
   &:focus::placeholder {
     opacity: 0;
   }

@@ -17,7 +17,7 @@
   position: absolute;
   bottom: 11px;
   right: 11px;
-  background: rgba(82, 82, 82, 0.5);
+  background: rgb(82 82 82 / 50%);
   z-index: 3;
   display: flex;
   justify-content: center;
@@ -38,7 +38,9 @@
 
 .time_extra {
   color: var(--light-color);
+
   @include font-size(9px, 1);
+
   &__owner {
     color: var(--primary-color);
   }
