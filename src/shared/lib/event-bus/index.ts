@@ -1,9 +1,9 @@
-import type { EventHandler, IEventBus } from './types';
+import { type EventHandler, type IEventBus } from './types';
 
 export class EventBus implements IEventBus {
   private _listeners: Record<string, EventHandler[]> = {};
 
-  on: IEventBus['on'] = (event, callback) => {
+  public on: IEventBus['on'] = (event, callback) => {
     if (!this._listeners[event]) {
       this._listeners[event] = [];
     }
@@ -11,7 +11,7 @@ export class EventBus implements IEventBus {
     this._listeners[event].push(callback);
   };
 
-  off: IEventBus['off'] = (event, callback) => {
+  public off: IEventBus['off'] = (event, callback) => {
     if (!this._listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
@@ -21,7 +21,7 @@ export class EventBus implements IEventBus {
     );
   };
 
-  emit: IEventBus['emit'] = (event, ...args) => {
+  public emit: IEventBus['emit'] = (event, ...args) => {
     if (!this._listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }

@@ -1,5 +1,5 @@
-import s from './error.module.scss';
 import render from './error.hbs';
+import s from './error.module.scss';
 
 type Props = {
   errorCode: number;

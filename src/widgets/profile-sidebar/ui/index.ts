@@ -1,6 +1,6 @@
 import arrowLeftIcon from './arrow-left.svg';
-import s from './profile-sidebar.module.scss';
 import render from './profile-sidebar.hbs';
+import s from './profile-sidebar.module.scss';
 
 export const ProfileSidebar = () => {
   const context = {

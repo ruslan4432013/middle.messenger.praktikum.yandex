@@ -1,5 +1,5 @@
-import { SendMessageInput } from '@features/send-message-input';
 import { AttachToChat } from '@features/attach-to-chat';
+import { SendMessageInput } from '@features/send-message-input';
 
 import render from './footer.hbs';
 import s from './footer.module.scss';

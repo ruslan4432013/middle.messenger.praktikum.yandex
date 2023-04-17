@@ -1,4 +1,5 @@
 import { $ } from '@shared/lib';
+
 import s from './button.module.scss';
 
 type Props = {

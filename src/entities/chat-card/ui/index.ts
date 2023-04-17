@@ -1,4 +1,5 @@
 import { getMessageTime } from '@shared/lib';
+
 import render from './chat-card.hbs';
 import s from './chat-card.module.scss';
 

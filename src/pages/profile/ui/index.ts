@@ -1,7 +1,8 @@
 import { AboutProfile } from '@widgets/about-profile';
 import { ProfileSidebar } from '@widgets/profile-sidebar';
-import s from './profile.module.scss';
+
 import render from './profile.hbs';
+import s from './profile.module.scss';
 
 export const ProfilePage = () => {
   const components = {

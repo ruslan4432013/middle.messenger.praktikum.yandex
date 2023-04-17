@@ -1,5 +1,5 @@
-import s from './image-message.module.scss';
 import render from './image-message.hbs';
+import s from './image-message.module.scss';
 
 export type ImageMessageProps = {
   variant: 'image';

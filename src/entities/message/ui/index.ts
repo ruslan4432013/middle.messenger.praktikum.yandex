@@ -1,9 +1,9 @@
 import { getMessageTime } from '@shared/lib';
-import { ImageMessage, type ImageMessageProps } from './image-message';
-import { TextMessage, type TextMessageProps } from './text-message';
 
-import s from './message.module.scss';
+import { ImageMessage, type ImageMessageProps } from './image-message';
 import render from './message.hbs';
+import s from './message.module.scss';
+import { TextMessage, type TextMessageProps } from './text-message';
 
 type PositionProps = {
   position: 'left' | 'right'

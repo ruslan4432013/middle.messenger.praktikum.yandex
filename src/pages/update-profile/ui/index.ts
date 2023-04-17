@@ -1,7 +1,7 @@
-import { EditProfile } from '@widgets/edit-profile';
-
-import { ProfileSidebar } from '@widgets/profile-sidebar';
 import { ProfileField } from '@shared/ui/profile-field';
+import { EditProfile } from '@widgets/edit-profile';
+import { ProfileSidebar } from '@widgets/profile-sidebar';
+
 import render from './update-profile.hbs';
 
 export const UpdateProfilePage = () => {

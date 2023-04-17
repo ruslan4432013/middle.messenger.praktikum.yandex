@@ -1,5 +1,5 @@
-import { AuthField } from '@shared/ui/auth-field';
-import { Button } from '@shared/ui/button';
+import { type AuthField } from '@shared/ui/auth-field';
+import { type Button } from '@shared/ui/button';
 
 import render from './auth-form.hbs';
 import s from './auth-form.module.scss';

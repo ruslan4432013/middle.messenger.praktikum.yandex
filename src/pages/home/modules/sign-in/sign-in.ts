@@ -1,5 +1,5 @@
-import { AuthField } from '@shared/ui/auth-field';
 import { AuthForm } from '@features/auth-form';
+import { AuthField } from '@shared/ui/auth-field';
 import { Button } from '@shared/ui/button';
 
 export const SignInPage = () => {

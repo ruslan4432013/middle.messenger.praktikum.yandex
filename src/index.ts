@@ -1,5 +1,5 @@
-import { UpdateProfilePage } from '@pages/update-profile';
 import { initNavigation } from '@pages/index';
+import { UpdateProfilePage } from '@pages/update-profile';
 
 const container = document.querySelector('#root');
 

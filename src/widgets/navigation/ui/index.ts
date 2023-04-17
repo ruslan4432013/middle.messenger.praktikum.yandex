@@ -1,6 +1,7 @@
 import { Button } from '@shared/ui/button';
-import s from './navigation.module.scss';
+
 import render from './navigation.hbs';
+import s from './navigation.module.scss';
 
 type Props = {
   pages: Record<string, () => string>

@@ -1,5 +1,5 @@
-import s from './change-avatar.module.scss';
 import render from './change-avatar.hbs';
+import s from './change-avatar.module.scss';
 
 export const ChangeAvatar = () => {
   const context = {

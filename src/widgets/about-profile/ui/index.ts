@@ -1,11 +1,11 @@
 import { ChangeAvatar } from '@features/change-avatar';
-import { ProfileField } from '@shared/ui/profile-field';
-import { ChangeProfile } from '@features/change-profile';
 import { ChangePassword } from '@features/change-password';
+import { ChangeProfile } from '@features/change-profile';
 import { Logout } from '@features/logout';
+import { ProfileField } from '@shared/ui/profile-field';
 
-import s from './about-profile.module.scss';
 import render from './about-profile.hbs';
+import s from './about-profile.module.scss';
 
 export const AboutProfile = () => {
   const fields = [

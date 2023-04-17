@@ -1,7 +1,7 @@
 import { Message } from '@entities/message';
-import s from './chat-messages.module.scss';
-import render from './chat-messages.hbs';
 
+import render from './chat-messages.hbs';
+import s from './chat-messages.module.scss';
 import { text } from './mock';
 
 export const ChatMessages = () => {

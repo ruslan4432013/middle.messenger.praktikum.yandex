@@ -1,7 +1,7 @@
 import { ChatList } from '@widgets/chat-list';
-import { Header } from '@widgets/header';
-import { Footer } from '@widgets/footer';
 import { ChatMessages } from '@widgets/chat-messages';
+import { Footer } from '@widgets/footer';
+import { Header } from '@widgets/header';
 
 import render from './home.hbs';
 import s from './home.module.scss';
