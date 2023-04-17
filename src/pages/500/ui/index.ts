@@ -1,5 +1,3 @@
-import { Error } from '@widgets/error'
+import { Error } from '@widgets/error';
 
-export const ServerErrorPage = () => {
-  return Error({errorCode: 500, errorMessage: 'Мы уже фиксим'})
-}
+export const ServerErrorPage = () => Error({ errorCode: 500, errorMessage: 'Мы уже фиксим' });

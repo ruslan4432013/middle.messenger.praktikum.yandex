@@ -1,1 +1,1 @@
-export { ClientErrorPage } from './ui'
+export { ClientErrorPage } from './ui';

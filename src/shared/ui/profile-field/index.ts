@@ -1,5 +1,5 @@
-import render from './profile-field.hbs'
-import s from './profile-field.module.scss'
+import render from './profile-field.hbs';
+import s from './profile-field.module.scss';
 
 type Props = {
   label: string;
@@ -7,9 +7,9 @@ type Props = {
   name: string;
   onlyRead?: boolean;
   fieldType?: 'text' | 'password' | 'tel';
-}
+};
 
 export const ProfileField = (props: Props) => {
-  const context = { ...props, ...s }
-  return render(context)
-}
+  const context = { ...props, ...s };
+  return render(context);
+};

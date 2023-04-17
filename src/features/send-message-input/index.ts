@@ -1,1 +1,1 @@
-export { SendMessageInput } from './ui'
+export { SendMessageInput } from './ui';

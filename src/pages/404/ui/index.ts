@@ -1,5 +1,3 @@
-import { Error } from '@widgets/error'
+import { Error } from '@widgets/error';
 
-export const ClientErrorPage = () => {
-  return Error({errorCode: 404, errorMessage: 'Не туда попали'})
-}
+export const ClientErrorPage = () => Error({ errorCode: 404, errorMessage: 'Не туда попали' });

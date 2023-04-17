@@ -9,15 +9,14 @@ const baseRange = (start: number, end: number, step: number, isRight?: boolean):
   }
 
   return result;
-}
-
+};
 
 export function range(start = 0, end?: number, step?: number, isRight?: boolean): number[] {
-		if (end === undefined) {
-      end = start;
-			start = 0;
-    }
+  if (end === undefined) {
+    end = start;
+    start = 0;
+  }
 
-    step = step ?? (start < end ? 1 : -1);
-    return baseRange(start, end, step, isRight)
+  step = step ?? (start < end ? 1 : -1);
+  return baseRange(start, end, step, isRight);
 }
