@@ -1,4 +1,4 @@
-export type EventHandler<P = unknown> = (payload: P) => void;
+export type EventHandler<P = any> = (...payload: P[]) => void;
 
 export interface IEventBus {
   on(key: string, handler: EventHandler): void
