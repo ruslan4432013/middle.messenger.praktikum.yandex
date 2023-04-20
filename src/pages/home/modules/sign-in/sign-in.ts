@@ -33,7 +33,7 @@ export const SignInPage = () => {
   };
 
   const components = {
-    Button: Button({ text: 'Зарегистрироваться' }),
+    Button: new Button({ text: 'Зарегистрироваться' }).getContent().outerHTML,
   };
   const source = { fields, ...context, ...components };
 

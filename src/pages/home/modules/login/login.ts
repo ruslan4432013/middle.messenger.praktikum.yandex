@@ -19,7 +19,7 @@ export const LoginPage = () => {
   };
 
   const components = {
-    Button: Button({ text: 'Авторизоваться' }),
+    Button: new Button({ text: 'Авторизоваться' }).getContent().outerHTML,
   };
 
   const source = { fields, ...context, ...components };

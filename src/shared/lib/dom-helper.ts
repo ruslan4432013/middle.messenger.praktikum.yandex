@@ -1,10 +1,11 @@
+import { type Component } from '@shared/lib/component';
 import { makeId } from '@shared/lib/make-id';
 
 const PREFIX = 'listener';
 
 /**
-* Помощник для навешивания событий на html-элемент
-*/
+ * Помощник для навешивания событий на html-элемент
+ */
 export const $ = <E extends HTMLElement, K extends keyof HTMLElementEventMap>(
   element: E,
 ) => ({
@@ -18,3 +19,13 @@ export const $ = <E extends HTMLElement, K extends keyof HTMLElementEventMap>(
       });
     },
   });
+
+export function render(query: string, block: Component) {
+  const root = document.querySelector(query)!;
+
+  root.appendChild(block.getContent());
+
+  block.dispatchComponentDidMount();
+
+  return root;
+}

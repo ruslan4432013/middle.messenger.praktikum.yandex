@@ -1,3 +1,4 @@
+import { Component } from '@shared/lib/component';
 import { Button } from '@shared/ui/button';
 
 import render from './navigation.hbs';
@@ -6,26 +7,30 @@ import s from './navigation.module.scss';
 type Props = {
   pages: Record<string, () => string>
 };
-export const Navigation = ({ pages }: Props) => {
-  const container = document.querySelector('#root')!;
-  const buttons: string[] = Object.entries(pages).map(([page, fn]) => Button({
-    text: page,
-    onClick: () => {
-      container.innerHTML = fn();
-    },
-  }));
 
-  const ButtonHide = Button({
-    text: 'Скрыть',
-    onClick: (evt) => {
-      const buttonsBlock = document.querySelector(`.${s.navigation_buttons}`)!;
-      buttonsBlock.classList.toggle(s.hide);
-      if (evt.target && 'innerText' in evt.target) {
-        evt.target.innerText = evt.target.innerText === 'Скрыть' ? 'Показать' : 'Скрыть';
-      }
-    },
-  });
+export class Navigation extends Component<Props> {
+  constructor(props: Props) {
+    const { pages } = props;
+    const container = document.querySelector('#root')!;
+    const buttons = Object.entries(pages)
+      .map(([page, fn]) => new Button({
+        text: page,
+        events: {
+          click: () => {
+            console.log('clicked');
+            container.innerHTML = fn();
+          },
+        },
+      }));
+    const source = {
+      buttons,
+      ...s,
+    };
+    Object.assign(props, source);
+    super('div', props);
+  }
 
-  const source = { ...s, buttons, ButtonHide };
-  return render(source);
-};
+  protected render(): DocumentFragment {
+    return this.compile(render, this.props);
+  }
+}

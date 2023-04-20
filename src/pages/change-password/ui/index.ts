@@ -17,7 +17,7 @@ export const ChangePasswordPage = () => {
     }),
   ];
   const components = {
-    EditProfile: EditProfile({ fields }),
+    EditProfile: new EditProfile({ fields }),
     ProfileSidebar: ProfileSidebar(),
   };
 

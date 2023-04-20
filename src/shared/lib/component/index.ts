@@ -1,12 +1,17 @@
+import { makeId } from '@shared/lib/make-id';
+
+import {
+  type ChildrenProps, type GetChildrenReturn, type PropType, type PropWithoutChildren,
+} from './types';
+
 import { EventBus } from '../event-bus';
 
 type Tags = keyof HTMLElementTagNameMap;
-type Meta<Props> = {
-  tagName: Tags,
-  props: Props
+type Meta<Tag> = {
+  tagName: Tag,
 };
 
-export abstract class Component<Props extends Record<string, any>> {
+export abstract class Component<Props extends PropType = PropType, K extends Tags = Tags> {
   private static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -16,23 +21,32 @@ export abstract class Component<Props extends Record<string, any>> {
 
   private eventBus: () => EventBus;
 
-  private _element: HTMLElement | null = null;
+  private _element: HTMLElementTagNameMap[K] | null = null;
 
-  private props: Props;
+  public readonly props: PropWithoutChildren<Props>;
 
-  private _meta: Meta<Props>;
+  private _meta: Meta<K>;
 
-  constructor(tagName: Tags = 'div', props: Props = {} as Props) {
+  private children: ChildrenProps<Props>;
+
+  private _isNeedUpdate = false;
+
+  public readonly _id = makeId(15);
+
+  constructor(tagName: K, propsAndChildren: Props = {} as Props) {
+    const {
+      children,
+      props,
+    } = this._getChildren(propsAndChildren) as GetChildrenReturn<Props>;
     const eventBus = new EventBus();
     this._meta = {
       tagName,
-      props,
     };
 
+    this.children = this._makePropsProxy(children);
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
-
     this._registerEvents(eventBus);
     eventBus.emit(Component.EVENTS.INIT);
   }
@@ -46,7 +60,31 @@ export abstract class Component<Props extends Record<string, any>> {
 
   private _createResources() {
     const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    this._element = this._createDocumentElement<K>(tagName);
+  }
+
+  private _addAttribute() {
+    const { attr = {} } = this.props;
+    Object.entries(attr)
+      .forEach(([keyAttr, attribute]) => {
+        this._element?.setAttribute(keyAttr, attribute);
+      });
+  }
+
+  private _addEvents() {
+    const { events = {} } = this.props;
+    Object.keys(events)
+      .forEach((eventName) => {
+        this._element?.addEventListener(eventName, events[eventName]);
+      });
+  }
+
+  private _removeEvents() {
+    const { events = {} } = this.props;
+    Object.keys(events)
+      .forEach((eventName) => {
+        this._element?.removeEventListener(eventName, events[eventName]);
+      });
   }
 
   public init() {
@@ -57,7 +95,8 @@ export abstract class Component<Props extends Record<string, any>> {
 
   private _componentDidMount() {
     this.componentDidMount?.();
-    this.dispatchComponentDidMount();
+    Object.values(this.children)
+      .forEach((child) => child.dispatchComponentDidMount());
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -66,24 +105,50 @@ export abstract class Component<Props extends Record<string, any>> {
   public dispatchComponentDidMount() {
     this.eventBus()
       .emit(Component.EVENTS.FLOW_CDM);
+    if (Object.keys(this.children).length) {
+      this.eventBus()
+        .emit(Component.EVENTS.FLOW_RENDER);
+    }
   }
 
   private _componentDidUpdate(oldProps: Props, newProps: Props) {
-    const response = this.componentDidUpdate?.(oldProps, newProps);
+    const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
       this._render();
     }
   }
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidUpdate?(oldProps: Props, newProps: Props): boolean;
+  protected componentDidUpdate(oldProps?: Props, newProps?: Props): boolean;
+  protected componentDidUpdate(): boolean {
+    return true;
+  }
 
   public setProps = (nextProps: Partial<Props>) => {
     if (!nextProps) {
       return;
     }
 
-    Object.assign(this.props, nextProps);
+    this._isNeedUpdate = false;
+    const oldValues = { ...this.props };
+
+    const {
+      children,
+      props,
+    } = this._getChildren(nextProps) as GetChildrenReturn<Props>;
+    if (Object.values(children).length) {
+      Object.assign(this.children, children);
+    }
+
+    if (Object.values(props).length) {
+      Object.assign(this.props, props);
+    }
+
+    if (this._isNeedUpdate) {
+      this.eventBus()
+        .emit(Component.EVENTS.FLOW_CDU, oldValues, this.props);
+      this._isNeedUpdate = false;
+    }
   };
 
   get element() {
@@ -92,30 +157,61 @@ export abstract class Component<Props extends Record<string, any>> {
 
   private _render() {
     const block = this.render();
+    this._removeEvents();
     if (!this._element) {
       throw new Error(`Element in ${this.constructor.name} is not defined`);
     }
-    this._element.innerHTML = block;
+
+    this._element.innerHTML = '';
+    this._addEvents();
+    this._addAttribute();
+    this._element.appendChild(block);
   }
 
-  protected abstract render(): string;
+  protected abstract render(): DocumentFragment;
+
+  private _getChildren(propsAndChildren: Partial<Props>) {
+    const children: Record<string, Component | Component[]> = {};
+    const props: Record<string, unknown> = {};
+
+    Object.entries(propsAndChildren)
+      .forEach(([key, value]) => {
+        if (this._isComponent(value) || this._isChildArray(value)) {
+          children[key] = value;
+        } else {
+          props[key] = value;
+        }
+      });
+
+    return {
+      children,
+      props,
+    };
+  }
 
   public getContent() {
-    return this.element;
+    const el = this.element;
+
+    if (!el) {
+      throw new Error('Element is not defined');
+    }
+    return el;
   }
 
-  private _makePropsProxy(props: Props) {
+  private _makePropsProxy<P extends Record<string, unknown> = {}>(props: P) {
     const self = this;
 
-    return new Proxy<Props>(props, {
+    return new Proxy(props, {
       get(target, property: string) {
         const value = target[property];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, property, value) {
-        Reflect.set(target, property, value);
-        self.eventBus()
-          .emit(Component.EVENTS.FLOW_CDU, self.props, target);
+      set(target, property, value, receiver) {
+        if (Reflect.get(target, property, receiver) !== value) {
+          Reflect.set(target, property, value, receiver);
+          self._isNeedUpdate = true;
+        }
+
         return true;
       },
       deleteProperty() {
@@ -124,22 +220,61 @@ export abstract class Component<Props extends Record<string, any>> {
     });
   }
 
-  private _createDocumentElement(tagName: Tags): HTMLElement {
+  private _createDocumentElement<T extends Tags>(tagName: T) {
     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return document.createElement(tagName);
   }
 
+  protected compile(render: (param?: any) => string, props: Props): DocumentFragment {
+    const propsAndStubs: Record<string, unknown> = { ...props };
+
+    (Object.entries(this.children) as [string, (Component | Component[])][])
+      .forEach(([key, childEl]) => {
+        if (this._isChildArray(childEl)) {
+          propsAndStubs[key] = childEl.map((child) => (
+            `<div data-id="${child._id}"></div>`
+          ));
+        } else {
+          propsAndStubs[key] = `<div data-id="${childEl._id}"></div>`;
+        }
+      });
+
+    const fragment = this._createDocumentElement('template');
+    fragment.innerHTML = render(propsAndStubs);
+
+    Object.values(this.children)
+      .forEach((child: Component | Component[]) => {
+        if (Array.isArray(child)) {
+          child.forEach((el) => {
+            const stub = fragment.content.querySelector(`[data-id="${el._id}"]`);
+            stub?.replaceWith(el.getContent());
+          });
+        } else {
+          const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)!;
+          stub.replaceWith(child.getContent());
+        }
+      });
+
+    return fragment.content;
+  }
+
   public show() {
     const content = this.getContent();
-    if (content) {
-      content.style.display = 'block';
-    }
+    content.style.display = 'block';
   }
 
   public hide() {
     const content = this.getContent();
-    if (content) {
-      content.style.display = 'none';
-    }
+    content.style.display = 'none';
+  }
+
+  private _isChildArray(val: unknown): val is Component[] {
+    return (
+      Array.isArray(val)
+      && val.filter((el) => el instanceof Component).length === val.length);
+  }
+
+  private _isComponent(value: unknown): value is Component {
+    return value instanceof Component;
   }
 }

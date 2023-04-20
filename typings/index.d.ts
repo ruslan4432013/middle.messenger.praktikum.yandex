@@ -12,3 +12,7 @@ declare module '*.svg' {
   const svg: string;
   export default svg;
 }
+
+interface Element {
+  [key: string]: any;
+}

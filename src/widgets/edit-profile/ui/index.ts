@@ -1,4 +1,5 @@
 import { ChangeAvatar } from '@features/change-avatar';
+import { Component } from '@shared/lib/component';
 import { Button } from '@shared/ui/button';
 import { type ProfileField } from '@shared/ui/profile-field';
 
@@ -8,12 +9,32 @@ import s from './edit-profile.module.scss';
 type Props = {
   fields: ReturnType<typeof ProfileField>[]
 };
-export const EditProfile = ({ fields }: Props) => {
-  const components = {
-    ChangeAvatar: ChangeAvatar(),
-    fields,
-    Button: Button({ text: 'Сохранить' }),
-  };
-  const source = { ...components, ...s };
-  return render(source);
-};
+
+export class EditProfile extends Component<Props> {
+  constructor(props: Props) {
+    const components = {
+      ChangeAvatar: ChangeAvatar(),
+      event: {
+        onmouseover: () => {
+          console.log('hello world');
+        },
+      },
+      Button: new Button({
+        text: 'Сохранить',
+        events: {
+          click: (e) => {
+            e?.preventDefault();
+            console.log('hello world');
+          },
+        },
+      }),
+      ...s,
+    };
+    Object.assign(props, components);
+    super('div', props);
+  }
+
+  protected render(): DocumentFragment {
+    return this.compile(render, this.props);
+  }
+}

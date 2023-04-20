@@ -7,7 +7,7 @@ import { HomePage } from './home';
 import { LoginPage } from './home/modules/login';
 import { SignInPage } from './home/modules/sign-in';
 import { ProfilePage } from './profile';
-import { UpdateProfilePage } from './update-profile';
+// import { UpdateProfilePage } from './update-profile';
 
 export const initNavigation = () => {
   const pages = {
@@ -16,11 +16,11 @@ export const initNavigation = () => {
     Домашняя: () => HomePage({ chatUuid: null }),
     Чат: () => HomePage({ chatUuid: 'some-chat' }),
     Профиль: () => ProfilePage(),
-    'Обновить профиль': () => UpdateProfilePage(),
+    'Обновить профиль': () => '',
     'Изменить пароль': () => ChangePasswordPage(),
     'Страница 404': () => ClientErrorPage(),
     'Страница 500': () => ServerErrorPage(),
 
   };
-  document.body.insertAdjacentHTML('beforeend', Navigation({ pages }));
+  document.body.appendChild(new Navigation({ pages }).getContent());
 };
