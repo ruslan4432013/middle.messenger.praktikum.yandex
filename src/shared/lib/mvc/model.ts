@@ -1,3 +1,3 @@
-export interface Model<T> {
-  data: T
+export abstract class BaseModel<T = unknown> {
+  public abstract data: T;
 }

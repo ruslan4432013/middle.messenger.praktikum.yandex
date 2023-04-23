@@ -1,5 +1,5 @@
-import { type Model } from './model';
+import { type BaseModel } from './model';
 
-export interface Controller {
-  model: Model
+export abstract class BaseController<T = unknown> {
+  public readonly abstract model: BaseModel<T>;
 }

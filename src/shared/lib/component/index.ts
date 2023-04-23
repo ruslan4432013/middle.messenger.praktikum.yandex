@@ -34,10 +34,14 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   public readonly _id = makeId(15);
 
   constructor(tagName: K, propsAndChildren: Props = {} as Props) {
+    const additionalProps = this.getAdditionalProps?.(propsAndChildren);
     const {
       children,
       props,
-    } = this._getChildren(propsAndChildren) as GetChildrenReturn<Props>;
+    } = this._getChildren(
+      this._mergeProps(propsAndChildren, additionalProps),
+    ) as GetChildrenReturn<Props>;
+
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -49,6 +53,28 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Component.EVENTS.INIT);
+  }
+
+  private _mergeProps(currentProps: Props, additional?: Partial<Props>) {
+    if (!additional) {
+      return currentProps;
+    }
+
+    const eventProps = {
+      ...additional.events,
+      ...currentProps.events,
+    };
+    const attrProps = {
+      ...additional.attr,
+      ...currentProps.attr,
+    };
+
+    return {
+      ...additional,
+      ...currentProps,
+      events: eventProps,
+      attr: attrProps,
+    };
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -72,19 +98,19 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   }
 
   private _addEvents() {
-    const { events = {} } = this.props;
-    Object.keys(events)
-      .forEach((eventName) => {
-        this._element?.addEventListener(eventName, events[eventName]);
-      });
+    const { events } = this.props;
+    if (!events) return;
+    for (const [key, evt] of Object.entries(events)) {
+      this._element?.addEventListener(key, evt);
+    }
   }
 
   private _removeEvents() {
-    const { events = {} } = this.props;
-    Object.keys(events)
-      .forEach((eventName) => {
-        this._element?.removeEventListener(eventName, events[eventName]);
-      });
+    const { events } = this.props;
+    if (!events) return;
+    for (const [key, evt] of Object.entries(events)) {
+      this._element?.removeEventListener(key, evt);
+    }
   }
 
   public init() {
@@ -96,11 +122,17 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   private _componentDidMount() {
     this.componentDidMount?.();
     Object.values(this.children)
-      .forEach((child) => child.dispatchComponentDidMount());
+      .forEach((child: Component | Component[]) => {
+        if (this._isChildArray(child)) {
+          child.forEach((el) => el.dispatchComponentDidMount());
+        } else {
+          child.dispatchComponentDidMount();
+        }
+      });
   }
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidMount?(oldProps?: Props): string;
+  protected componentDidMount?(oldProps?: Props): void;
 
   public dispatchComponentDidMount() {
     this.eventBus()
@@ -118,13 +150,15 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
+  protected getAdditionalProps?(clearProps: Props): Partial<Props>;
+
   // Может переопределять пользователь, необязательно трогать
   protected componentDidUpdate(oldProps?: Props, newProps?: Props): boolean;
   protected componentDidUpdate(): boolean {
     return true;
   }
 
-  public setProps = (nextProps: Partial<Props>) => {
+  public setProps = <P extends Props>(nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
@@ -168,7 +202,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     this._element.appendChild(block);
   }
 
-  protected abstract render(): DocumentFragment;
+  public abstract render(): DocumentFragment;
 
   private _getChildren(propsAndChildren: Partial<Props>) {
     const children: Record<string, Component | Component[]> = {};
@@ -240,6 +274,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
       });
 
     const fragment = this._createDocumentElement('template');
+
     fragment.innerHTML = render(propsAndStubs);
 
     Object.values(this.children)
@@ -250,8 +285,8 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
             stub?.replaceWith(el.getContent());
           });
         } else {
-          const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)!;
-          stub.replaceWith(child.getContent());
+          const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+          stub?.replaceWith(child.getContent());
         }
       });
 

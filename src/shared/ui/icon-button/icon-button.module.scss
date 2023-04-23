@@ -1,0 +1,13 @@
+.icon_button {
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:active {
+    opacity: .8;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

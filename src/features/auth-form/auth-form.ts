@@ -1,18 +1,29 @@
-import { type AuthField } from '@shared/ui/auth-field';
+import { Component, type PropType } from '@shared/lib';
 
 import render from './auth-form.hbs';
 import s from './auth-form.module.scss';
 
 type Props = {
-  fields: ReturnType<typeof AuthField>[];
-  title: string;
-  Button: string;
+  fields: Component[];
+  titleText: string;
+  Button: Component;
   linkText: string;
   minHeight?: string;
-};
+} & PropType;
 
-export const AuthForm = (props: Props) => {
-  const { title: titleText, ...other } = props;
-  const source = { ...other, ...s, titleText };
-  return render(source);
-};
+export class AuthForm extends Component<Props> {
+  constructor(props: Props) {
+    super('main', props);
+  }
+
+  protected getAdditionalProps(): Partial<Props> {
+    const props = {
+      ...s,
+    };
+    return props;
+  }
+
+  public render(): DocumentFragment {
+    return this.compile(render, this.props);
+  }
+}

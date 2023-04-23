@@ -1,9 +1,9 @@
 import { type Component } from './index';
 
-type Events = Record<string, EventListenerOrEventListenerObject>;
+type Events = Record<keyof DocumentEventMap, EventListenerOrEventListenerObject>;
 
 export type PropType = {
-  events?: Events,
+  events?: Partial<Events>,
   attr?: Record<string, string>
   [prop: string]: unknown
 };

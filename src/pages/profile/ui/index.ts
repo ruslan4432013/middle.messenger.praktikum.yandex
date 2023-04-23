@@ -1,13 +1,25 @@
+import { Component } from '@shared/lib';
 import { AboutProfile } from '@widgets/about-profile';
 import { ProfileSidebar } from '@widgets/profile-sidebar';
 
 import render from './profile.hbs';
 
-export const ProfilePage = () => {
-  const components = {
-    AboutProfile: AboutProfile(),
-    ProfileSidebar: ProfileSidebar(),
-  };
-  const source = { ...components };
-  return render(source);
-};
+export class ProfilePage extends Component {
+  constructor() {
+    super('div');
+  }
+
+  protected getAdditionalProps() {
+    const components = {
+      AboutProfile: new AboutProfile(),
+      ProfileSidebar: ProfileSidebar(),
+    };
+    return {
+      ...components,
+    };
+  }
+
+  public render() {
+    return this.compile(render, this.props);
+  }
+}

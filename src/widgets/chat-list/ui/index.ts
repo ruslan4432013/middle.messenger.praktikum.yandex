@@ -1,20 +1,30 @@
 import { ChatCard } from '@entities/chat-card';
 import { FindMessage } from '@features/find-message';
-import { range } from '@shared/lib';
+import { Component, type PropType, range } from '@shared/lib';
 
 import render from './chat-list.hbs';
 import s from './chat-list.module.scss';
 
-export const ChatList = () => {
-  const messages = range(15).map(ChatCard);
+export class ChatList extends Component {
+  constructor() {
+    super('div');
+  }
 
-  const components = {
-    FindMessage: FindMessage(),
-  };
-  const source = {
-    ...components,
-    messages,
-    ...s,
-  };
-  return render(source);
-};
+  protected getAdditionalProps(): Partial<PropType> {
+    const messages = range(15)
+      .map(() => new ChatCard());
+
+    const components = {
+      FindMessage: FindMessage(),
+      messages,
+    };
+    return {
+      ...components,
+      ...s,
+    };
+  }
+
+  public render() {
+    return this.compile(render, this.props);
+  }
+}

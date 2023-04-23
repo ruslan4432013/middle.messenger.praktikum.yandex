@@ -63,6 +63,7 @@
     "no-plusplus": "off",
     "class-methods-use-this": "off",
     "no-restricted-syntax": "off",
+    "no-useless-escape": "off",
     "no-underscore-dangle": "off"
   }
 }

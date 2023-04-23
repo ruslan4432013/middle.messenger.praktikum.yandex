@@ -1,10 +1,17 @@
-import { type Controller } from './controller';
+import { type Component } from '@shared/lib';
 
-export interface View {
-  controller: Controller;
-  root: HTMLElement;
+import { type BaseController } from './controller';
 
-  constructor(root: HTMLElement): this;
+export abstract class BaseView<T = unknown> {
+  public readonly abstract controller: BaseController<T>;
 
-  mount: () => void;
+  public readonly abstract root: Element;
+
+  protected abstract getComponent(): Component;
+
+  public mount() {
+    this.root.innerHTML = '';
+    const component = this.getComponent();
+    this.root.appendChild(component.getContent());
+  }
 }

@@ -1,26 +1,38 @@
+import { Component } from '@shared/lib';
 import { ProfileField } from '@shared/ui/profile-field';
 import { EditProfile } from '@widgets/edit-profile';
 import { ProfileSidebar } from '@widgets/profile-sidebar';
 
 import render from './change-password.hbs';
 
-export const ChangePasswordPage = () => {
-  const fields = [
-    ProfileField({
-      label: 'Старый пароль', value: 'password', fieldType: 'password', name: 'oldPassword',
-    }),
-    ProfileField({
-      label: 'Новый пароль', value: 'password', fieldType: 'password', name: 'newPassword',
-    }),
-    ProfileField({
-      label: 'Повторите новый пароль', value: 'password', fieldType: 'password', name: 'newPassword',
-    }),
-  ];
-  const components = {
-    EditProfile: new EditProfile({ fields }),
-    ProfileSidebar: ProfileSidebar(),
-  };
+export class ChangePasswordPage extends Component {
+  constructor() {
+    super('div');
+  }
 
-  const source = { ...components };
-  return render(source);
-};
+  protected getAdditionalProps() {
+    const fields = [
+      new ProfileField({
+        label: 'Старый пароль', value: 'password', fieldType: 'password', name: 'oldPassword',
+      }),
+      new ProfileField({
+        label: 'Новый пароль', value: 'password', fieldType: 'password', name: 'newPassword',
+      }),
+      new ProfileField({
+        label: 'Повторите новый пароль', value: 'password', fieldType: 'password', name: 'newPassword',
+      }),
+    ];
+    const components = {
+      EditProfile: new EditProfile({ fields }),
+      ProfileSidebar: ProfileSidebar(),
+    };
+    return {
+      fields,
+      ...components,
+    };
+  }
+
+  public render() {
+    return this.compile(render, this.props);
+  }
+}

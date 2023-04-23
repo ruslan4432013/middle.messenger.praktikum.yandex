@@ -1,3 +1,4 @@
+import { Component, type PropType } from '@shared/lib';
 import { ChatList } from '@widgets/chat-list';
 import { ChatMessages } from '@widgets/chat-messages';
 import { Footer } from '@widgets/footer';
@@ -8,23 +9,28 @@ import s from './home.module.scss';
 
 type Props = {
   chatUuid: null | string
-};
+} & PropType;
 
-export const HomePage = ({ chatUuid }: Props) => {
-  const context = {
-    chatUuid,
-  };
-  const components = {
-    ChatList: ChatList(),
-    Header: Header(),
-    Footer: Footer(),
-    ChatMessages: ChatMessages(),
-  };
+export class HomePage extends Component<Props> {
+  constructor(props: Props) {
+    super('div', props);
+  }
 
-  const source = {
-    ...components,
-    ...context,
-    ...s,
-  };
-  return render(source);
-};
+  protected getAdditionalProps(): Partial<Props> {
+    const components = {
+      ChatList: new ChatList(),
+      Header: new Header(),
+      Footer: new Footer(),
+      ChatMessages: new ChatMessages(),
+    };
+
+    return {
+      ...components,
+      ...s,
+    };
+  }
+
+  public render() {
+    return this.compile(render, this.props);
+  }
+}
