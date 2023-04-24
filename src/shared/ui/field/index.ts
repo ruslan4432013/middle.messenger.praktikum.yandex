@@ -1,15 +1,18 @@
 import { Component, type PropType } from '@shared/lib';
 import { isTargetWithValue } from '@shared/lib/type-helpers';
+import { Input, type InputProps } from '@shared/ui/input';
 
 export type FieldProps = {
   onChange?: (value: string) => void;
   value?: string;
-  onFocus?: (ev: FocusEvent) => void;
-  onBlur?: (ev: FocusEvent) => void;
+  onFocus?: (ev: Event) => void;
+  onBlur?: (ev: Event) => void;
   validationFn?: (value: string) => boolean;
   errorMessage?: string;
   invalid?: boolean;
   name: string;
+  Input?: Component;
+  inputProps?: InputProps;
 } & PropType;
 
 export abstract class Field<Props extends FieldProps = FieldProps> extends Component<Props> {
@@ -17,7 +20,6 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
 
   constructor(props: Props) {
     super('div', props);
-    this._addFocusEvents();
   }
 
   public isValid(): boolean {
@@ -40,24 +42,22 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
     }
   }
 
-  private _addFocusEvents() {
-    if (!this.element) return;
-    const input = this.element.querySelector('input');
-    if (!input) {
-      throw new Error('No inputs in fields');
-    }
-    input.addEventListener('focus', (evt) => {
-      this.props.onFocus?.(evt);
-      this.validate();
-    });
-    input.addEventListener('blur', (evt) => {
-      this.props.onBlur?.(evt);
-      this.validate();
-    });
-  }
-
-  protected getAdditionalProps(): Partial<Props> {
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const { inputProps = {} } = clearProps;
     return {
+      Input: new Input({
+        ...inputProps,
+        events: {
+          focus: (evt) => {
+            this.props.onFocus?.(evt);
+            this.validate();
+          },
+          blur: (evt) => {
+            this.props.onBlur?.(evt);
+            this.validate();
+          },
+        },
+      }),
       events: {
         input: (evt) => {
           if (isTargetWithValue(evt.target)) {

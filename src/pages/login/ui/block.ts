@@ -59,9 +59,7 @@ export class LoginPage extends Component<Props> {
             fields.forEach((el) => el.validate());
           },
         },
-        attr: {
-          type: 'submit',
-        },
+        type: 'submit',
       }),
       titleText: 'Вход',
       linkText: 'Войти',

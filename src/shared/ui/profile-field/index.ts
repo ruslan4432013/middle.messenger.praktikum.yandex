@@ -12,8 +12,15 @@ type Props = {
 } & FieldProps & PropType;
 
 export class ProfileField extends Field<Props> {
-  protected getAdditionalProps(): Partial<Props> {
-    const props = super.getAdditionalProps();
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const inputProps = {
+      attr: {
+        class: s.value_text,
+        value: clearProps.value,
+        type: clearProps.fieldType,
+      },
+    } as FieldProps['inputProps'];
+    const props = super.getAdditionalProps({ ...clearProps, inputProps });
     return {
       ...s,
       ...props,

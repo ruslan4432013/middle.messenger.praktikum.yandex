@@ -11,30 +11,35 @@ const fields = [
     value: 'pochta@yandex.ru',
     name: 'email',
     validationFn: validate.email,
+    errorMessage: 'Неверная почта',
   }),
   new ProfileField({
     label: 'Логин',
     value: 'ivanivanov',
     name: 'login',
     validationFn: validate.login,
+    errorMessage: 'Неверный логин',
   }),
   new ProfileField({
     label: 'Имя',
     value: 'Иван',
     name: 'first_name',
     validationFn: validate.name,
+    errorMessage: 'Неверное имя',
   }),
   new ProfileField({
     label: 'Фамилия',
     value: 'Иванов',
     name: 'second_name',
     validationFn: validate.name,
+    errorMessage: 'Неверная фамилия',
   }),
   new ProfileField({
     label: 'Имя в чате',
     value: 'Иван',
     name: 'display_name',
     validationFn: validate.login,
+    errorMessage: 'Неверное имя в чате',
   }),
   new ProfileField({
     label: 'Телефон',
@@ -42,6 +47,7 @@ const fields = [
     name: 'phone',
     fieldType: 'tel',
     validationFn: validate.phone,
+    errorMessage: 'Неверный номер телефона',
   }),
 ];
 const components = {

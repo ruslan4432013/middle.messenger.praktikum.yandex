@@ -66,7 +66,7 @@ export class SignInPage extends Component<Props> {
       id: 'phone',
       name: 'phone',
       validationFn: validate.phone,
-      errorMessage: 'Не верный email',
+      errorMessage: 'Неверный номер телефона',
       onChange: (text: string) => {
         this.props.onChange('phone', text);
       },
@@ -112,6 +112,7 @@ export class SignInPage extends Component<Props> {
       minHeight: '540px',
       Button: new Button({
         text: 'Зарегистрироваться',
+        type: 'submit',
         events: {
           click: (e) => {
             this.props.onSubmit(e);

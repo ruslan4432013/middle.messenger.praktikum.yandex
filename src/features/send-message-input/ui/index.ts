@@ -1,5 +1,4 @@
-import { type PropType } from '@shared/lib';
-import { Field } from '@shared/ui/field';
+import { Field, type FieldProps } from '@shared/ui/field';
 import { IconButton } from '@shared/ui/icon-button';
 
 import sendIcon from './send-icon.svg';
@@ -14,7 +13,7 @@ export class SendMessageInput extends Field {
     this.validate();
   };
 
-  protected getAdditionalProps(): Partial<PropType> {
+  protected getAdditionalProps(clearProps: FieldProps): Partial<FieldProps> {
     const components = {
       IconButton: new IconButton({
         src: sendIcon,
@@ -26,7 +25,7 @@ export class SendMessageInput extends Field {
       }),
     };
     const context = { name: 'message' };
-    const fieldProps = super.getAdditionalProps();
+    const fieldProps = super.getAdditionalProps(clearProps);
     return {
       ...s,
       ...context,

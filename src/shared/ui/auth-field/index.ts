@@ -11,8 +11,15 @@ type Props = {
 } & FieldProps & PropType;
 
 export class AuthField extends Field<Props> {
-  protected getAdditionalProps(): Partial<Props> {
-    const props = super.getAdditionalProps();
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const inputProps = {
+      attr: {
+        type: clearProps.fieldType,
+        id: clearProps.id,
+        name: clearProps.name,
+      },
+    } as FieldProps['inputProps'];
+    const props = super.getAdditionalProps({ ...clearProps, inputProps });
     return {
       attr: {
         class: s.field,

@@ -5,6 +5,7 @@ import s from './button.module.scss';
 
 type Props = {
   text: string;
+  type?: HTMLButtonElement['type']
 } & PropType;
 
 export class Button extends Component<Props> {
@@ -12,10 +13,12 @@ export class Button extends Component<Props> {
     super('button', props);
   }
 
-  protected getAdditionalProps(): Partial<Props> {
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const { type } = clearProps;
     return {
       attr: {
         class: s.button,
+        ...(type && { type }),
       },
     };
   }
