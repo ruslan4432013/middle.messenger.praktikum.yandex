@@ -1,12 +1,20 @@
-import s from './change-avatar.module.scss'
-import render from './change-avatar.hbs'
+import { Component } from '@shared/lib';
 
-export const ChangeAvatar = () => {
-  const context = {
-    src: 'https://via.placeholder.com/130x130',
-    name: 'avatar',
-    id: 'file-name'
+import render from './change-avatar.hbs';
+import s from './change-avatar.module.scss';
+
+export class ChangeAvatar extends Component {
+  constructor() {
+    super('div');
   }
-  const source = { ...s, ...context }
-  return render(source)
+
+  public render() {
+    const context = {
+      src: 'https://via.placeholder.com/130x130',
+      name: 'avatar',
+      id: 'file-name',
+    };
+    const source = { ...s, ...context };
+    return this.compile(render, source);
+  }
 }

@@ -1,1 +1,1 @@
-export { FindMessage } from './ui'
+export { FindMessage } from './ui';

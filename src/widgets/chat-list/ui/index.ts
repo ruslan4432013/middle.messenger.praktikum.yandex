@@ -1,19 +1,30 @@
-import render from './chat-list.hbs'
-import s from './chat-list.module.scss'
-import { FindMessage } from '@features/find-message'
-import { ChatCard } from '@entities/chat-card'
-import { range } from '@shared/lib'
+import { ChatCard } from '@entities/chat-card';
+import { FindMessage } from '@features/find-message';
+import { Component, type PropType, range } from '@shared/lib';
 
-export const ChatList = () => {
-  const messages = range(15).map(ChatCard)
+import render from './chat-list.hbs';
+import s from './chat-list.module.scss';
 
-  const components = {
-    FindMessage: FindMessage(),
+export class ChatList extends Component {
+  constructor() {
+    super('div');
   }
-  const source = {
-    ...components,
-    messages,
-    ...s,
+
+  protected getAdditionalProps(): Partial<PropType> {
+    const messages = range(15)
+      .map(() => new ChatCard());
+
+    const components = {
+      FindMessage: FindMessage(),
+      messages,
+    };
+    return {
+      ...components,
+      ...s,
+    };
   }
-  return render(source)
+
+  public render() {
+    return this.compile(render, this.props);
+  }
 }

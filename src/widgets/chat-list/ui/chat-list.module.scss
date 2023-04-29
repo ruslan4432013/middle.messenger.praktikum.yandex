@@ -27,9 +27,12 @@
   position: relative;
   color: var(--gray-color);
   cursor: pointer;
+
   &::after {
     content: '';
-    @include center-Y;
+
+    @include center-y;
+
     right: -10px;
     display: block;
     width: 6px;

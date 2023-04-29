@@ -1,14 +1,34 @@
-import render from './auth-field.hbs'
-import s from './auth-field.module.scss'
+import { type PropType } from '@shared/lib';
+import { Field, type FieldProps } from '@shared/ui/field';
+
+import render from './auth-field.hbs';
+import s from './auth-field.module.scss';
 
 type Props = {
   fieldType: 'password' | 'text' | 'email' | 'tel';
-  name: string;
   label: string;
   id: string;
-}
+} & FieldProps & PropType;
 
-export const AuthField = (props: Props) => {
-  const context = {...props, ...s}
-  return render(context)
+export class AuthField extends Field<Props> {
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const inputProps = {
+      attr: {
+        type: clearProps.fieldType,
+        id: clearProps.id,
+        name: clearProps.name,
+      },
+    } as FieldProps['inputProps'];
+    const props = super.getAdditionalProps({ ...clearProps, inputProps });
+    return {
+      attr: {
+        class: s.field,
+      },
+      ...props,
+    };
+  }
+
+  public render(): DocumentFragment {
+    return this.compile(render, this.props);
+  }
 }

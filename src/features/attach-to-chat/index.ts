@@ -1,1 +1,1 @@
-export { AttachToChat } from './ui'
+export { AttachToChat } from './ui';

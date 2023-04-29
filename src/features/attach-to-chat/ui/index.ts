@@ -1,9 +1,20 @@
-import render from './attach-to-chat.hbs'
-import attachIcon from './attach-icon.svg'
-import s from './attach-to-chat.module.scss'
+import { Component, type PropType } from '@shared/lib';
 
-export const AttachToChat = () => {
-  const context = { attachIcon }
-  const source = { ...context, ...s }
-  return render(source)
+import attachIcon from './attach-icon.svg';
+import render from './attach-to-chat.hbs';
+import s from './attach-to-chat.module.scss';
+
+export class AttachToChat extends Component {
+  constructor() {
+    super('div');
+  }
+
+  protected getAdditionalProps(): Partial<PropType> {
+    const context = { attachIcon };
+    return { ...context, ...s };
+  }
+
+  public render(): DocumentFragment {
+    return this.compile(render, this.props);
+  }
 }

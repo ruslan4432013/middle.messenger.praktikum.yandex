@@ -1,1 +1,1 @@
-export { Error } from './ui'
+export { Error } from './ui';

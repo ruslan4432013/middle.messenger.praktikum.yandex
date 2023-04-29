@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    /* Language and Environment */
     "target": "es2016",
     "lib": [
       "dom",
       "es2021"
     ],
-    /* Modules */
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
@@ -29,11 +27,14 @@
         "./src/features/*"
       ]
     },
-    /* Specify a set of entries that re-map imports to additional lookup locations. */
     "isolatedModules": true,
     "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    /* Type Checking */
     "strict": true,
     "skipLibCheck": true
   },

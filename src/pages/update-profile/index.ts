@@ -1,1 +1,1 @@
-export { UpdateProfilePage } from './ui'
+export { UpdateProfilePage } from './ui';

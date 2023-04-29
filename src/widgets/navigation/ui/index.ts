@@ -1,30 +1,52 @@
-import s from './navigation.module.scss'
-import render from './navigation.hbs'
-import { Button } from '@shared/ui/button'
+import { type PropType, type BaseView } from '@shared/lib';
+import { Component } from '@shared/lib/component';
+import { Button } from '@shared/ui/button';
+
+import render from './navigation.hbs';
+import s from './navigation.module.scss';
 
 type Props = {
-  pages: Record<string, () => string>
-}
-export const Navigation = ({ pages }: Props) => {
-  const container = document.querySelector('#root')!
-  const buttons: string[] = Object.entries(pages).map(([page, fn]) => Button({
-    text: page,
-    onClick: () => container.innerHTML = fn(),
-  }))
+  pages: Record<string, () => Component | BaseView>
+} & PropType;
 
-  const ButtonHide = Button({
-    text: 'Скрыть',
-    onClick: (evt) => {
-      const buttonsBlock = document.querySelector(`.${s.navigation_buttons}`)!
-      buttonsBlock.classList.toggle(s.hide)
-      if (evt.target && 'innerText' in evt.target) {
-        evt.target.innerText = evt.target.innerText === 'Скрыть' ? 'Показать' : 'Скрыть'
-      }
+export class Navigation extends Component<Props> {
+  constructor(props: Props) {
+    super('div', props);
+  }
 
-    }
-  })
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const { pages } = clearProps;
+    const container = document.querySelector('#root')!;
+    const buttons = Object.entries(pages)
+      .map(([page, fn]) => new Button({
+        text: page,
+        events: {
+          click: () => {
+            container.innerHTML = '';
+            const res = fn();
+            if (res instanceof Component) {
+              container.appendChild(res.getContent());
+            } else {
+              res.mount();
+            }
+          },
+        },
+      }));
+    return {
+      HideButton: new Button({
+        text: 'Скрыть / Показать',
+        events: {
+          click: () => {
+            document.querySelector(`.${s.navigation_buttons}`)?.classList.toggle(s.hide);
+          },
+        },
+      }),
+      buttons,
+      ...s,
+    };
+  }
 
-
-  const source = { ...s, buttons, ButtonHide }
-  return render(source)
+  public render(): DocumentFragment {
+    return this.compile(render, this.props);
+  }
 }

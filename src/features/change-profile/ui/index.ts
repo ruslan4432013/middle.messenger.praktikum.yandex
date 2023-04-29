@@ -1,5 +1,3 @@
-import { ActionField } from '@shared/ui/action-field'
+import { ActionField } from '@shared/ui/action-field';
 
-export const ChangeProfile = () => {
-  return ActionField({label: 'Изменить данные', color: 'primary'})
-}
+export const ChangeProfile = () => ActionField({ label: 'Изменить данные', color: 'primary' });

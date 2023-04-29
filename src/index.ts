@@ -1,13 +1,13 @@
-import { LoginPage } from '@pages/home/modules/login'
-import { UpdateProfilePage } from '@pages/update-profile'
-import { initNavigation } from '@pages/index'
+import { initNavigation } from '@pages/index';
+import { LoginPageView } from '@pages/login';
+import { render } from '@shared/lib';
 
-const container = document.querySelector('#root')
+const container = document.querySelector('#root');
 
 if (!container) {
-  throw new Error('Element #root not found')
+  throw new Error('Element #root not found');
 }
 
-container.innerHTML = UpdateProfilePage()
+render('#root', new LoginPageView(container));
 
-initNavigation()
+initNavigation();

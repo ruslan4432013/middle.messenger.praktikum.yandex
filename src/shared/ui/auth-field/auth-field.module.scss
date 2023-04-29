@@ -2,6 +2,7 @@
 
 .field {
   display: flex;
+  position: relative;
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
@@ -12,7 +13,9 @@
 
   label {
     color: var(--gray-color);
+
     @include font-size(9px, 1);
+
     margin-bottom: 8px;
   }
 
@@ -23,5 +26,23 @@
     border: none;
     background: transparent;
     border-bottom: 1px solid var(--primary-color);
+    position: relative;
+  }
+
+  &:global(.invalid) {
+    input {
+      color: var(--error-color);
+    }
+
+    &::after {
+      content: attr(data-error);
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -15px;
+      color: var(--error-color);
+
+      @include font-size(8px, 1)
+    }
   }
 }

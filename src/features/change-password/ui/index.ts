@@ -1,5 +1,3 @@
-import { ActionField } from '@shared/ui/action-field'
+import { ActionField } from '@shared/ui/action-field';
 
-export const ChangePassword = () => {
-  return ActionField({label: 'Изменить пароль', color: 'primary'})
-}
+export const ChangePassword = () => ActionField({ label: 'Изменить пароль', color: 'primary' });

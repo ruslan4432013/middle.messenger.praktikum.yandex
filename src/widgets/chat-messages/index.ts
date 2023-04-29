@@ -1,1 +1,1 @@
-export { ChatMessages } from './ui'
+export { ChatMessages } from './ui';

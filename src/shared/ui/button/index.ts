@@ -1,18 +1,30 @@
-import s from './button.module.scss'
-import { $ } from '@shared/lib'
+import { type PropType } from '@shared/lib';
+import { Component } from '@shared/lib/component';
+
+import s from './button.module.scss';
 
 type Props = {
   text: string;
-  onClick?: EventListenerOrEventListenerObject
-}
+  type?: HTMLButtonElement['type']
+} & PropType;
 
-export const Button = (props: Props) => {
-  const { text, onClick } = props
-  const button = document.createElement('button')
-  button.classList.add(s.auth_button)
-  button.innerText = text
-  if (onClick) {
-    $(button).on('click', onClick)
+export class Button extends Component<Props> {
+  constructor(props: Props) {
+    super('button', props);
   }
-  return button.outerHTML
+
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const { type } = clearProps;
+    return {
+      attr: {
+        class: s.button,
+        ...(type && { type }),
+      },
+    };
+  }
+
+  public override render() {
+    const { text } = this.props;
+    return this.compile(() => text, this.props);
+  }
 }

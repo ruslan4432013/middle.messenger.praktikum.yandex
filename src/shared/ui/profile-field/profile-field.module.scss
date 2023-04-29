@@ -5,20 +5,39 @@
   justify-content: space-between;
   width: 100%;
   padding-bottom: 10px;
+  position: relative;
 
   &:not(:last-of-type) {
     border-bottom: 1px solid var(--border-color);
   }
 
+  &:global(.invalid) {
+    input {
+      color: var(--error-color);
+    }
+
+    &::after {
+      content: attr(data-error);
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: -5px;
+      color: var(--error-color);
+
+      @include font-size(8px, 1)
+    }
+  }
 }
 
 .label_text {
   @include font-size(13px, 1);
+
   color: var(--dark-color);
 }
 
 .value_text {
   @include font-size(13px, 1);
+
   color: var(--gray-color);
   background: transparent;
   border: none;

@@ -1,1 +1,1 @@
-export { AboutProfile } from './ui'
+export { AboutProfile } from './ui';

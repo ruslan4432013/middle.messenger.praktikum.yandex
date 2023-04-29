@@ -1,4 +1,4 @@
-.auth_button {
+.button {
   padding: 12px 70px;
   font-weight: 500;
   font-size: 13px;
@@ -8,7 +8,8 @@
   border-radius: 8px;
   border: none;
   cursor: pointer;
+
   &:hover {
-    opacity: 0.7;
+    opacity: .7;
   }
 }

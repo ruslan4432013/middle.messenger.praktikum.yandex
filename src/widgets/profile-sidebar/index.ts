@@ -1,1 +1,1 @@
-export { ProfileSidebar } from './ui'
+export { ProfileSidebar } from './ui';
