@@ -1,6 +1,6 @@
-import { type Component } from '@shared/lib';
-
 import { type BaseController } from './controller';
+
+import { type Component } from '../component';
 
 export abstract class BaseView<T = unknown> {
   public readonly abstract controller: BaseController<T>;

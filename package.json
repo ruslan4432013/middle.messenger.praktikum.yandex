@@ -27,7 +27,8 @@
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-conarti-fsd": "^0.0.32",
+    "eslint-plugin-import": "^2.27.5",
     "express": "^4.18.2",
     "os-browserify": "^0.3.0",
     "parcel": "^2.8.3",
@@ -48,6 +49,5 @@
     "@entities/*": "./src/entities/$1",
     "@widgets/*": "./src/widgets/$1",
     "@features/*": "./src/features/$1"
-  },
-  "dependencies": {}
+  }
 }

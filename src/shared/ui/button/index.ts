@@ -1,7 +1,7 @@
-import { type PropType } from '@shared/lib';
-import { Component } from '@shared/lib/component';
-
 import s from './button.module.scss';
+
+import { type PropType } from '../../lib';
+import { Component } from '../../lib';
 
 type Props = {
   text: string;

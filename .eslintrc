@@ -1,11 +1,15 @@
 {
   "extends": [
     "airbnb-base",
-    "airbnb-typescript/base"
+    "airbnb-typescript/base",
+    "plugin:conarti-fsd/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": [
+    "conarti-fsd"
+  ],
   "rules": {
     "import/order": [
       "error",

@@ -1,6 +1,6 @@
-import { Component } from '@shared/lib/component';
-import { makeId } from '@shared/lib/make-id';
-import { type BaseView } from '@shared/lib/mvc';
+import { Component } from './component';
+import { makeId } from './make-id';
+import { type BaseView } from './mvc';
 
 const PREFIX = 'listener';
 

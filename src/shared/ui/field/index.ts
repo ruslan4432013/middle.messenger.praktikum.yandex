@@ -1,6 +1,6 @@
-import { Component, type PropType } from '@shared/lib';
-import { isTargetWithValue } from '@shared/lib/type-helpers';
-import { Input, type InputProps } from '@shared/ui/input';
+import { Component, type PropType } from '../../lib';
+import { isTargetWithValue } from '../../lib/type-helpers';
+import { Input, type InputProps } from '../input';
 
 export type FieldProps = {
   onChange?: (value: string) => void;

@@ -1,5 +1,6 @@
-import { type SignInData } from '@pages/sign-in/model/types';
 import { BaseModel } from '@shared/lib';
+
+import { type SignInData } from './types';
 
 const getInitialData = (): SignInData => ({
   login: '',

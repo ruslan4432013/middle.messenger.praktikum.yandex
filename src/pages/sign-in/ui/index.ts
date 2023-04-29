@@ -1,7 +1,8 @@
-import { SignInController } from '@pages/sign-in/model';
 import { BaseView } from '@shared/lib';
 
 import { SignInPage } from './block';
+
+import { SignInController } from '../model';
 
 export class SignInPageView extends BaseView {
   public readonly controller = new SignInController();

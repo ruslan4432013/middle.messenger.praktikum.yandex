@@ -1,8 +1,8 @@
-import { cn, type PropType } from '@shared/lib';
-import { Component } from '@shared/lib/component';
-
 import render from './icon-button.hbs';
 import s from './icon-button.module.scss';
+
+import { cn, type PropType } from '../../lib';
+import { Component } from '../../lib';
 
 type Props = {
   src: string;

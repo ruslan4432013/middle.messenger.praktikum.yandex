@@ -1,8 +1,8 @@
-import { type PropType } from '@shared/lib';
-import { Field, type FieldProps } from '@shared/ui/field';
-
 import render from './profile-field.hbs';
 import s from './profile-field.module.scss';
+
+import { type PropType } from '../../lib';
+import { Field, type FieldProps } from '../field';
 
 type Props = {
   label: string;

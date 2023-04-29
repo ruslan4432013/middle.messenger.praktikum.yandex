@@ -14,3 +14,5 @@ export class LoginController extends BaseController<LoginData> {
     this.model.data[field] = text;
   }
 }
+
+export * from './types';

@@ -1,9 +1,9 @@
-import { LoginController } from '@pages/login/model';
 import { BaseView } from '@shared/lib';
 
 import { LoginPage } from './block';
 
-import { type LoginData } from '../model/types';
+import { LoginController } from '../model';
+import { type LoginData } from '../model';
 
 export class LoginPageView extends BaseView<LoginData> {
   public readonly controller = new LoginController();

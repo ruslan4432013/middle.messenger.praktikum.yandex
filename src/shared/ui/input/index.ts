@@ -1,4 +1,4 @@
-import { Component, type PropType } from '@shared/lib';
+import { Component, type PropType } from '../../lib';
 
 export type InputProps = {
   className?: string

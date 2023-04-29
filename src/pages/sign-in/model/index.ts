@@ -1,7 +1,7 @@
-import { type SignInData } from '@pages/sign-in/model/types';
 import { BaseController } from '@shared/lib';
 
 import { SignInModel } from './sign-in-model';
+import { type SignInData } from './types';
 
 export class SignInController extends BaseController<SignInData> {
   public readonly model = new SignInModel();
@@ -15,3 +15,5 @@ export class SignInController extends BaseController<SignInData> {
     this.model.printValues();
   }
 }
+
+export * from './types';

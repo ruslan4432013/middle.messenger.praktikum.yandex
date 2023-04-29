@@ -1,4 +1,3 @@
-import { UpdateProfilePage } from '@pages/update-profile';
 import { Navigation } from '@widgets/navigation';
 
 import { ClientErrorPage } from './404';
@@ -8,6 +7,7 @@ import { HomePage } from './home';
 import { LoginPageView } from './login';
 import { ProfilePage } from './profile';
 import { SignInPageView } from './sign-in';
+import { UpdateProfilePage } from './update-profile';
 
 export const initNavigation = () => {
   const container = document.querySelector('#root')!;

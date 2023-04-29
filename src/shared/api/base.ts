@@ -1,6 +1,6 @@
-import { apiHelpers } from '@shared/lib';
-
 import { type Options, Methods } from './types';
+
+import { queryStringify } from '../lib/api-helpers';
 
 class HTTPTransport {
   public request<D extends Record<string, unknown> = Record<string, unknown>>(
@@ -55,7 +55,7 @@ class HTTPTransport {
       data = {},
       ...otherOptions
     } = options;
-    const queryString = apiHelpers.queryStringify(data);
+    const queryString = queryStringify(data);
     const endpoint = `${url}${queryString}`;
     return this.request(endpoint, {
       ...otherOptions,

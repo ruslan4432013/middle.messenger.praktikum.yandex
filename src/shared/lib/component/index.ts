@@ -1,10 +1,9 @@
-import { makeId } from '@shared/lib/make-id';
-
 import {
   type ChildrenProps, type GetChildrenReturn, type PropType, type PropWithoutChildren,
 } from './types';
 
 import { EventBus } from '../event-bus';
+import { makeId } from '../make-id';
 
 type Tags = keyof HTMLElementTagNameMap;
 type Meta<Tag> = {
