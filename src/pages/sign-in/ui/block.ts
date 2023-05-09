@@ -1,4 +1,5 @@
 import { AuthForm } from '@features/auth-form';
+import { Path } from '@shared/config';
 import { Component, type PropType, validate } from '@shared/lib';
 import { AuthField } from '@shared/ui/auth-field';
 import { Button } from '@shared/ui/button';
@@ -108,7 +109,10 @@ export class SignInPage extends Component<Props> {
     const authForm = new AuthForm({
       fields,
       titleText: 'Регистрация',
-      linkText: 'Войти',
+      linkProps: {
+        text: 'Войти',
+        to: Path.LOGIN,
+      },
       minHeight: '540px',
       Button: new Button({
         text: 'Зарегистрироваться',

@@ -1,5 +1,4 @@
-import { Component, type PropType } from '../../lib';
-import { isTargetWithValue } from '../../lib/type-helpers';
+import { Component, type PropType, isEvtTargetWithValue } from '../../lib';
 import { Input, type InputProps } from '../input';
 
 export type FieldProps = {
@@ -60,7 +59,7 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
       }),
       events: {
         input: (evt) => {
-          if (isTargetWithValue(evt.target)) {
+          if (isEvtTargetWithValue(evt.target)) {
             this.value = evt.target.value;
             this.props.onChange?.(evt.target.value);
           }

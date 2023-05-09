@@ -5,6 +5,7 @@
       "dom",
       "es2021"
     ],
+    "strictPropertyInitialization": false,
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {

@@ -8,7 +8,7 @@ type Props = {
   label: string;
   name: string;
   onlyRead?: boolean;
-  fieldType?: 'text' | 'password' | 'tel';
+  fieldType: 'text' | 'password' | 'tel' | 'email';
 } & FieldProps & PropType;
 
 export class ProfileField extends Field<Props> {
@@ -18,6 +18,7 @@ export class ProfileField extends Field<Props> {
         class: s.value_text,
         value: clearProps.value,
         type: clearProps.fieldType,
+        ...(clearProps.onlyRead && { disabled: 'true' }),
       },
     } as FieldProps['inputProps'];
     const props = super.getAdditionalProps({ ...clearProps, inputProps });

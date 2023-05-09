@@ -7,11 +7,7 @@ import { SignInController } from '../model';
 export class SignInPageView extends BaseView {
   public readonly controller = new SignInController();
 
-  constructor(public root: Element) {
-    super();
-  }
-
-  protected getComponent() {
+  public getComponent() {
     return new SignInPage({
       onChange: (field, text) => {
         this.controller.onChange(field, text);

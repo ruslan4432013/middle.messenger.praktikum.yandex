@@ -5,13 +5,15 @@ import { type Component } from '../component';
 export abstract class BaseView<T = unknown> {
   public readonly abstract controller: BaseController<T>;
 
-  public readonly abstract root: Element;
+  public abstract getComponent(): Component;
 
-  protected abstract getComponent(): Component;
+  private _component: Component;
 
-  public mount() {
-    this.root.innerHTML = '';
-    const component = this.getComponent();
-    this.root.appendChild(component.getContent());
+  public show() {
+    this._component.show();
+  }
+
+  public hide() {
+    this._component.hide();
   }
 }

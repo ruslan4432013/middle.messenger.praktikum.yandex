@@ -12,7 +12,7 @@ export class ProfilePage extends Component {
   protected getAdditionalProps() {
     const components = {
       AboutProfile: new AboutProfile(),
-      ProfileSidebar: ProfileSidebar(),
+      ProfileSidebar: new ProfileSidebar(),
     };
     return {
       ...components,

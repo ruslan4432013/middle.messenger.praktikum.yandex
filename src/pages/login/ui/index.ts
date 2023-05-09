@@ -8,11 +8,7 @@ import { type LoginData } from '../model';
 export class LoginPageView extends BaseView<LoginData> {
   public readonly controller = new LoginController();
 
-  constructor(public root: Element) {
-    super();
-  }
-
-  protected getComponent() {
+  public getComponent() {
     return new LoginPage({
       onSubmit: (evt: Event) => {
         evt.preventDefault();

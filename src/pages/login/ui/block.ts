@@ -1,4 +1,5 @@
 import { AuthForm } from '@features/auth-form';
+import { Path } from '@shared/config';
 import { type PropType, validate } from '@shared/lib';
 import { Component } from '@shared/lib/component';
 import { AuthField } from '@shared/ui/auth-field';
@@ -62,7 +63,10 @@ export class LoginPage extends Component<Props> {
         type: 'submit',
       }),
       titleText: 'Вход',
-      linkText: 'Войти',
+      linkProps: {
+        text: 'Нет аккаунта?',
+        to: Path.REGISTER,
+      },
       minHeight: '320px',
     });
     return authFrom.render();

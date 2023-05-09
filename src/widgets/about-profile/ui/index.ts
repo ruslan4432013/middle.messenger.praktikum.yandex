@@ -20,30 +20,35 @@ export class AboutProfile extends Component {
         value: 'pochta@yandex.ru',
         onlyRead: true,
         name: 'email',
+        fieldType: 'email',
       }),
       new ProfileField({
         label: 'Логин',
         value: 'ivanivanov',
         onlyRead: true,
         name: 'login',
+        fieldType: 'text',
       }),
       new ProfileField({
         label: 'Имя',
         value: 'Иван',
         onlyRead: true,
         name: 'first_name',
+        fieldType: 'text',
       }),
       new ProfileField({
         label: 'Фамилия',
         value: 'Иванов',
         onlyRead: true,
         name: 'second_name',
+        fieldType: 'text',
       }),
       new ProfileField({
         label: 'Имя в чате',
         value: 'Иван',
         onlyRead: true,
         name: 'display_name',
+        fieldType: 'text',
       }),
       new ProfileField({
         label: 'Телефон',
@@ -54,9 +59,9 @@ export class AboutProfile extends Component {
       }),
     ];
     const actions = [
-      ChangeProfile(),
-      ChangePassword(),
-      Logout(),
+      new ChangeProfile(),
+      new ChangePassword(),
+      new Logout(),
     ];
     const components = {
       ChangeAvatar: new ChangeAvatar(),

@@ -12,6 +12,7 @@ const fields = [
     name: 'email',
     validationFn: validate.email,
     errorMessage: 'Неверная почта',
+    fieldType: 'email',
   }),
   new ProfileField({
     label: 'Логин',
@@ -19,6 +20,7 @@ const fields = [
     name: 'login',
     validationFn: validate.login,
     errorMessage: 'Неверный логин',
+    fieldType: 'text',
   }),
   new ProfileField({
     label: 'Имя',
@@ -26,6 +28,7 @@ const fields = [
     name: 'first_name',
     validationFn: validate.name,
     errorMessage: 'Неверное имя',
+    fieldType: 'text',
   }),
   new ProfileField({
     label: 'Фамилия',
@@ -33,6 +36,7 @@ const fields = [
     name: 'second_name',
     validationFn: validate.name,
     errorMessage: 'Неверная фамилия',
+    fieldType: 'text',
   }),
   new ProfileField({
     label: 'Имя в чате',
@@ -40,6 +44,7 @@ const fields = [
     name: 'display_name',
     validationFn: validate.login,
     errorMessage: 'Неверное имя в чате',
+    fieldType: 'text',
   }),
   new ProfileField({
     label: 'Телефон',
@@ -52,7 +57,7 @@ const fields = [
 ];
 const components = {
   EditProfile: new EditProfile({ fields }),
-  ProfileSidebar: ProfileSidebar(),
+  ProfileSidebar: new ProfileSidebar(),
 };
 
 const source = {

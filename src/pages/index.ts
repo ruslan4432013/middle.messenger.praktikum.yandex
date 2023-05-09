@@ -1,27 +1,21 @@
-import { Navigation } from '@widgets/navigation';
+import { Path } from '@shared/config';
+import { RouterDOM } from '@shared/lib';
 
-import { ClientErrorPage } from './404';
-import { ServerErrorPage } from './500';
 import { ChangePasswordPage } from './change-password';
+import { ChatPage } from './chat';
 import { HomePage } from './home';
 import { LoginPageView } from './login';
 import { ProfilePage } from './profile';
 import { SignInPageView } from './sign-in';
 import { UpdateProfilePage } from './update-profile';
 
-export const initNavigation = () => {
-  const container = document.querySelector('#root')!;
-  const pages = {
-    Вход: () => new LoginPageView(container),
-    Регистрация: () => new SignInPageView(container),
-    Домашняя: () => new HomePage({ chatUuid: null }),
-    Чат: () => new HomePage({ chatUuid: 'some-chat' }),
-    Профиль: () => new ProfilePage(),
-    'Обновить профиль': () => new UpdateProfilePage(),
-    'Изменить пароль': () => new ChangePasswordPage(),
-    'Страница 404': () => new ClientErrorPage(),
-    'Страница 500': () => new ServerErrorPage(),
+export const router = new RouterDOM.Router('#root');
 
-  };
-  document.body.appendChild(new Navigation({ pages }).getContent());
-};
+router
+  .use(Path.LOGIN, LoginPageView)
+  .use(Path.REGISTER, SignInPageView)
+  .use(Path.USER_SETTINGS, UpdateProfilePage)
+  .use(Path.USER_PROFILE, ProfilePage)
+  .use(Path.CHANGE_PASSWORD, ChangePasswordPage)
+  .use(Path.CHAT, ChatPage)
+  .use(Path.HOME, HomePage);

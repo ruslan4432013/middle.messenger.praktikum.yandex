@@ -1,4 +1,7 @@
-import { Component, getMessageTime, type PropType } from '@shared/lib';
+import { Path } from '@shared/config';
+import {
+  Component, getMessageTime, type PropType, RouterDOM,
+} from '@shared/lib';
 
 import render from './chat-card.hbs';
 import s from './chat-card.module.scss';
@@ -12,6 +15,11 @@ export class ChatCard extends Component {
     return {
       attr: {
         class: s.user_chat_card,
+      },
+      events: {
+        click: () => {
+          new RouterDOM.Router().go(Path.CHAT);
+        },
       },
     };
   }

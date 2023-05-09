@@ -1,10 +1,13 @@
 import { Component } from '@shared/lib';
 import { ChatList } from '@widgets/chat-list';
+import { ChatMessages } from '@widgets/chat-messages';
+import { Footer } from '@widgets/footer';
+import { Header } from '@widgets/header';
 
-import render from './home.hbs';
-import s from './home.module.scss';
+import render from './chat.hbs';
+import s from './chat.module.scss';
 
-export class HomePage extends Component {
+export class ChatPage extends Component {
   constructor() {
     super('div');
   }
@@ -12,6 +15,9 @@ export class HomePage extends Component {
   protected getAdditionalProps() {
     const components = {
       ChatList: new ChatList(),
+      Header: new Header(),
+      Footer: new Footer(),
+      ChatMessages: new ChatMessages(),
     };
 
     return {

@@ -4,6 +4,7 @@ import {
 
 import { EventBus } from '../event-bus';
 import { makeId } from '../make-id';
+import { merge } from '../utils';
 
 type Tags = keyof HTMLElementTagNameMap;
 type Meta<Tag> = {
@@ -59,21 +60,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
       return currentProps;
     }
 
-    const eventProps = {
-      ...additional.events,
-      ...currentProps.events,
-    };
-    const attrProps = {
-      ...additional.attr,
-      ...currentProps.attr,
-    };
-
-    return {
-      ...additional,
-      ...currentProps,
-      events: eventProps,
-      attr: attrProps,
-    };
+    return merge(currentProps, additional);
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -149,7 +136,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
-  protected getAdditionalProps?(clearProps: Props): Partial<Props>;
+  protected getAdditionalProps?(clearProps: Props): Partial<Props> & PropType;
 
   // Может переопределять пользователь, необязательно трогать
   protected componentDidUpdate(oldProps?: Props, newProps?: Props): boolean;

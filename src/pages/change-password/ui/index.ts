@@ -39,7 +39,7 @@ export class ChangePasswordPage extends Component {
     ];
     const components = {
       EditProfile: new EditProfile({ fields }),
-      ProfileSidebar: ProfileSidebar(),
+      ProfileSidebar: new ProfileSidebar(),
     };
     return {
       fields,
