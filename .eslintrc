@@ -70,6 +70,7 @@
     "no-constructor-return": "off",
     "class-methods-use-this": "off",
     "no-restricted-syntax": "off",
+    "no-bitwise": "off",
     "no-useless-escape": "off",
     "no-underscore-dangle": "off"
   }

@@ -3,8 +3,7 @@ import {
 } from './types';
 
 import { EventBus } from '../event-bus';
-import { makeId } from '../make-id';
-import { merge } from '../utils';
+import { merge, uuid4 } from '../utils';
 
 type Tags = keyof HTMLElementTagNameMap;
 type Meta<Tag> = {
@@ -31,7 +30,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
 
   private _isNeedUpdate = false;
 
-  public readonly _id = makeId(15);
+  public readonly _id = uuid4();
 
   constructor(tagName: K, propsAndChildren: Props = {} as Props) {
     const additionalProps = this.getAdditionalProps?.(propsAndChildren);
