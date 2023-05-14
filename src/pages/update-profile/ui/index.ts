@@ -1,6 +1,7 @@
 import {
   sessionLib, sessionApi, type User,
 } from '@entities/session';
+import { userApi } from '@entities/user';
 import { Path } from '@shared/config';
 import {
   Component, store, validate, _, router,
@@ -12,10 +13,12 @@ import { ProfileSidebar } from '@widgets/profile-sidebar';
 
 import render from './update-profile.hbs';
 
+import { getUpdateParams } from '../lib';
+
 type Props = {
   user?: User,
-  fields: ProfileField[]
-  EditProfile: EditProfile,
+  fields?: ProfileField[]
+  EditProfile?: EditProfile,
 } & PropType;
 
 @router.use(Path.USER_SETTINGS)
@@ -76,15 +79,37 @@ export class UpdateProfilePage extends Component<Props> {
         errorMessage: 'Неверный номер телефона',
       }),
     ];
-    const editProfile = new EditProfile({ fields });
+
     const components = {
-      EditProfile: editProfile,
       ProfileSidebar: new ProfileSidebar(),
     };
 
     super('div', { ...components, fields });
     this._fields = fields;
+  }
+
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
+    const self = this;
+    const editProfile = new EditProfile({
+      onSubmit(evt) {
+        self._onUpdateProfile(evt);
+      },
+      fields: clearProps.fields || [],
+    });
     this._editProfile = editProfile;
+    return {
+      EditProfile: editProfile,
+    };
+  }
+
+  private _onUpdateProfile(evt: Event) {
+    const isValid = this._fields.every((f) => f.isValid());
+    if (isValid && evt.target instanceof HTMLFormElement) {
+      const formData = new FormData(evt.target);
+      formData.delete('avatar');
+      const updateData = getUpdateParams(formData);
+      userApi.updateProfile(updateData).then(sessionApi.getMe).then((user) => store.set('user', user));
+    }
   }
 
   protected componentDidMount() {

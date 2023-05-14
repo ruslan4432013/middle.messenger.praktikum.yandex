@@ -1,6 +1,7 @@
+import { sessionApi } from '@entities/session';
 import { userApi } from '@entities/user';
 import { API_URL } from '@shared/config';
-import { Component, _ } from '@shared/lib';
+import { Component, _, store } from '@shared/lib';
 import { connect } from '@shared/lib/store/connect';
 
 import render from './change-avatar.hbs';
@@ -12,7 +13,7 @@ type Props = {
 
 @connect((state) => ({ avatar: state?.user?.avatar }))
 export class ChangeAvatar extends Component<Props> {
-  constructor(props: Props) {
+  constructor(props?: Props) {
     const source: Props = {
       ...props,
       events: {
@@ -30,6 +31,12 @@ export class ChangeAvatar extends Component<Props> {
       },
     };
     super('div', source);
+  }
+
+  protected componentDidMount() {
+    if (!this.props.avatar) {
+      sessionApi.getMe().then((user) => store.set('user', user));
+    }
   }
 
   public render() {

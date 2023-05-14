@@ -16,6 +16,7 @@ export function cropImage(
   img.onload = () => {
     let { width, height } = img;
 
+    // Рассчитываем соотношение ширины и высоты
     const aspectRatio = width / height;
 
     // Проверяем, нужно ли изменять размер изображения

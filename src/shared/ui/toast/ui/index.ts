@@ -1,6 +1,7 @@
 import closeIcon from './close_icon.svg';
 import errorIcon from './error_icon.svg';
 import s from './styles.module.scss';
+import successIcon from './success_icon.svg';
 import render from './toast.hbs';
 
 import { Component } from '../../../lib';
@@ -16,7 +17,7 @@ class Toast extends Component<ToastProps> {
     super('div', props);
   }
 
-  protected getAdditionalProps() {
+  protected getAdditionalProps({ type }: ToastProps) {
     const self = this;
     const CloseButton = new IconButton({
       src: closeIcon,
@@ -30,7 +31,7 @@ class Toast extends Component<ToastProps> {
       },
     });
     return {
-      ...s, CloseButton, iconPath: errorIcon, attr: { class: s.toast },
+      ...s, CloseButton, iconPath: type === 'error' ? errorIcon : successIcon, attr: { class: s.toast },
     };
   }
 
@@ -44,6 +45,16 @@ export const toast = {
     const t = new Toast({
       message,
       type: 'error',
+    });
+    document.body.appendChild(t.getContent());
+    setTimeout(() => {
+      t.hide();
+    }, 4000);
+  },
+  success(message: string) {
+    const t = new Toast({
+      message,
+      type: 'success',
     });
     document.body.appendChild(t.getContent());
     setTimeout(() => {
