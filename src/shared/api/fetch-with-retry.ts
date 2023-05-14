@@ -1,7 +1,7 @@
 import { apiInstance } from './base';
-import { type Options } from './types';
+import { type Options, type RequestResult } from './types';
 
-export const fetchWithRetry = (url: string, options: Options): Promise<Response> => {
+export const fetchWithRetry = (url: string, options: Options): Promise<RequestResult> => {
   const { retries = 2 } = options;
 
   function errorHandler() {

@@ -1,5 +1,6 @@
+import { sessionApi } from '@entities/session';
 import { Path } from '@shared/config';
-import { Component } from '@shared/lib';
+import { Component, router, store } from '@shared/lib';
 import { ActionField } from '@shared/ui/action-field';
 
 export class Logout extends Component {
@@ -12,6 +13,12 @@ export class Logout extends Component {
       label: 'Выйти',
       color: 'error',
       path: Path.LOGIN,
+      onClick() {
+        sessionApi.logout().then(() => {
+          store.set('user', {});
+          router.go(Path.LOGIN);
+        });
+      },
     });
     return component.render();
   }

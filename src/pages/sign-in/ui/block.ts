@@ -1,6 +1,6 @@
 import { AuthForm } from '@features/auth-form';
 import { Path } from '@shared/config';
-import { Component, type PropType, validate } from '@shared/lib';
+import { Component, validate } from '@shared/lib';
 import { AuthField } from '@shared/ui/auth-field';
 import { Button } from '@shared/ui/button';
 
@@ -8,7 +8,7 @@ import { type SignInData } from '../model';
 
 type Props = {
   onChange: (field: keyof SignInData, value: string) => void
-  onSubmit: (evt: Event) => void
+  onSubmit: (evt: Event, isValid: boolean) => void
 } & PropType;
 
 export class SignInPage extends Component<Props> {
@@ -119,10 +119,11 @@ export class SignInPage extends Component<Props> {
         type: 'submit',
         events: {
           click: (e) => {
-            this.props.onSubmit(e);
             fields.forEach((field) => {
               field.validate();
             });
+            const isValid = fields.every((f) => f.isValid());
+            this.props.onSubmit(e, isValid);
           },
         },
       }),

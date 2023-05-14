@@ -1,4 +1,4 @@
-import { Component, type PropType } from '@shared/lib';
+import { Component } from '@shared/lib';
 
 import render from './error.hbs';
 import s from './error.module.scss';

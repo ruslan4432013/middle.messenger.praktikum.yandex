@@ -1,8 +1,7 @@
 import render from './icon-button.hbs';
 import s from './icon-button.module.scss';
 
-import { cn, type PropType } from '../../lib';
-import { Component } from '../../lib';
+import { cn, Component } from '../../lib';
 
 type Props = {
   src: string;

@@ -2,13 +2,14 @@ import render from './action-field.hbs';
 import s from './action-field.module.scss';
 
 import { type Path } from '../../config';
-import { cn, Component, type PropType } from '../../lib';
+import { cn, Component } from '../../lib';
 import { Link } from '../link';
 
 type Props = {
   label: string;
   color: 'error' | 'primary';
-  path: Path
+  path: Path,
+  onClick?: (event: Event) => void
 } & PropType;
 
 export class ActionField extends Component<Props> {
@@ -17,13 +18,16 @@ export class ActionField extends Component<Props> {
   }
 
   protected getAdditionalProps(clearProps: Props) {
-    const { color, path, label } = clearProps;
+    const {
+      color, path, label, onClick,
+    } = clearProps;
     const styles = {
       ...s,
     };
     return {
       ...styles,
       Link: new Link({
+        onClick,
         to: path,
         text: label,
         className: cn(s.label_text, {

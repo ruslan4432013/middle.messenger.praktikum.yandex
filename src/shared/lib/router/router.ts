@@ -1,7 +1,7 @@
 import { Route } from './route';
 
 import { type BaseView, type Component } from '..';
-import { type Path } from '../../config';
+import { type Path, ROOT_SELECTOR } from '../../config';
 import { isCorrectPopStateEvent } from '../type-guards';
 
 export class Router {
@@ -29,10 +29,13 @@ export class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: Path, block: new () => (BaseView | Component)) {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-    this._routes.push(route);
-    return this;
+  public use(pathname: Path | string) {
+    const self = this;
+    return function <T extends new (...args: any[]) => (Component | BaseView)>(constructor: T) {
+      const route = new Route(pathname, constructor, { rootQuery: self._rootQuery });
+      self._routes.push(route);
+      return constructor;
+    };
   }
 
   private _onRoute(pathname: string) {
@@ -68,3 +71,5 @@ export class Router {
     return this._routes.find((r) => r.match(pathname));
   }
 }
+
+export const router = new Router(ROOT_SELECTOR);

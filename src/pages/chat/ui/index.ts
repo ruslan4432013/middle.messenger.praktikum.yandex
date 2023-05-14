@@ -1,4 +1,5 @@
-import { Component } from '@shared/lib';
+import { Path } from '@shared/config';
+import { Component, router } from '@shared/lib';
 import { ChatList } from '@widgets/chat-list';
 import { ChatMessages } from '@widgets/chat-messages';
 import { Footer } from '@widgets/footer';
@@ -7,6 +8,7 @@ import { Header } from '@widgets/header';
 import render from './chat.hbs';
 import s from './chat.module.scss';
 
+@router.use(Path.CHAT)
 export class ChatPage extends Component {
   constructor() {
     super('div');

@@ -1,6 +1,6 @@
 import { Path } from '@shared/config';
 import {
-  Component, getMessageTime, type PropType, RouterDOM,
+  Component, getMessageTime, router,
 } from '@shared/lib';
 
 import render from './chat-card.hbs';
@@ -18,7 +18,7 @@ export class ChatCard extends Component {
       },
       events: {
         click: () => {
-          new RouterDOM.Router().go(Path.CHAT);
+          router.go(Path.CHAT);
         },
       },
     };

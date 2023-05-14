@@ -1,11 +1,12 @@
 import { type Path } from '../../config';
-import { Component, type PropType } from '../../lib';
+import { Component } from '../../lib';
 import { Router } from '../../lib/router';
 
 export type LinkProps = {
   to: Path;
   text: string;
   className?: string;
+  onClick?: (event: Event) => void;
 } & PropType;
 
 export class Link extends Component<LinkProps> {
@@ -14,7 +15,11 @@ export class Link extends Component<LinkProps> {
   }
 
   protected getAdditionalProps(clearProps: LinkProps): Partial<LinkProps> {
-    const { className, to } = clearProps;
+    const {
+      className,
+      to,
+      onClick,
+    } = clearProps;
     return {
       attr: {
         href: to,
@@ -23,7 +28,11 @@ export class Link extends Component<LinkProps> {
       events: {
         click: (evt) => {
           evt.preventDefault();
-          new Router().go(to);
+          if (onClick) {
+            onClick(evt);
+          } else {
+            new Router().go(to);
+          }
         },
       },
     };

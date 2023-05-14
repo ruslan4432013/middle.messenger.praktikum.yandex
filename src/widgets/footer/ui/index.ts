@@ -1,6 +1,6 @@
 import { AttachToChat } from '@features/attach-to-chat';
 import { SendMessageInput } from '@features/send-message-input';
-import { Component, type PropType, validate } from '@shared/lib';
+import { Component, validate } from '@shared/lib';
 
 import render from './footer.hbs';
 import s from './footer.module.scss';

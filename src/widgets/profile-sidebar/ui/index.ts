@@ -1,5 +1,5 @@
 import { Path } from '@shared/config';
-import { Component, RouterDOM } from '@shared/lib';
+import { Component, router } from '@shared/lib';
 
 import arrowLeftIcon from './arrow-left.svg';
 import render from './profile-sidebar.hbs';
@@ -19,7 +19,7 @@ export class ProfileSidebar extends Component {
       ...context,
       events: {
         click: () => {
-          new RouterDOM.Router().go(Path.HOME);
+          router.go(Path.HOME);
         },
       },
     };

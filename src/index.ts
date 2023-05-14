@@ -1,3 +1,4 @@
-import { router } from '@pages/index';
+import { router } from '@shared/lib';
+import {} from './pages';
 
 router.start();

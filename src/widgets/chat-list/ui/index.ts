@@ -1,7 +1,7 @@
 import { ChatCard } from '@entities/chat-card';
 import { FindMessage } from '@features/find-message';
 import { Path } from '@shared/config';
-import { Component, type PropType, _ } from '@shared/lib';
+import { Component, _ } from '@shared/lib';
 import { Link } from '@shared/ui/link';
 
 import render from './chat-list.hbs';

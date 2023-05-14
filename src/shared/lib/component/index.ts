@@ -1,5 +1,5 @@
 import {
-  type ChildrenProps, type GetChildrenReturn, type PropType, type PropWithoutChildren,
+  type ChildrenProps, type GetChildrenReturn, type PropWithoutChildren,
 } from './types';
 
 import { EventBus } from '../event-bus';
@@ -26,7 +26,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
 
   private _meta: Meta<K>;
 
-  private children: ChildrenProps<Props>;
+  protected children: ChildrenProps<Props>;
 
   private _isNeedUpdate = false;
 
@@ -138,7 +138,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   protected getAdditionalProps?(clearProps: Props): Partial<Props> & PropType;
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidUpdate(oldProps?: Props, newProps?: Props): boolean;
+  protected componentDidUpdate(oldProps: Props, newProps: Props): boolean;
   protected componentDidUpdate(): boolean {
     return true;
   }
@@ -187,7 +187,9 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     this._element.appendChild(block);
   }
 
-  public abstract render(): DocumentFragment;
+  public render(): DocumentFragment {
+    throw new Error('Method Render not implemented');
+  }
 
   private _getChildren(propsAndChildren: Partial<Props>) {
     const children: Record<string, Component | Component[]> = {};
@@ -285,7 +287,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
 
   public hide() {
     const content = this.getContent();
-    content.style.display = 'none';
+    content.remove();
   }
 
   private _isChildArray(val: unknown): val is Component[] {

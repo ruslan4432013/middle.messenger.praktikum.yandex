@@ -1,30 +1,41 @@
-import { type Options, Methods } from './types';
+import { type Options, Methods, type RequestResult } from './types';
+import { errorResponse, parseXHRResult } from './xhr-parsers';
 
+import { API_URL } from '../config';
+import { isQueryStingData } from '../lib';
 import { queryStringify } from '../lib/api-helpers';
 
 class HTTPTransport {
-  public request<D extends Record<string, unknown> = Record<string, unknown>>(
+  constructor(private readonly baseUrl: string) {
+  }
+
+  public request(
     url: string,
-    options: Options<D>,
+    options: Options,
     timeout = 5000,
-  ): Promise<Response> {
+  ) {
     const {
       method,
-      body,
+      data,
       headers,
     } = options;
-    return new Promise((resolve, reject) => {
+    return new Promise<RequestResult>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      xhr.open(method, this.baseUrl + url, true);
       xhr.timeout = timeout;
+      xhr.withCredentials = true;
       if (headers) {
         for (const [key, value] of Object.entries(headers)) {
           xhr.setRequestHeader(key, value);
         }
       }
+      const isJSON = (!headers || !Object.keys(headers).find((h) => h.toLowerCase() === 'content-type')) && !(data instanceof FormData);
+      if (isJSON) {
+        xhr.setRequestHeader('content-type', 'application/json');
+      }
 
       xhr.onload = () => {
-        resolve(xhr.response);
+        resolve(parseXHRResult(xhr));
       };
 
       xhr.onabort = () => {
@@ -32,29 +43,35 @@ class HTTPTransport {
       };
 
       xhr.onerror = () => {
-        reject(new Error('Request failed'));
+        reject(errorResponse(xhr, 'Request filed.'));
       };
 
       xhr.ontimeout = () => {
         reject(new Error('Request timed out'));
       };
 
-      if (method === Methods.GET || !body) {
+      if (method === Methods.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(body));
+        const sendData = data instanceof FormData ? data : JSON.stringify(data);
+        xhr.send(sendData);
       }
     });
   }
 
-  public get<D extends Record<string, unknown>>(
+  public get(
     url: string,
-    options: Partial<Options<D>> = {},
-  ): Promise<Response> {
+    options: Partial<Options> = {},
+  ) {
     const {
       data = {},
       ...otherOptions
     } = options;
+
+    if (!isQueryStingData(data)) {
+      throw new Error('Incorrect data in get request');
+    }
+
     const queryString = queryStringify(data);
     const endpoint = `${url}${queryString}`;
     return this.request(endpoint, {
@@ -63,30 +80,30 @@ class HTTPTransport {
     }, options.timeout);
   }
 
-  public post<D extends Record<string, unknown>>(
+  public post(
     url: string,
-    options: Partial<Options<D>> = {},
-  ): Promise<Response> {
+    options: Partial<Options> = {},
+  ) {
     return this.request(url, {
       ...options,
       method: Methods.POST,
     }, options.timeout);
   }
 
-  public put<D extends Record<string, unknown>>(
+  public put(
     url: string,
-    options: Partial<Options<D>>,
-  ): Promise<Response> {
+    options: Partial<Options>,
+  ) {
     return this.request(url, {
       ...options,
       method: Methods.PUT,
     }, options.timeout);
   }
 
-  public delete<D extends Record<string, unknown>>(
+  public delete(
     url: string,
-    options: Partial<Options<D>>,
-  ): Promise<Response> {
+    options: Partial<Options>,
+  ) {
     return this.request(url, {
       ...options,
       method: Methods.DELETE,
@@ -94,4 +111,4 @@ class HTTPTransport {
   }
 }
 
-export const apiInstance = new HTTPTransport();
+export const apiInstance = new HTTPTransport(API_URL);

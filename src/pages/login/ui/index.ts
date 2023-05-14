@@ -1,10 +1,11 @@
-import { BaseView } from '@shared/lib';
+import { Path } from '@shared/config';
+import { BaseView, router } from '@shared/lib';
 
 import { LoginPage } from './block';
 
-import { LoginController } from '../model';
-import { type LoginData } from '../model';
+import { LoginController, type LoginData } from '../model';
 
+@router.use(Path.LOGIN)
 export class LoginPageView extends BaseView<LoginData> {
   public readonly controller = new LoginController();
 

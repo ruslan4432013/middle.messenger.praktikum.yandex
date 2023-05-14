@@ -1,5 +1,5 @@
 import { Message } from '@entities/message';
-import { Component, type PropType } from '@shared/lib';
+import { Component } from '@shared/lib';
 
 import render from './chat-messages.hbs';
 import s from './chat-messages.module.scss';

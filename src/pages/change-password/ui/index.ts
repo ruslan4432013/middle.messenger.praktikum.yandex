@@ -1,10 +1,12 @@
-import { Component, validate } from '@shared/lib';
+import { Path } from '@shared/config';
+import { Component, router, validate } from '@shared/lib';
 import { ProfileField } from '@shared/ui/profile-field';
 import { EditProfile } from '@widgets/edit-profile';
 import { ProfileSidebar } from '@widgets/profile-sidebar';
 
 import render from './change-password.hbs';
 
+@router.use(Path.CHANGE_PASSWORD)
 export class ChangePasswordPage extends Component {
   constructor() {
     super('div');

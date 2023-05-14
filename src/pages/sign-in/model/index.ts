@@ -10,9 +10,8 @@ export class SignInController extends BaseController<SignInData> {
     this.model.data[field] = text;
   }
 
-  public onSubmit(evt: Event) {
-    evt.preventDefault();
-    this.model.printValues();
+  public onSubmit() {
+    return this.model.signUp();
   }
 }
 

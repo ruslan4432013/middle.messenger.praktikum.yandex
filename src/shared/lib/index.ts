@@ -5,9 +5,10 @@ export * from './mvc';
 export * as bus from './event-bus';
 export * as validate from './validate';
 export * as apiHelpers from './api-helpers';
-export * as RouterDOM from './router';
 export * as _ from './utils';
 
+export * from './router';
+export * from './store';
 export * from './component';
 export * from './type-guards';
 export * from './types';

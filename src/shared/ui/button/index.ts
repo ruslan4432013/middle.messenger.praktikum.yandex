@@ -1,6 +1,5 @@
 import s from './button.module.scss';
 
-import { type PropType } from '../../lib';
 import { Component } from '../../lib';
 
 type Props = {

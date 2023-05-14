@@ -10,6 +10,17 @@ type CorrectPopUpState = {
   }
 };
 
+type PlainObject<T = unknown> = {
+  [K in string]: T
+};
+
+export function isPlainObject(val: unknown): val is PlainObject {
+  return typeof val === 'object'
+    && val !== null
+    && val.constructor === Object
+    && Object.prototype.toString.call(val) === '[object Object]';
+}
+
 /**
  * Проверяет, что у объекта event.target есть значение value:
  * (event: Event) => isEvtTargetWithValue(event) event.target.value!
@@ -26,3 +37,13 @@ export const isCorrectPopStateEvent = (evt: unknown): evt is CorrectPopUpState =
     && 'pathname' in evt.currentTarget.location
     && typeof evt.currentTarget.location.pathname === 'string'
 );
+
+export const isQueryStingData = (data: unknown): data is Record<string, (string[] | string)> => {
+  if (!isPlainObject(data)) return false;
+  for (const value of Object.values(data)) {
+    if (typeof value !== 'string' && !Array.isArray(value)) {
+      return false;
+    }
+  }
+  return true;
+};

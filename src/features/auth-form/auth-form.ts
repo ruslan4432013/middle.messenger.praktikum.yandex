@@ -1,4 +1,4 @@
-import { cn, Component, type PropType } from '@shared/lib';
+import { cn, Component } from '@shared/lib';
 import { Link, type LinkProps } from '@shared/ui/link';
 
 import render from './auth-form.hbs';

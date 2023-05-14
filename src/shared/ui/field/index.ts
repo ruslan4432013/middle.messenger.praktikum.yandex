@@ -1,4 +1,4 @@
-import { Component, type PropType, isEvtTargetWithValue } from '../../lib';
+import { Component, isEvtTargetWithValue } from '../../lib';
 import { Input, type InputProps } from '../input';
 
 export type FieldProps = {
@@ -38,6 +38,14 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
     } else {
       elem.classList.remove('invalid');
       delete elem.dataset.error;
+    }
+  }
+
+  public setValue(value: string) {
+    this.value = value;
+    const input = this.children.Input;
+    if (input && 'setProps' in input) {
+      input.setProps({ attr: { value } });
     }
   }
 
