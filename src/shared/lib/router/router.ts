@@ -1,7 +1,7 @@
 import { Route } from './route';
 
 import { type BaseView, type Component } from '..';
-import { type Path, ROOT_SELECTOR } from '../../config';
+import { Path, ROOT_SELECTOR } from '../../config';
 import { isCorrectPopStateEvent } from '../type-guards';
 
 export class Router {
@@ -40,7 +40,10 @@ export class Router {
 
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
-    if (!route) return;
+    if (!route) {
+      this._onRoute(Path.CLIENT_ERROR);
+      return;
+    }
     if (this._currentRoute) {
       this._currentRoute.leave();
     }
