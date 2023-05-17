@@ -39,7 +39,7 @@ export class Header extends Component<HeaderProps> {
     };
   }
 
-  protected componentDidMount() {
+  public componentDidMount() {
     this._setChat(this.props);
   }
 

@@ -12,8 +12,22 @@ type Props = {
 } & PropType;
 
 export class SignInPage extends Component<Props> {
+  private _fields: AuthField[];
+
   constructor(props: Props) {
-    super('div', props);
+    super('div', {
+      ...props,
+      events: {
+        submit: (evt) => {
+          evt.preventDefault();
+          this._fields.forEach((field) => {
+            field.validate();
+          });
+          const isValid = this._fields.every((f) => f.isValid());
+          props.onSubmit(evt, isValid);
+        },
+      },
+    });
   }
 
   private getFields() {
@@ -36,7 +50,7 @@ export class SignInPage extends Component<Props> {
       validationFn: validate.login,
       errorMessage: 'Неверный логин',
       onChange: (text: string) => {
-        this.props.onChange('login', text);
+        this.props.onChange?.('login', text);
       },
     });
     const name = new AuthField({
@@ -87,7 +101,7 @@ export class SignInPage extends Component<Props> {
       validationFn: validate.password,
       errorMessage: 'Неверный пароль',
       onChange: (text: string) => {
-        this.props.onChange('password', text);
+        this.props.onChange?.('password', text);
       },
     });
 
@@ -106,6 +120,7 @@ export class SignInPage extends Component<Props> {
 
   public render(): DocumentFragment {
     const fields = this.getFields();
+    this._fields = fields;
     const authForm = new AuthForm({
       fields,
       titleText: 'Регистрация',
@@ -113,19 +128,15 @@ export class SignInPage extends Component<Props> {
         text: 'Войти',
         to: Path.LOGIN,
       },
+      events: {
+        submit: (evt) => {
+          evt.preventDefault();
+        },
+      },
       minHeight: '540px',
       Button: new Button({
         text: 'Зарегистрироваться',
         type: 'submit',
-        events: {
-          click: (e) => {
-            fields.forEach((field) => {
-              field.validate();
-            });
-            const isValid = fields.every((f) => f.isValid());
-            this.props.onSubmit(e, isValid);
-          },
-        },
       }),
     });
     return authForm.render();

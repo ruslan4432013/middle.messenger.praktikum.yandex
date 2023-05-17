@@ -33,7 +33,7 @@ export class ChangeAvatar extends Component<Props> {
     super('div', source);
   }
 
-  protected componentDidMount() {
+  public componentDidMount() {
     if (!this.props.avatar) {
       sessionApi.getMe().then((user) => store.set('user', user));
     }

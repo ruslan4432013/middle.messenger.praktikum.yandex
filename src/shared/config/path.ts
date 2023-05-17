@@ -8,4 +8,6 @@ export enum Path {
   USER_PROFILE = '/profile',
   CHAT = '/messenger/:chatId',
   CHANGE_PASSWORD = '/change-password',
+  CLIENT_ERROR = '/404',
+  SERVER_ERROR = '/500',
 }

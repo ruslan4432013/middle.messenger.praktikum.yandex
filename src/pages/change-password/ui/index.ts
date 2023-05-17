@@ -1,3 +1,4 @@
+import { sessionApi } from '@entities/session';
 import { userApi } from '@entities/user';
 import { Path } from '@shared/config';
 import { Component, router, validate } from '@shared/lib';
@@ -9,6 +10,7 @@ import { ProfileSidebar } from '@widgets/profile-sidebar';
 import render from './change-password.hbs';
 
 @router.use(Path.CHANGE_PASSWORD)
+@sessionApi.notForAuth
 export class ChangePasswordPage extends Component {
   constructor() {
     super('div');

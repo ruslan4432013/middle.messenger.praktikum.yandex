@@ -1,3 +1,4 @@
+import { sessionApi } from '@entities/session';
 import { Path } from '@shared/config';
 import { Component, router } from '@shared/lib';
 import { connect } from '@shared/lib/store/connect';
@@ -10,6 +11,7 @@ import render from './profile.hbs';
 @connect((state) => ({
   user: state.user,
 }))
+@sessionApi.requiredAuth
 export class ProfilePage extends Component {
   constructor() {
     super('div');

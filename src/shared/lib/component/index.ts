@@ -117,7 +117,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   }
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidMount?(): void;
+  public componentDidMount?(): void;
 
   public dispatchComponentDidMount() {
     this.eventBus()

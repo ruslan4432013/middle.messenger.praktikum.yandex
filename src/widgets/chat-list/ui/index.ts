@@ -58,7 +58,7 @@ export class ChatList extends Component<ChatListProps> {
     return super.componentDidUpdate(oldProps, newProps);
   }
 
-  protected componentDidMount() {
+  public componentDidMount() {
     if (!this.props.chats) {
       chatApi.getChats().then((chats) => {
         store.set('chats', chats);

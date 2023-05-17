@@ -17,10 +17,13 @@ export class AuthForm extends Component<Props> {
     super('main', props);
   }
 
-  protected getAdditionalProps(clearProps:Props): Partial<Props> {
+  protected getAdditionalProps(clearProps: Props): Partial<Props> {
     const {
       linkProps: {
-        to, text, className, ...other
+        to,
+        text,
+        className,
+        ...other
       },
     } = clearProps;
     const props = {

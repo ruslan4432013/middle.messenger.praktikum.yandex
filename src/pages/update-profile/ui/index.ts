@@ -22,6 +22,7 @@ type Props = {
 } & PropType;
 
 @router.use(Path.USER_SETTINGS)
+@sessionApi.requiredAuth
 @connect((state) => ({ user: state.user }))
 export class UpdateProfilePage extends Component<Props> {
   private _fields: ProfileField[];
@@ -112,7 +113,7 @@ export class UpdateProfilePage extends Component<Props> {
     }
   }
 
-  protected componentDidMount() {
+  public componentDidMount() {
     sessionApi.getMe().then((user) => {
       store.set('user', user);
       this.setUserData(user);

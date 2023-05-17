@@ -1,3 +1,4 @@
+import { sessionApi } from '@entities/session';
 import { AuthForm } from '@features/auth-form';
 import { Path } from '@shared/config';
 import { validate } from '@shared/lib';
@@ -10,6 +11,7 @@ type Props = {
   onChange: (field: 'login' | 'password', value: string) => void
 } & PropType;
 
+@sessionApi.notForAuth
 export class LoginPage extends Component<Props> {
   constructor(props: Props) {
     super('div', props);
@@ -34,7 +36,7 @@ export class LoginPage extends Component<Props> {
       validationFn: validate.login,
       errorMessage: 'Неверный логин',
       onChange: (text: string) => {
-        this.props.onChange('login', text);
+        this.props.onChange?.('login', text);
       },
     });
     const passwordField = new AuthField({
@@ -45,7 +47,7 @@ export class LoginPage extends Component<Props> {
       validationFn: validate.password,
       errorMessage: 'Неверный пароль',
       onChange: (text: string) => {
-        this.props.onChange('password', text);
+        this.props.onChange?.('password', text);
       },
     });
     const self = this;

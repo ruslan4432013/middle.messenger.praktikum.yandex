@@ -3,3 +3,4 @@ export * from './get-me';
 export * from './types';
 export * from './login';
 export * from './logout';
+export * from './auth-decorator';

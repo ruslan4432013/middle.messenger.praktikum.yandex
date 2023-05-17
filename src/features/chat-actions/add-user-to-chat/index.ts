@@ -89,7 +89,6 @@ export class AddUserToChat extends Component {
       }),
     });
     self.eventBus().on(UserChatEvents.USER_CHANGED, (user: UserDto) => {
-      console.log('emitted');
       self._selectedUser = user;
       userNameField.setValue(user.login);
     });

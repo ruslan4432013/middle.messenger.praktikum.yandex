@@ -15,10 +15,6 @@ const getInitialData = (): SignInData => ({
 export class SignInModel extends BaseModel<SignInData> {
   public data = getInitialData();
 
-  public printValues() {
-    console.log(this.data);
-  }
-
   public async signUp() {
     const { last_name: lastName, ...other } = this.data;
     const res = await sessionApi.signUpUser({

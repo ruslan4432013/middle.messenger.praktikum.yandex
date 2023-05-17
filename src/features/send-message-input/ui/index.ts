@@ -5,27 +5,28 @@ import sendIcon from './send-icon.svg';
 import render from './send-message-input.hbs';
 import s from './send-message-input.module.scss';
 
-export class SendMessageInput extends Field {
+type Props = {
+  onSend?: () => void
+} & FieldProps;
+
+export class SendMessageInput extends Field<Props> {
   private onClick = () => {
-    console.log({
-      [this.props.name]: this.value,
-    });
     this.validate();
+    this.props.onSend?.();
   };
 
   protected getAdditionalProps(clearProps: FieldProps): Partial<FieldProps> {
+    const self = this;
+    const context = { name: 'message' };
+    const fieldProps = super.getAdditionalProps(clearProps);
     const components = {
       IconButton: new IconButton({
         src: sendIcon,
-        events: {
-          click: () => {
-            this.onClick();
-          },
+        onClick() {
+          self.onClick();
         },
       }),
     };
-    const context = { name: 'message' };
-    const fieldProps = super.getAdditionalProps(clearProps);
     return {
       ...s,
       ...context,

@@ -1,9 +1,19 @@
 import { WS_URL } from '../config';
 
+export type WSTransportOptions = Partial<{
+  onOpen: (event: Event) => void
+  onError: (event: Event) => void
+  onMessage: (event: MessageEvent) => void
+  onClose: (event: CloseEvent) => void
+}>;
+
 export class WebSocketTransport {
   protected socket: WebSocket;
 
-  constructor(url: string) {
+  private _options: WSTransportOptions | undefined;
+
+  constructor(url: string, options?: WSTransportOptions) {
+    this._options = options;
     this.socket = new WebSocket(`${WS_URL}${url}`);
     this.socket.onopen = this.onOpen.bind(this);
     this.socket.onclose = this.onClose.bind(this);
@@ -11,30 +21,20 @@ export class WebSocketTransport {
     this.socket.onmessage = this.onMessage.bind(this);
   }
 
-  protected onOpen(event: Event): void;
-  protected onOpen(): void {
-    console.log('Соединение установлено');
+  protected onOpen(event: Event): void {
+    this._options?.onOpen?.(event);
   }
 
-  protected onClose(event: CloseEvent): void;
   protected onClose(event: CloseEvent): void {
-    if (event.wasClean) {
-      console.log('Соединение закрыто чисто');
-    } else {
-      console.log('Обрыв соединения');
-    }
-
-    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+    this._options?.onClose?.(event);
   }
 
   protected onError(event: Event): void {
-    if ('message' in event) {
-      console.log('Ошибка', event.message);
-    }
+    this._options?.onError?.(event);
   }
 
   protected onMessage(event: MessageEvent): void {
-    console.log('Получены данные', event.data);
+    this._options?.onMessage?.(event);
   }
 
   public send(data: string): void {

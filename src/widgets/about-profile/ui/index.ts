@@ -72,7 +72,7 @@ export class AboutProfile extends Component<AboutProfileProps> {
     this._fields = fields;
   }
 
-  protected componentDidMount() {
+  public componentDidMount() {
     sessionApi.getMe()
       .then((user) => {
         store.set('user', user);

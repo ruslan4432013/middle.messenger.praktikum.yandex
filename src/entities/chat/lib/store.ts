@@ -1,6 +1,6 @@
 import { connect, store } from '@shared/lib';
 
-import { type ChatDto } from '.';
+import { type ChatDto } from '..';
 
 export const connectChat = connect((state) => ({ chats: state.chats }));
 

@@ -49,7 +49,6 @@ export class UserList extends Component<UserListProps> {
       usersDto,
       onChange,
     } = props;
-    console.log('updated user list');
     const users = usersDto.map((user) => new UserItem({
       onClick: onChange,
       user,

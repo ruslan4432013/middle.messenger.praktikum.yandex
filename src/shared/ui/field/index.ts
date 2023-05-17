@@ -1,7 +1,7 @@
 import { Component, isEvtTargetWithValue } from '../../lib';
 import { Input, type InputProps } from '../input';
 
-export type FieldProps = {
+export type FieldProps = Partial<{
   onChange?: (value: string) => void;
   value?: string;
   onFocus?: (ev: Event) => void;
@@ -12,7 +12,7 @@ export type FieldProps = {
   name: string;
   Input?: Component;
   inputProps?: InputProps;
-} & PropType;
+}> & PropType;
 
 export abstract class Field<Props extends FieldProps = FieldProps> extends Component<Props> {
   public value: string = this.props.value || '';

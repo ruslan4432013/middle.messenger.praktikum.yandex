@@ -1,6 +1,6 @@
-import { sessionApi } from '@entities/session';
 import { Path } from '@shared/config';
 import { BaseView, router } from '@shared/lib';
+import { toast } from '@shared/ui/toast';
 
 import { SignInPage } from './block';
 
@@ -19,13 +19,15 @@ export class SignInPageView extends BaseView {
         evt.preventDefault();
         if (isValid) {
           this.controller.onSubmit()
-            .then(() => sessionApi.getMe())
-            .then((data) => console.warn(data))
-            .catch((reason) => {
-              console.warn(reason);
-              return sessionApi.getMe();
+            .then((res) => {
+              if (res.id) {
+                toast.success('Вы успешно зарегистрировались');
+                router.go(Path.LOGIN);
+              }
             })
-            .then((data) => console.warn(data));
+            .catch((reason) => {
+              toast.error(reason);
+            });
         }
       },
     });

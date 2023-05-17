@@ -3,5 +3,7 @@ export { ChatPage } from './chat';
 export { HomePage } from './home';
 export { LoginPageView } from './login';
 export { ProfilePage } from './profile';
-export { SignInPageView } from './sign-in';
+export { SignInPageView } from './sign-up';
 export { UpdateProfilePage } from './update-profile';
+export { ClientErrorPage } from './404';
+export { ServerErrorPage } from './500';
