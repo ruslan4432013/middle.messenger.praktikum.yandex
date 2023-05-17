@@ -128,6 +128,8 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
+  public componentWillUnmount?(): void;
+
   private _componentDidUpdate(oldProps: Props, newProps: Props) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {

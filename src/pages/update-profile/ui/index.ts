@@ -1,12 +1,12 @@
 import {
-  sessionLib, sessionApi, type User,
+  sessionLib, sessionApi,
 } from '@entities/session';
 import { userApi } from '@entities/user';
+import { type User } from '@shared/api';
 import { Path } from '@shared/config';
 import {
-  Component, store, validate, _, router,
+  Component, store, validate, _, router, connect,
 } from '@shared/lib';
-import { connect } from '@shared/lib/store/connect';
 import { ProfileField } from '@shared/ui/profile-field';
 import { EditProfile } from '@widgets/edit-profile';
 import { ProfileSidebar } from '@widgets/profile-sidebar';

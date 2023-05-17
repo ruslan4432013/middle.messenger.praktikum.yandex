@@ -1,10 +1,11 @@
 import {
-  sessionApi, sessionLib, type User,
+  sessionApi, sessionLib,
 } from '@entities/session';
 import { ChangeAvatar } from '@features/change-avatar';
 import { ChangePassword } from '@features/change-password';
 import { ChangeProfile } from '@features/change-profile';
 import { Logout } from '@features/logout';
+import { type User } from '@shared/api';
 import { _, Component, store } from '@shared/lib';
 import { connect } from '@shared/lib/store/connect';
 import { ProfileField } from '@shared/ui/profile-field';

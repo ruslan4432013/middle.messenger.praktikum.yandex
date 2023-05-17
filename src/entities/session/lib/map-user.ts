@@ -1,4 +1,6 @@
-import { type UserDto, type User } from '../types';
+import { type User } from '@shared/api';
+
+import { type UserDto } from '../types';
 
 export const mapUser = (dto: UserDto): User => ({
   login: dto.login,

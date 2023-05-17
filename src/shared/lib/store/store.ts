@@ -1,5 +1,4 @@
 import { EventBus } from '../event-bus';
-import { type Indexed } from '../types';
 import { set } from '../utils';
 
 export enum StoreEvents {
@@ -7,7 +6,7 @@ export enum StoreEvents {
 }
 
 class Store extends EventBus {
-  private _state: Indexed = {};
+  private _state: Partial<StateStore> = {};
 
   get state() {
     return this._state;

@@ -21,6 +21,8 @@ export abstract class BaseView<T = unknown> {
     this._component.show();
   }
 
+  public componentWillUnmount?(): void;
+
   public hide() {
     this._component?.hide();
   }

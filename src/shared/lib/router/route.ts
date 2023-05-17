@@ -87,6 +87,7 @@ export class Route<P extends RouteProp = RouteProp> {
 
   public leave() {
     if (this._block) {
+      this._block.componentWillUnmount?.();
       this._block.hide();
     }
   }

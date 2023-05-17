@@ -1,3 +1,5 @@
+export * from './user/types';
+
 export enum Methods {
   GET = 'GET',
   POST = 'POST',

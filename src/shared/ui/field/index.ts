@@ -46,7 +46,10 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
     const input = this.children.Input;
     if (input && 'setProps' in input) {
       input.setProps({ attr: { value } });
-      input.getContent().value = value;
+      const content = input.getContent();
+      if ('value' in content) {
+        content.value = value;
+      }
     }
   }
 

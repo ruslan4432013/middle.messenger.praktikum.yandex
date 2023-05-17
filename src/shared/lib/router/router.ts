@@ -41,7 +41,6 @@ export class Router {
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) return;
-
     if (this._currentRoute) {
       this._currentRoute.leave();
     }
