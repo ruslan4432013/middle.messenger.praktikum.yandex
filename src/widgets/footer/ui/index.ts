@@ -11,11 +11,19 @@ export class Footer extends Component {
   }
 
   protected getAdditionalProps(): Partial<PropType> {
+    console.log(this.props);
     const components = {
-      SendMessageInput: new SendMessageInput({ name: 'message', validationFn: validate.message }),
+      SendMessageInput: new SendMessageInput({
+        name: 'message',
+        validationFn: validate.message,
+      }),
       AttachToChat: new AttachToChat(),
     };
-    return { ...s, ...components, attr: { class: s.footer } };
+    return {
+      ...s,
+      ...components,
+      attr: { class: s.footer },
+    };
   }
 
   public render(): DocumentFragment {

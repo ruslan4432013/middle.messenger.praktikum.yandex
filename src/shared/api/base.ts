@@ -67,13 +67,12 @@ class HTTPTransport {
       data = {},
       ...otherOptions
     } = options;
-
     if (!isQueryStingData(data)) {
       throw new Error('Incorrect data in get request');
     }
 
     const queryString = queryStringify(data);
-    const endpoint = `${url}${queryString}`;
+    const endpoint = `${url}?${queryString}`;
     return this.request(endpoint, {
       ...otherOptions,
       method: Methods.GET,

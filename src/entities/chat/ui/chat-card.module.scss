@@ -2,8 +2,7 @@
 
 .user_chat_card {
   display: flex;
-  padding: 10px 0;
-  margin: 0 12px;
+  padding: 10px 12px;
   height: 71px;
   max-height: 71px;
   box-sizing: border-box;
@@ -13,6 +12,10 @@
   &:last-of-type {
     border-bottom: 1px solid var(--border-color);
   }
+}
+
+.active_card {
+  background: var(--primary-light-color);
 }
 
 .user_icon {

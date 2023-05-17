@@ -12,6 +12,11 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+.dropdown_menu__position {
+  top: 30px;
+  right: 0;
+}
+
 .user_info {
   display: flex;
   gap: 10px;

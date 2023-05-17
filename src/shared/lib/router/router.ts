@@ -11,7 +11,7 @@ export class Router {
 
   private _history: History;
 
-  private readonly _currentRoute: null | Route;
+  private _currentRoute: null | Route;
 
   private readonly _rootQuery: string;
 
@@ -45,7 +45,12 @@ export class Router {
     if (this._currentRoute) {
       this._currentRoute.leave();
     }
+    this._currentRoute = route;
     route.render();
+  }
+
+  public useParams<T extends Record<string, string> = Record<string, string>>(): T {
+    return this._currentRoute?.getParams<T>() || {} as T;
   }
 
   public start() {

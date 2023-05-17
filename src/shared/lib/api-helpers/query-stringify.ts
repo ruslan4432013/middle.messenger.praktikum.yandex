@@ -1,4 +1,4 @@
-export const queryStringify = (data: Record<string, (string[] | string)>): string => {
+export const queryStringify = (data: Record<string, (string[] | string | number)>): string => {
   if (typeof data !== 'object') {
     throw new Error('Invalid Input. Only objects and arrays are allowed.');
   }
@@ -9,7 +9,7 @@ export const queryStringify = (data: Record<string, (string[] | string)>): strin
         params.append(key, value);
       });
     } else {
-      params.append(key, param);
+      params.append(key, param.toString());
     }
   }
   return params.toString();

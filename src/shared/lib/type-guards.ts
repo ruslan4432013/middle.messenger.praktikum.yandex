@@ -38,10 +38,12 @@ export const isCorrectPopStateEvent = (evt: unknown): evt is CorrectPopUpState =
     && typeof evt.currentTarget.location.pathname === 'string'
 );
 
-export const isQueryStingData = (data: unknown): data is Record<string, (string[] | string)> => {
+export const isQueryStingData = (
+  data: unknown,
+): data is Record<string, (string[] | string | number)> => {
   if (!isPlainObject(data)) return false;
   for (const value of Object.values(data)) {
-    if (typeof value !== 'string' && !Array.isArray(value)) {
+    if (typeof value !== 'string' && typeof value !== 'number' && !Array.isArray(value)) {
       return false;
     }
   }

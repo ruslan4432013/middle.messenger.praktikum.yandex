@@ -18,7 +18,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     FLOW_RENDER: 'flow:render',
   };
 
-  private eventBus: () => EventBus;
+  public eventBus: () => EventBus;
 
   private _element: HTMLElementTagNameMap[K] | null = null;
 
@@ -38,7 +38,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
       children,
       props,
     } = this._getChildren(
-      this._mergeProps(propsAndChildren, additionalProps),
+      this._mergeProps(propsAndChildren, additionalProps) as Props,
     ) as GetChildrenReturn<Props>;
 
     const eventBus = new EventBus();
@@ -54,7 +54,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     eventBus.emit(Component.EVENTS.INIT);
   }
 
-  private _mergeProps(currentProps: Props, additional?: Partial<Props>) {
+  private _mergeProps(currentProps: Props, additional?: Partial<PropType>) {
     if (!additional) {
       return currentProps;
     }
@@ -98,10 +98,10 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
-  public init() {
+  public init(props: typeof this.props) {
     this._createResources();
     this.eventBus()
-      .emit(Component.EVENTS.FLOW_RENDER);
+      .emit(Component.EVENTS.FLOW_RENDER, props);
   }
 
   private _componentDidMount() {
@@ -117,7 +117,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   }
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidMount?(oldProps?: Props): void;
+  protected componentDidMount?(): void;
 
   public dispatchComponentDidMount() {
     this.eventBus()
@@ -135,7 +135,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
-  protected getAdditionalProps?(clearProps: Props): Partial<Props> & PropType;
+  protected getAdditionalProps?(props: Props): PropType;
 
   // Может переопределять пользователь, необязательно трогать
   protected componentDidUpdate(oldProps: Props, newProps: Props): boolean;

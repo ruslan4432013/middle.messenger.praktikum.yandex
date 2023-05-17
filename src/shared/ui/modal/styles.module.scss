@@ -1,0 +1,99 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: hidden;
+  animation-timing-function: linear;
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+}
+
+.open_overlay {
+  animation-name: show_overlay;
+}
+
+.closed_overlay {
+  animation-name: close_overlay;
+  pointer-events: none;
+}
+
+@keyframes close_overlay {
+  0% {
+    backdrop-filter: blur(10px);
+    opacity: 1;
+    background-color: rgba(12, 43, 61, 0.3);
+
+  }
+  100% {
+    backdrop-filter: blur(0);
+    opacity: 0;
+    background-color: rgba(12, 43, 61, 0);
+  }
+}
+
+@keyframes show_overlay {
+  0% {
+    backdrop-filter: blur(0);
+    opacity: 0;
+    background-color: rgba(12, 43, 61, 0);
+  }
+  100% {
+    backdrop-filter: blur(10px);
+    opacity: 1;
+    background-color: rgba(12, 43, 61, 0.3);
+  }
+}
+
+.modal {
+  max-height: calc(100vh - 60px);
+  background-color: var(--light-color);
+  box-sizing: border-box;
+  overflow-y: auto;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  overscroll-behavior: contain;
+  width: 340px;
+
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.open_modal {
+  animation-name: modal_show;
+}
+
+.closed_modal {
+  animation-name: modal_close;
+}
+
+@keyframes modal_show {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes modal_close {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

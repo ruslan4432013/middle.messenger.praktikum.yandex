@@ -7,7 +7,7 @@ type Props = {
   fieldType: 'password' | 'text' | 'email' | 'tel';
   label: string;
   id: string;
-} & FieldProps & PropType;
+} & FieldProps;
 
 export class AuthField extends Field<Props> {
   protected getAdditionalProps(clearProps: Props): Partial<Props> {

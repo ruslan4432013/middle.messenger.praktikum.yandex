@@ -1,3 +1,4 @@
+import { type ChatDto } from '@entities/chat';
 import { Path } from '@shared/config';
 import { Component, router } from '@shared/lib';
 import { ChatList } from '@widgets/chat-list';
@@ -8,10 +9,14 @@ import { Header } from '@widgets/header';
 import render from './chat.hbs';
 import s from './chat.module.scss';
 
+type ChatPageProps = {
+  chats?: ChatDto[]
+} & PropType;
+
 @router.use(Path.CHAT)
-export class ChatPage extends Component {
-  constructor() {
-    super('div');
+export class ChatPage extends Component<ChatPageProps> {
+  constructor(props?: ChatPageProps) {
+    super('div', props);
   }
 
   protected getAdditionalProps() {
@@ -26,6 +31,15 @@ export class ChatPage extends Component {
       ...components,
       ...s,
     };
+  }
+
+  protected componentDidMount() {
+    const params = router.useParams();
+    console.log(params);
+  }
+
+  protected componentDidUpdate(): boolean {
+    return false;
   }
 
   public render() {

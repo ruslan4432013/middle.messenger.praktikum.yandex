@@ -2,8 +2,15 @@ import { render } from './render';
 
 import { type BaseView, type Component } from '..';
 
+type ParsePathResult = {
+  path: string,
+  params: Record<string, string>,
+  withParams: boolean,
+};
+
 type RouteProp = {
   rootQuery: string
+  params?: Record<string, string>,
 };
 
 export class Route<P extends RouteProp = RouteProp> {
@@ -19,11 +26,56 @@ export class Route<P extends RouteProp = RouteProp> {
     this._pathname = pathname;
     this._blockClass = view;
     this._props = props;
+    if (!props.params) {
+      this._props.params = {};
+    }
     this._block = null;
   }
 
+  public getParams<Params extends Record<string, string> = Record<string, string>>() {
+    return this._props.params as Params;
+  }
+
   public match(pathname: string): boolean {
-    return this._pathname === pathname;
+    const { params, withParams } = this._parsePath(this._pathname, pathname);
+    if (!withParams) {
+      this._props.params = {};
+      return pathname === this._pathname;
+    }
+    this._props.params = params;
+    return true;
+  }
+
+  private _parsePath(pathname: string, currentPath: string): ParsePathResult {
+    const lhsSplit = pathname.split('/');
+    const currentPathSplit = currentPath.split('/');
+    if (lhsSplit.length !== currentPathSplit.length) {
+      return {
+        path: currentPath,
+        params: {},
+        withParams: false,
+      };
+    }
+    const params: Record<string, string> = {};
+    let withParams = false;
+    for (let i = 0; i < lhsSplit.length; i++) {
+      if (lhsSplit[i].includes(':')) {
+        params[lhsSplit[i].replace(':', '')] = currentPathSplit[i];
+        withParams = true;
+      }
+    }
+    if (!withParams) {
+      return {
+        path: currentPath,
+        params: {},
+        withParams: false,
+      };
+    }
+    return {
+      path: currentPath,
+      params,
+      withParams: true,
+    };
   }
 
   public navigate(pathname: string) {

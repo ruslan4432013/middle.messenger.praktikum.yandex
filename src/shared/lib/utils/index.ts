@@ -5,3 +5,4 @@ export * from './make-uuid';
 export * from './set';
 export * from './update-profile-fields';
 export * from './crop-image';
+export * from './debounce';

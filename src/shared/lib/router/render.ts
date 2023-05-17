@@ -8,7 +8,7 @@ export function render(query: string, block: Component | BaseView) {
     root.appendChild(block.getContent());
     block.dispatchComponentDidMount();
   } else {
-    const component = block.getComponent();
+    const { component } = block;
     root.appendChild(component.getContent());
     component.dispatchComponentDidMount();
   }

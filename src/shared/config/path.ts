@@ -6,6 +6,6 @@ export enum Path {
   REGISTER = '/sign-up',
   USER_SETTINGS = '/settings',
   USER_PROFILE = '/profile',
-  CHAT = '/messenger',
+  CHAT = '/messenger/:chatId',
   CHANGE_PASSWORD = '/change-password',
 }

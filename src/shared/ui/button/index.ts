@@ -4,7 +4,8 @@ import { Component } from '../../lib';
 
 type Props = {
   text: string;
-  type?: HTMLButtonElement['type']
+  type?: HTMLButtonElement['type'];
+  onClick?: (evt: Event) => void
 } & PropType;
 
 export class Button extends Component<Props> {
@@ -13,11 +14,16 @@ export class Button extends Component<Props> {
   }
 
   protected getAdditionalProps(clearProps: Props): Partial<Props> {
-    const { type } = clearProps;
+    const { type, onClick } = clearProps;
     return {
       attr: {
         class: s.button,
         ...(type && { type }),
+      },
+      events: {
+        click: (evt) => {
+          onClick?.(evt);
+        },
       },
     };
   }
