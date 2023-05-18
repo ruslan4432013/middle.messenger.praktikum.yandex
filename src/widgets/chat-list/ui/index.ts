@@ -74,6 +74,7 @@ export class ChatList extends Component<ChatListProps> {
       chatId: el.id,
       unreadCount: el.unread_count,
       title: el.title,
+      avatar: el.avatar,
     }));
   }
 
