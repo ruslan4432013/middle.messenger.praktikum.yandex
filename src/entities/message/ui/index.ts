@@ -1,5 +1,6 @@
 import { Component, getMessageTime } from '@shared/lib';
 
+import { UnexpectedError } from './error';
 import { ImageMessage, type ImageMessageProps } from './image-message';
 import render from './message.hbs';
 import s from './message.module.scss';
@@ -14,12 +15,6 @@ type ComplexProps = ImageMessageProps | TextMessageProps;
 type MessageProps = ComplexProps & PositionProps & {
   date: Date
 };
-
-class UnexpectedError extends Error {
-  constructor(value: never) {
-    super(`Unknown type ${value}`);
-  }
-}
 
 export class Message extends Component<MessageProps> {
   constructor(props: MessageProps) {

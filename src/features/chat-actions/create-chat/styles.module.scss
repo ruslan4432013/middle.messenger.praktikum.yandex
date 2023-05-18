@@ -6,12 +6,15 @@
   align-items: center;
   gap: 15px;
   cursor: pointer;
+
   &:hover {
     opacity: .8;
   }
+
   &:active {
     opacity: .5;
   }
+
   p {
     font-weight: 500;
     font-size: 12px;

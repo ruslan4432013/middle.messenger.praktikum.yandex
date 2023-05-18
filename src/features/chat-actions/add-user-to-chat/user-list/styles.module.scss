@@ -2,11 +2,13 @@
   display: flex;
   gap: 10px;
   cursor: pointer;
+
   .description_wrapper {
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
+
   .avatar_class {
     border-radius: 50%;
     width: 40px;
@@ -14,10 +16,12 @@
     overflow: hidden;
     object-fit: fill;
   }
+
   .login_class {
     color: var(--dark-color);
     font-size: 16px;
   }
+
   .email_class {
     color: var(--gray-color);
     font-size: 14px;
