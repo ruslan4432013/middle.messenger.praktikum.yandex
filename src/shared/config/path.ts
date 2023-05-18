@@ -2,7 +2,7 @@ export const ROOT_SELECTOR = '#root';
 
 export enum Path {
   LOGIN = '/',
-  HOME = '/home',
+  HOME = '/messenger',
   REGISTER = '/sign-up',
   USER_SETTINGS = '/settings',
   USER_PROFILE = '/profile',
