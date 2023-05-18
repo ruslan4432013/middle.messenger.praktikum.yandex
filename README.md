@@ -2,7 +2,7 @@
 
 ## [UI-прототип](https://www.figma.com/file/XjLCnx3RgYuH5lHkmZGzqt/YaChat-Wireframing?node-id=676973%3A432&t=wfzKhXANJILdxos6-1)
 
-## [Посмотреть сайт](https://dapper-yeot-dc4450.netlify.app/)
+## [Посмотреть сайт](https://deploy-preview-4--dapper-yeot-dc4450.netlify.app)
 
 
 ## Описание
