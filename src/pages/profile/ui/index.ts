@@ -1,7 +1,6 @@
 import { sessionApi } from '@entities/session';
 import { Path } from '@shared/config';
-import { Component, router } from '@shared/lib';
-import { connect } from '@shared/lib/store/connect';
+import { Component, router, connect } from '@shared/lib';
 import { AboutProfile } from '@widgets/about-profile';
 import { ProfileSidebar } from '@widgets/profile-sidebar';
 
