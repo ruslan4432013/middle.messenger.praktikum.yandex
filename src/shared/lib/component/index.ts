@@ -248,7 +248,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     return document.createElement(tagName);
   }
 
-  protected compile(render: (param?: any) => string, props: Props): DocumentFragment {
+  protected compile(render: (param?: unknown) => string, props: Props): DocumentFragment {
     const propsAndStubs: Record<string, unknown> = { ...props };
 
     (Object.entries(this.children) as [string, (Component | Component[])][])

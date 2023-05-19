@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self' 'unsafe-eval' 'unsafe-inline';
+    default-src 'self' 'unsafe-eval' 'unsafe-inline' https://app.netlify.com;
     img-src * 'self' blob: data:;
-    script-src 'self' 'unsafe-eval' *;
+    script-src 'self' 'unsafe-eval' * https://app.netlify.com/;
     media-src https://yandex.ru;
     connect-src 'self' https://ya-praktikum.tech/ wss://ya-praktikum.tech
 ">
