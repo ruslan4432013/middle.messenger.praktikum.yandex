@@ -7,6 +7,7 @@ export * as validate from './validate';
 export * as apiHelpers from './api-helpers';
 export * as _ from './utils';
 
+export * from './get-avatar';
 export * from './router';
 export * from './store';
 export * from './component';

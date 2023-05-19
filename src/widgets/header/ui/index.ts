@@ -1,6 +1,6 @@
 import { type ChatDto, chatLib } from '@entities/chat';
 import { ChatActions } from '@features/chat-actions';
-import { Component, useParams } from '@shared/lib';
+import { Component, getAvatar, useParams } from '@shared/lib';
 import { ActionsDropdown } from '@shared/ui/dropdown';
 
 import render from './header.hbs';
@@ -54,11 +54,12 @@ export class Header extends Component<HeaderProps> {
   private _setChat(props: HeaderProps) {
     const { chatId } = useParams<{ chatId: string }>();
     const chat = props.chats?.find((c) => c.id.toString() === chatId);
-
+    const avatar = getAvatar(chat?.avatar);
     if (chat) {
       this.setProps({
         chatTitle: chat.title,
         chatId: props.chatId,
+        userIcon: avatar,
       });
       this._chatTitle = chat?.title || '';
     }
