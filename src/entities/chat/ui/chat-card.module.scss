@@ -2,6 +2,7 @@
 
 .user_chat_card {
   display: flex;
+  position: relative;
   padding: 10px 12px;
   height: 71px;
   max-height: 71px;
@@ -75,4 +76,10 @@
   border-radius: 50%;
   width: 20px;
   height: 20px;
+}
+
+.delete_icon {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
 }
