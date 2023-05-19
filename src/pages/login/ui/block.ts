@@ -54,16 +54,17 @@ export class LoginPage extends Component<Props> {
     const fields = [loginField, passwordField];
     const authFrom = new AuthForm({
       fields,
+      events: {
+        submit: (evt) => {
+          evt.preventDefault();
+          fields.forEach((el) => el.validate());
+          if (fields.every((field) => field.isValid())) {
+            self.props.onSubmit(evt);
+          }
+        },
+      },
       Button: new Button({
         text: 'Авторизоваться',
-        events: {
-          click: (evt) => {
-            fields.forEach((el) => el.validate());
-            if (fields.every((field) => field.isValid())) {
-              self.props.onSubmit(evt);
-            }
-          },
-        },
         type: 'submit',
       }),
       titleText: 'Вход',
