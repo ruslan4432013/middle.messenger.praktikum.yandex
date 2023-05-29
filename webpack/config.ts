@@ -72,5 +72,14 @@ export const config: Configuration = {
   optimization: {
     minimize: true,
     minimizer: [new CssMinimizerPlugin(), '...'],
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendors',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+        },
+      },
+    },
   },
 };
