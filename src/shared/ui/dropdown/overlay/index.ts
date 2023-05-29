@@ -1,6 +1,5 @@
-import s from './styles.module.scss';
-
-import { Component } from '../../lib';
+import { Component } from '../../../lib';
+import s from '../styles.module.scss';
 
 type OverlayProps = {
   onClick?: () => void
