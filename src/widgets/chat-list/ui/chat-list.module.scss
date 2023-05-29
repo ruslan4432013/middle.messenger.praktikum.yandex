@@ -7,9 +7,16 @@
   height: 100%;
 }
 
+.dropdown_menu__position {
+  top: 30px;
+  left: 0;
+}
+
 .top {
-  margin: 21px 22px 0 auto;
-  text-align: right;
+  padding: 20px 25px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .search_wrapper {

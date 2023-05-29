@@ -1,12 +1,4 @@
 <main class="{{ main_block }}">
   {{{ ChatList }}}
-  {{#if chatUuid}}
-    <div class="{{ body_wrapper }}">
-      {{{ Header }}}
-      {{{ ChatMessages }}}
-      {{{ Footer }}}
-    </div>
-  {{else}}
-    <div class="{{ choose_chat }}">Выберите чат, чтобы отправить сообщение</div>
-  {{/if}}
+  <div class="{{ choose_chat }}">Выберите чат, чтобы отправить сообщение</div>
 </main>

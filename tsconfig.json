@@ -5,6 +5,7 @@
       "dom",
       "es2021"
     ],
+    "strictPropertyInitialization": false,
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
@@ -35,6 +36,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
     "strict": true,
     "skipLibCheck": true
   },

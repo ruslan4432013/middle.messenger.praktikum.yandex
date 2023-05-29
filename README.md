@@ -2,7 +2,7 @@
 
 ## [UI-прототип](https://www.figma.com/file/XjLCnx3RgYuH5lHkmZGzqt/YaChat-Wireframing?node-id=676973%3A432&t=wfzKhXANJILdxos6-1)
 
-## [Посмотреть сайт](https://dapper-yeot-dc4450.netlify.app/)
+## [Посмотреть сайт](https://deploy-preview-4--dapper-yeot-dc4450.netlify.app)
 
 
 ## Описание
@@ -22,6 +22,130 @@
 Это функционирующее веб-приложение, которое позволит пользователям зарегистрироваться, авторизоваться,
 выбрать чат и обмениваться сообщениями с другими участниками.
 Он имеет простой, интуитивно понятный интерфейс, который будет удобен в использовании.
+
+## Использование навигации
+
+Для использования навигации по странице используется объект router, который импортируется
+из ```@shared/lib```
+
+#### Пример использования
+Чтоб добавить по определенному пути, используйте декоратор @router.use
+
+```typescript
+import { Path } from '@shared/config';
+import { Component, router } from '@shared/lib';
+import { Error } from '@widgets/error';
+// пример Path
+enum Path {
+  LOGIN = '/',
+  HOME = '/home',
+  REGISTER = '/sign-up',
+  USER_SETTINGS = '/settings',
+  USER_PROFILE = '/profile',
+  CHAT = '/messenger/:chatId',
+  CHANGE_PASSWORD = '/change-password',
+  CLIENT_ERROR = '/404',
+  SERVER_ERROR = '/500',
+}
+
+// оборачивает класс Component и принимает в качестве параметра любую строку
+@router.use(Path.CLIENT_ERROR)
+export class ClientErrorPage extends Component {
+  constructor() {
+    super('div');
+  }
+
+  public render(): DocumentFragment {
+    const error = new Error({ errorCode: 404, errorMessage: 'Не туда попали' });
+    return error.render();
+  }
+}
+```
+
+Так же router поддерживает параметры пути, определяются как: ```/messanger/:chatId/users```
+Чтоб использовать этот параметр, можно воспользоваться хуком ```useParams```
+
+### Сигнатура useParams
+
+```typescript
+import { useParams } from '@shared/lib';
+
+const { chatId } = useParams<{ chatId: string }>();
+```
+
+## Store
+В проекте используется декоратор connect для пробрасывания данных из хранилища в props
+
+#### Сигнатура использования
+```typescript
+import { sessionApi } from '@entities/session';
+import { Path } from '@shared/config';
+import { Component, router, connect } from '@shared/lib';
+import { AboutProfile } from '@widgets/about-profile';
+import { ProfileSidebar } from '@widgets/profile-sidebar';
+
+import render from './profile.hbs';
+
+@router.use(Path.USER_PROFILE)
+@connect((state) => ({
+  user: state.user,
+}))
+@sessionApi.requiredAuth
+export class ProfilePage extends Component {
+  constructor() {
+    super('div');
+  }
+
+  protected getAdditionalProps() {
+    const components = {
+      AboutProfile: new AboutProfile(),
+      ProfileSidebar: new ProfileSidebar(),
+    };
+    return {
+      ...components,
+    };
+  }
+
+  public render() {
+    return this.compile(render, this.props);
+  }
+}
+```
+
+
+## loginRequired
+Декоратор, для проверки доступности страницы,
+первым аргументом, принимает функцию, проверающая, что пользователь в сети (может быть асинхронной), вторым аргументом
+принимается путь, по которому будет осуществлен редирект, если проверка вернет false
+Из примера выше показано как оборачивать компонент, а вот сам пример использования
+
+```typescript
+import { Path } from '@shared/config';
+import { loginRequired } from '@shared/lib/decorators';
+
+import { getMe } from './get-me';
+
+const inSystem = async () => {
+  try {
+    const { id } = await getMe();
+    if (id) {
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+  return false;
+};
+
+const notInSystem = async () => {
+  const res = await inSystem();
+  return !res;
+};
+
+export const requiredAuth = loginRequired(inSystem, Path.LOGIN);
+
+export const notForAuth = loginRequired(notInSystem, Path.HOME);
+```
 
 ## Использование API запросов
 

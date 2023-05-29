@@ -1,11 +1,11 @@
 import render from './icon-button.hbs';
 import s from './icon-button.module.scss';
 
-import { cn, type PropType } from '../../lib';
-import { Component } from '../../lib';
+import { cn, Component } from '../../lib';
 
 type Props = {
   src: string;
+  onClick?: (evt: Event) => void
 } & PropType;
 
 export class IconButton extends Component<Props> {
@@ -17,6 +17,11 @@ export class IconButton extends Component<Props> {
     return {
       attr: {
         class: cn(s.icon_button, clearProps?.attr?.class),
+      },
+      events: {
+        click: (evt) => {
+          clearProps.onClick?.(evt);
+        },
       },
     };
   }

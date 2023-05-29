@@ -7,7 +7,7 @@ export class LoginController extends BaseController<LoginData> {
   public readonly model = new LoginModel();
 
   public submit() {
-    this.model.printData();
+    this.model.login().catch(console.error);
   }
 
   public changeField(field: keyof LoginData, text: string) {

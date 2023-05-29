@@ -1,0 +1,45 @@
+.toast {
+  position: fixed;
+  top: 15px;
+  animation-name: show;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  background: #20315C;
+  min-width: 300px;
+  border-radius: 24px;
+  padding: 34px 38px 33px 34px;
+  z-index: 9001;
+}
+
+@keyframes show {
+  0% {
+    right: -100%;
+  }
+
+  100% {
+    right: 15px;
+  }
+}
+
+.toast_content {
+  display: flex;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.title {
+  color: var(--light-color);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 26px;
+  margin-left: 18px;
+  margin-right: 15px;
+}
+
+.button_close {
+  position: relative;
+  margin-left: auto;
+}

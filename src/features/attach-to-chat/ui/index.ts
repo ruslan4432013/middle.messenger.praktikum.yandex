@@ -1,4 +1,4 @@
-import { Component, type PropType } from '@shared/lib';
+import { Component } from '@shared/lib';
 
 import attachIcon from './attach-icon.svg';
 import render from './attach-to-chat.hbs';

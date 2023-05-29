@@ -1,8 +1,7 @@
-import { Component, type PropType } from '../../lib';
-import { isTargetWithValue } from '../../lib/type-helpers';
+import { Component, isEvtTargetWithValue } from '../../lib';
 import { Input, type InputProps } from '../input';
 
-export type FieldProps = {
+export type FieldProps = Partial<{
   onChange?: (value: string) => void;
   value?: string;
   onFocus?: (ev: Event) => void;
@@ -13,7 +12,7 @@ export type FieldProps = {
   name: string;
   Input?: Component;
   inputProps?: InputProps;
-} & PropType;
+}> & PropType;
 
 export abstract class Field<Props extends FieldProps = FieldProps> extends Component<Props> {
   public value: string = this.props.value || '';
@@ -42,6 +41,18 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
     }
   }
 
+  public setValue(value: string) {
+    this.value = value;
+    const input = this.children.Input;
+    if (input && 'setProps' in input) {
+      input.setProps({ attr: { value } });
+      const content = input.getContent();
+      if ('value' in content) {
+        content.value = value;
+      }
+    }
+  }
+
   protected getAdditionalProps(clearProps: Props): Partial<Props> {
     const { inputProps = {} } = clearProps;
     return {
@@ -60,7 +71,7 @@ export abstract class Field<Props extends FieldProps = FieldProps> extends Compo
       }),
       events: {
         input: (evt) => {
-          if (isTargetWithValue(evt.target)) {
+          if (isEvtTargetWithValue(evt.target)) {
             this.value = evt.target.value;
             this.props.onChange?.(evt.target.value);
           }

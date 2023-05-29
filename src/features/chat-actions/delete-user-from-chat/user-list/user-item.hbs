@@ -1,0 +1,15 @@
+<img src="{{ avatar }}" class="{{ avatar_class }}" alt="{{login}}">
+<div class="{{description_block}}">
+  <div class="{{description_wrapper}}">
+    <h5 class="{{login_class}}">
+      {{login}}
+    </h5>
+    <p class="{{email_class}}">
+      {{email}}
+    </p>
+  </div>
+  {{#if isNotAdmin}}
+    <img src="{{deleteIcon}}" data-action="delete" class="{{delete_icon_class}}" alt="delete icon">
+  {{/if}}
+</div>
+

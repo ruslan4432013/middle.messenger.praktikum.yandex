@@ -1,4 +1,4 @@
-import { Component, type PropType } from '../../lib';
+import { Component } from '../../lib';
 
 export type InputProps = {
   className?: string

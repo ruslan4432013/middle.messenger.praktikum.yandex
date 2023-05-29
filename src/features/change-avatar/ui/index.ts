@@ -1,20 +1,53 @@
-import { Component } from '@shared/lib';
+import { sessionApi } from '@entities/session';
+import { userApi } from '@entities/user';
+import { API_URL } from '@shared/config';
+import { Component, _, store } from '@shared/lib';
+import { connect } from '@shared/lib/store/connect';
 
 import render from './change-avatar.hbs';
 import s from './change-avatar.module.scss';
 
-export class ChangeAvatar extends Component {
-  constructor() {
-    super('div');
+type Props = {
+  avatar?: string
+} & PropType;
+
+@connect((state) => ({ avatar: state?.user?.avatar }))
+export class ChangeAvatar extends Component<Props> {
+  constructor(props?: Props) {
+    const source: Props = {
+      ...props,
+      events: {
+        change: (evt) => {
+          const fileTarget = (evt.target as HTMLInputElement).files![0];
+          // Задаем параметры обрезки
+          const width = 140;
+          const height = 140;
+          _.cropImage(fileTarget, width, height, ({ src, file }) => {
+            this.setProps({ avatar: src });
+            const avatar = file;
+            userApi.updateAvatar({ avatar });
+          });
+        },
+      },
+    };
+    super('div', source);
+  }
+
+  public componentDidMount() {
+    if (!this.props.avatar) {
+      sessionApi.getMe().then((user) => store.set('user', user));
+    }
   }
 
   public render() {
+    let avatar = this.props.avatar ? this.props.avatar : 'https://via.placeholder.com/130x130';
+    avatar = avatar.startsWith('data:image') || avatar.startsWith('http') ? avatar : `${API_URL}/resources${avatar}`;
     const context = {
-      src: 'https://via.placeholder.com/130x130',
+      src: avatar,
       name: 'avatar',
       id: 'file-name',
     };
-    const source = { ...s, ...context };
+    const source = { ...s, ...context, ...this.props };
     return this.compile(render, source);
   }
 }

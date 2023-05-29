@@ -1,9 +1,9 @@
 import {
-  type ChildrenProps, type GetChildrenReturn, type PropType, type PropWithoutChildren,
+  type ChildrenProps, type GetChildrenReturn, type PropWithoutChildren,
 } from './types';
 
 import { EventBus } from '../event-bus';
-import { makeId } from '../make-id';
+import { merge, uuid4 } from '../utils';
 
 type Tags = keyof HTMLElementTagNameMap;
 type Meta<Tag> = {
@@ -18,7 +18,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     FLOW_RENDER: 'flow:render',
   };
 
-  private eventBus: () => EventBus;
+  public eventBus: () => EventBus;
 
   private _element: HTMLElementTagNameMap[K] | null = null;
 
@@ -26,11 +26,11 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
 
   private _meta: Meta<K>;
 
-  private children: ChildrenProps<Props>;
+  protected children: ChildrenProps<Props>;
 
   private _isNeedUpdate = false;
 
-  public readonly _id = makeId(15);
+  public readonly _id = uuid4();
 
   constructor(tagName: K, propsAndChildren: Props = {} as Props) {
     const additionalProps = this.getAdditionalProps?.(propsAndChildren);
@@ -38,7 +38,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
       children,
       props,
     } = this._getChildren(
-      this._mergeProps(propsAndChildren, additionalProps),
+      this._mergeProps(propsAndChildren, additionalProps) as Props,
     ) as GetChildrenReturn<Props>;
 
     const eventBus = new EventBus();
@@ -54,26 +54,12 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     eventBus.emit(Component.EVENTS.INIT);
   }
 
-  private _mergeProps(currentProps: Props, additional?: Partial<Props>) {
+  private _mergeProps(currentProps: Props, additional?: Partial<PropType>) {
     if (!additional) {
       return currentProps;
     }
 
-    const eventProps = {
-      ...additional.events,
-      ...currentProps.events,
-    };
-    const attrProps = {
-      ...additional.attr,
-      ...currentProps.attr,
-    };
-
-    return {
-      ...additional,
-      ...currentProps,
-      events: eventProps,
-      attr: attrProps,
-    };
+    return merge(currentProps, additional);
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -112,10 +98,10 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
-  public init() {
+  public init(props: typeof this.props) {
     this._createResources();
     this.eventBus()
-      .emit(Component.EVENTS.FLOW_RENDER);
+      .emit(Component.EVENTS.FLOW_RENDER, props);
   }
 
   private _componentDidMount() {
@@ -131,7 +117,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
   }
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidMount?(oldProps?: Props): void;
+  public componentDidMount?(): void;
 
   public dispatchComponentDidMount() {
     this.eventBus()
@@ -142,6 +128,8 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
+  public componentWillUnmount?(): void;
+
   private _componentDidUpdate(oldProps: Props, newProps: Props) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
@@ -149,10 +137,10 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     }
   }
 
-  protected getAdditionalProps?(clearProps: Props): Partial<Props>;
+  protected getAdditionalProps?(props: Props): PropType;
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidUpdate(oldProps?: Props, newProps?: Props): boolean;
+  protected componentDidUpdate(oldProps: Props, newProps: Props): boolean;
   protected componentDidUpdate(): boolean {
     return true;
   }
@@ -201,7 +189,9 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     this._element.appendChild(block);
   }
 
-  public abstract render(): DocumentFragment;
+  public render(): DocumentFragment {
+    throw new Error('Method Render not implemented');
+  }
 
   private _getChildren(propsAndChildren: Partial<Props>) {
     const children: Record<string, Component | Component[]> = {};
@@ -258,7 +248,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     return document.createElement(tagName);
   }
 
-  protected compile(render: (param?: any) => string, props: Props): DocumentFragment {
+  protected compile(render: (param?: unknown) => string, props: Props): DocumentFragment {
     const propsAndStubs: Record<string, unknown> = { ...props };
 
     (Object.entries(this.children) as [string, (Component | Component[])][])
@@ -299,7 +289,7 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
 
   public hide() {
     const content = this.getContent();
-    content.style.display = 'none';
+    content.remove();
   }
 
   private _isChildArray(val: unknown): val is Component[] {

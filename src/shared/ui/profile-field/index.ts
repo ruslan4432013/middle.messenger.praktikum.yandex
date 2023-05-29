@@ -1,14 +1,13 @@
 import render from './profile-field.hbs';
 import s from './profile-field.module.scss';
 
-import { type PropType } from '../../lib';
 import { Field, type FieldProps } from '../field';
 
 type Props = {
   label: string;
   name: string;
   onlyRead?: boolean;
-  fieldType?: 'text' | 'password' | 'tel';
+  fieldType: 'text' | 'password' | 'tel' | 'email';
 } & FieldProps & PropType;
 
 export class ProfileField extends Field<Props> {
@@ -18,6 +17,8 @@ export class ProfileField extends Field<Props> {
         class: s.value_text,
         value: clearProps.value,
         type: clearProps.fieldType,
+        name: clearProps.name,
+        ...(clearProps.onlyRead && { disabled: 'true' }),
       },
     } as FieldProps['inputProps'];
     const props = super.getAdditionalProps({ ...clearProps, inputProps });

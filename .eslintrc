@@ -65,8 +65,13 @@
     "import/prefer-default-export": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",
+    "no-continue": "off",
+    "no-prototype-builtins": "off",
+    "no-constructor-return": "off",
     "class-methods-use-this": "off",
     "no-restricted-syntax": "off",
+    "func-names": "off",
+    "no-bitwise": "off",
     "no-useless-escape": "off",
     "no-underscore-dangle": "off"
   }

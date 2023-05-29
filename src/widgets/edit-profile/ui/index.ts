@@ -1,6 +1,6 @@
 import { ChangeAvatar } from '@features/change-avatar';
-import { type PropType } from '@shared/lib';
 import { Component } from '@shared/lib/component';
+import { connect } from '@shared/lib/store/connect';
 import { Button } from '@shared/ui/button';
 import { type ProfileField } from '@shared/ui/profile-field';
 
@@ -9,34 +9,27 @@ import s from './edit-profile.module.scss';
 
 type Props = {
   fields: ProfileField[]
+  userName?: string
+  onSubmit: (evt: Event) => void
 } & PropType;
 
+@connect((state) => ({ userName: state?.user?.firstName }))
 export class EditProfile extends Component<Props> {
-  private readonly fields: ProfileField[] = [];
-
   constructor(props: Props) {
     super('div', props);
-    this.fields = props.fields;
   }
 
-  protected getAdditionalProps(): Partial<Props> {
+  protected getAdditionalProps({ onSubmit }: Props): Partial<Props> {
     return {
+      events: {
+        submit: (evt) => {
+          evt.preventDefault();
+          onSubmit(evt);
+        },
+      },
       ChangeAvatar: new ChangeAvatar(),
       Button: new Button({
         text: 'Сохранить',
-        events: {
-          click: (e) => {
-            e.preventDefault();
-            const printedObject = this.fields.reduce((acc, val) => {
-              acc[val.props.name] = val.value;
-              return acc;
-            }, {} as Record<string, string>);
-            console.log(printedObject);
-            this.fields.forEach((field) => {
-              field.validate();
-            });
-          },
-        },
       }),
       ...s,
     };

@@ -1,27 +1,21 @@
-import { Component, type PropType } from '@shared/lib';
+import { sessionApi } from '@entities/session';
+import { Path } from '@shared/config';
+import { Component, router } from '@shared/lib';
 import { ChatList } from '@widgets/chat-list';
-import { ChatMessages } from '@widgets/chat-messages';
-import { Footer } from '@widgets/footer';
-import { Header } from '@widgets/header';
 
 import render from './home.hbs';
 import s from './home.module.scss';
 
-type Props = {
-  chatUuid: null | string
-} & PropType;
-
-export class HomePage extends Component<Props> {
-  constructor(props: Props) {
-    super('div', props);
+@router.use(Path.HOME)
+@sessionApi.requiredAuth
+export class HomePage extends Component {
+  constructor() {
+    super('div');
   }
 
-  protected getAdditionalProps(): Partial<Props> {
+  protected getAdditionalProps() {
     const components = {
       ChatList: new ChatList(),
-      Header: new Header(),
-      Footer: new Footer(),
-      ChatMessages: new ChatMessages(),
     };
 
     return {

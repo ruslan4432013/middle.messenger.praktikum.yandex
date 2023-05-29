@@ -1,4 +1,4 @@
-export const cn = (...classes: (Record<string, boolean> | string | undefined)[]) => {
+export const cn = (...classes: (Record<string, boolean | undefined> | string | undefined)[]) => {
   const res: string[] = [];
   classes.forEach((obj) => {
     if (typeof obj === 'object') {

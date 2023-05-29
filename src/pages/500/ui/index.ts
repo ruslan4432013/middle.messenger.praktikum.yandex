@@ -1,6 +1,8 @@
-import { Component } from '@shared/lib';
+import { Path } from '@shared/config';
+import { Component, router } from '@shared/lib';
 import { Error } from '@widgets/error';
 
+@router.use(Path.SERVER_ERROR)
 export class ServerErrorPage extends Component {
   constructor() {
     super('div');

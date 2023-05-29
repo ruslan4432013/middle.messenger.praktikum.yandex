@@ -1,5 +1,7 @@
+import { sessionApi } from '@entities/session';
 import { AuthForm } from '@features/auth-form';
-import { type PropType, validate } from '@shared/lib';
+import { Path } from '@shared/config';
+import { validate } from '@shared/lib';
 import { Component } from '@shared/lib/component';
 import { AuthField } from '@shared/ui/auth-field';
 import { Button } from '@shared/ui/button';
@@ -9,6 +11,7 @@ type Props = {
   onChange: (field: 'login' | 'password', value: string) => void
 } & PropType;
 
+@sessionApi.notForAuth
 export class LoginPage extends Component<Props> {
   constructor(props: Props) {
     super('div', props);
@@ -33,7 +36,7 @@ export class LoginPage extends Component<Props> {
       validationFn: validate.login,
       errorMessage: 'Неверный логин',
       onChange: (text: string) => {
-        this.props.onChange('login', text);
+        this.props.onChange?.('login', text);
       },
     });
     const passwordField = new AuthField({
@@ -44,25 +47,31 @@ export class LoginPage extends Component<Props> {
       validationFn: validate.password,
       errorMessage: 'Неверный пароль',
       onChange: (text: string) => {
-        this.props.onChange('password', text);
+        this.props.onChange?.('password', text);
       },
     });
     const self = this;
     const fields = [loginField, passwordField];
     const authFrom = new AuthForm({
       fields,
+      events: {
+        submit: (evt) => {
+          evt.preventDefault();
+          fields.forEach((el) => el.validate());
+          if (fields.every((field) => field.isValid())) {
+            self.props.onSubmit(evt);
+          }
+        },
+      },
       Button: new Button({
         text: 'Авторизоваться',
-        events: {
-          click: (evt) => {
-            self.props.onSubmit(evt);
-            fields.forEach((el) => el.validate());
-          },
-        },
         type: 'submit',
       }),
       titleText: 'Вход',
-      linkText: 'Войти',
+      linkProps: {
+        text: 'Нет аккаунта?',
+        to: Path.REGISTER,
+      },
       minHeight: '320px',
     });
     return authFrom.render();
