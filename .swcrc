@@ -6,4 +6,5 @@
       "decorators": true,
     }
   },
+  "minify": true
 }
