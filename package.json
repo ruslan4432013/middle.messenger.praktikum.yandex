@@ -57,13 +57,5 @@
     "typescript": "^5.0.4",
     "webpack": "^5.84.1",
     "webpack-cli": "^5.1.1"
-  },
-  "alias": {
-    "@styles": "./src/shared/styles/index.scss",
-    "@shared/*": "./src/shared/$1",
-    "@pages/*": "./src/pages/$1",
-    "@entities/*": "./src/entities/$1",
-    "@widgets/*": "./src/widgets/$1",
-    "@features/*": "./src/features/$1"
   }
 }
