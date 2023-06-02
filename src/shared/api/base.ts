@@ -5,7 +5,7 @@ import { API_URL } from '../config';
 import { isQueryStingData } from '../lib';
 import { queryStringify } from '../lib/api-helpers';
 
-class HTTPTransport {
+export class HTTPTransport {
   constructor(private readonly baseUrl: string) {
   }
 
@@ -86,12 +86,12 @@ class HTTPTransport {
     return this.request(url, {
       ...options,
       method: Methods.POST,
-    }, options.timeout);
+    }, options?.timeout);
   }
 
   public put(
     url: string,
-    options: Partial<Options>,
+    options: Partial<Options> = {},
   ) {
     return this.request(url, {
       ...options,
@@ -101,7 +101,7 @@ class HTTPTransport {
 
   public delete(
     url: string,
-    options: Partial<Options>,
+    options: Partial<Options> = {},
   ) {
     return this.request(url, {
       ...options,

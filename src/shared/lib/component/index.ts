@@ -186,10 +186,14 @@ export abstract class Component<Props extends PropType = PropType, K extends Tag
     this._element.innerHTML = '';
     this._addEvents();
     this._addAttribute();
-    this._element.appendChild(block);
+    if (typeof block === 'string') {
+      this._element.append(block);
+    } else {
+      this._element.appendChild(block);
+    }
   }
 
-  public render(): DocumentFragment {
+  public render(): DocumentFragment | string {
     throw new Error('Method Render not implemented');
   }
 

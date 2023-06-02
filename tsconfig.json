@@ -42,14 +42,16 @@
     "skipLibCheck": true
   },
   "ts-node": {
-    "compilerOptions": { "module": "commonjs" }
+    "compilerOptions": { "module": "commonjs" },
+    "swc": true
   },
   "include": [
     "src",
     "server",
     "typings",
     "webpack",
-    "webpack.config.ts"
+    "webpack.config.ts",
+    "mocha-aliases.ts",
   ],
   "exclude": [
     "node_modules"
