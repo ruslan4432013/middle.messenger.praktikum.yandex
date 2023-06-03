@@ -70,11 +70,18 @@ export class ChatList extends Component<ChatListProps> {
   }
 
   private _getMessagesFromChats(chats: ChatDto[]) {
+    const getLastMessage = (lastMessage?: ChatDto['last_message']) => {
+      if (!lastMessage) {
+        return 'Начните вводить сообщение';
+      }
+      return `${lastMessage.user.login}: ${lastMessage.content}`;
+    };
     return chats.map((el) => new ChatCard({
       chatId: el.id,
       unreadCount: el.unread_count,
       title: el.title,
       avatar: el.avatar,
+      lastMessage: getLastMessage(el.last_message),
     }));
   }
 

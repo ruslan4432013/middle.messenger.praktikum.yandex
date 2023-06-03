@@ -10,6 +10,7 @@
     "start:webpack": "cross-env NODE_ENV=development webpack --mode=development",
     "dev": "yarn run clean && npm-run-all --print-label --parallel start:webpack",
     "build": "yarn run clean  && cross-env NODE_ENV=production webpack --mode production",
+    "preview": "yarn run build && ts-node server",
     "serve": "yarn webpack serve --mode development",
     "start": "yarn dev && ts-node server",
     "ts-check": "tsc --skipLibCheck --noEmit --project tsconfig.json",

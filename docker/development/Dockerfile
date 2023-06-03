@@ -1,0 +1,10 @@
+FROM node:20-alpine
+
+WORKDIR /var/www
+COPY package*.json ./
+COPY yarn.lock ./
+RUN yarn install
+COPY . .
+
+EXPOSE 3000
+CMD yarn run preview
