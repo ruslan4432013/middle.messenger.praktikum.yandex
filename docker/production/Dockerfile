@@ -8,5 +8,4 @@ COPY . .
 RUN yarn build
 
 FROM nginx:latest
-COPY docker/production/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /var/www/dist /var/www
