@@ -6,8 +6,8 @@ services:
       context: ../..
       dockerfile: ./docker/production/Dockerfile
     volumes:
-      - "./docker/production/data/certbot/conf:/etc/letsencrypt"
-      - "./docker/production/data/certbot/www:/var/www/certbot"
+      - "./data/certbot/conf:/etc/letsencrypt"
+      - "./data/certbot/www:/var/www/certbot"
     ports:
       - "80:80"
       - "443:443"
