@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  frontend:
+  nginx:
     build:
       context: ../..
       dockerfile: ./docker/production/Dockerfile
@@ -17,7 +17,7 @@ services:
     image: certbot/certbot
     restart: unless-stopped
     depends_on:
-      - frontend
+      - nginx
     container_name: certbot
     volumes:
       - "./data/certbot/conf:/etc/letsencrypt"
