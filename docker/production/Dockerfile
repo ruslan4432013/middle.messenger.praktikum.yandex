@@ -9,5 +9,4 @@ RUN yarn build
 
 FROM nginx:latest
 COPY docker/production/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /var/www/dist /usr/share/nginx/html
-RUN chown nginx.nginx /usr/share/nginx/html/ -R
+COPY --from=builder /var/www/dist /var/www
