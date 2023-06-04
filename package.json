@@ -5,6 +5,10 @@
   "repository": "https://github.com/ruslan4432013/middle.messenger.praktikum.yandex.git",
   "author": "Ruslan Ivanov <ruslan4432013@gmail.com>",
   "license": "MIT",
+  "lint-staged": {
+    "*.ts": "eslint --fix",
+    "*.scss": "stylelint --syntax=scss --fix"
+  },
   "scripts": {
     "clean": "rimraf dist",
     "start:webpack": "cross-env NODE_ENV=development webpack --mode=development",
@@ -17,7 +21,7 @@
     "lint:ts": "eslint . --ext .ts,.tsx --fix",
     "lint:styles": "stylelint '**/*.scss' --fix",
     "lint": "npm-run-all --parallel ts-check lint:styles lint:ts",
-    "test": "mocha --parallel",
+    "test": "mocha --parallel --timeout 15000",
     "full-check": "npm-run-all --parallel lint test",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
@@ -54,6 +58,7 @@
     "html-webpack-plugin": "^5.5.1",
     "husky": "^8.0.0",
     "jsdom": "^22.1.0",
+    "lint-staged": "^13.2.2",
     "mini-css-extract-plugin": "^2.7.6",
     "mocha": "^10.2.0",
     "module-alias": "^2.2.2",

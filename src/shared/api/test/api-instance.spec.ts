@@ -8,6 +8,12 @@ Object.defineProperty(globalThis, 'XMLHttpRequest', {
   value: dom.window.XMLHttpRequest
 });
 
+if (!('FormData' in globalThis)) {
+  Object.defineProperty(globalThis, 'FormData', {
+    value: dom.window.FormData
+  });
+}
+
 type PostResponse = {
   id: number,
   title: string,
@@ -26,7 +32,9 @@ describe('Проверка HTTP клиента', () => {
     if (!res.ok) {
       return;
     }
-    expect(res.json<{ id: number }>().id).to.equal(1);
+    expect(res.json<{ id: number }>().id)
+      .to
+      .equal(1);
   });
 
   it('Проверяем корректность post-запроса', async () => {
@@ -41,7 +49,9 @@ describe('Проверка HTTP клиента', () => {
     if (!res.ok) {
       return;
     }
-    expect(res.json<PostResponse>().title).to.equal('foo');
+    expect(res.json<PostResponse>().title)
+      .to
+      .equal('foo');
   });
   it('Проверяем корректность put-запроса', async () => {
     const res = await apiInstance.put('/posts/1', {
@@ -56,11 +66,15 @@ describe('Проверка HTTP клиента', () => {
     if (!res.ok) {
       return;
     }
-    expect(res.json<PostResponse>().title).to.equal('foo');
+    expect(res.json<PostResponse>().title)
+      .to
+      .equal('foo');
   });
   it('Проверяем корректность delete-запроса', async () => {
     const res = await apiInstance.delete('/posts/1');
-    expect(res.status).to.equal(200)
+    expect(res.status)
+      .to
+      .equal(200);
     expect(res.ok).true;
   });
 });
