@@ -5,6 +5,8 @@ import { API_URL } from '../config';
 import { isQueryStingData } from '../lib';
 import { queryStringify } from '../lib/api-helpers';
 
+type HTTPMethod = (url: string, options?: Partial<Options>) => Promise<RequestResult>;
+
 export class HTTPTransport {
   constructor(private readonly baseUrl: string) {
   }
@@ -29,7 +31,8 @@ export class HTTPTransport {
           xhr.setRequestHeader(key, value);
         }
       }
-      const isJSON = (!headers || !Object.keys(headers).find((h) => h.toLowerCase() === 'content-type')) && !(data instanceof FormData);
+      const isJSON = (!headers || !Object.keys(headers)
+        .find((h) => h.toLowerCase() === 'content-type')) && !(data instanceof FormData);
       if (isJSON) {
         xhr.setRequestHeader('content-type', 'application/json');
       }
@@ -59,10 +62,7 @@ export class HTTPTransport {
     });
   }
 
-  public get(
-    url: string,
-    options: Partial<Options> = {},
-  ) {
+  public get: HTTPMethod = (url, options = {}) => {
     const {
       data = {},
       ...otherOptions
@@ -77,37 +77,22 @@ export class HTTPTransport {
       ...otherOptions,
       method: Methods.GET,
     }, options.timeout);
-  }
+  };
 
-  public post(
-    url: string,
-    options: Partial<Options> = {},
-  ) {
-    return this.request(url, {
-      ...options,
-      method: Methods.POST,
-    }, options?.timeout);
-  }
+  public post: HTTPMethod = (url, options = {}) => this.request(url, {
+    ...options,
+    method: Methods.POST,
+  }, options?.timeout);
 
-  public put(
-    url: string,
-    options: Partial<Options> = {},
-  ) {
-    return this.request(url, {
-      ...options,
-      method: Methods.PUT,
-    }, options.timeout);
-  }
+  public put: HTTPMethod = (url, options = {}) => this.request(url, {
+    ...options,
+    method: Methods.PUT,
+  }, options.timeout);
 
-  public delete(
-    url: string,
-    options: Partial<Options> = {},
-  ) {
-    return this.request(url, {
-      ...options,
-      method: Methods.DELETE,
-    }, options.timeout);
-  }
+  public delete: HTTPMethod = (url, options = {}) => this.request(url, {
+    ...options,
+    method: Methods.DELETE,
+  }, options.timeout);
 }
 
 export const apiInstance = new HTTPTransport(API_URL);
