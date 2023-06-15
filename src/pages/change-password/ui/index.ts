@@ -10,7 +10,7 @@ import { ProfileSidebar } from '@widgets/profile-sidebar';
 import render from './change-password.hbs';
 
 @router.use(Path.CHANGE_PASSWORD)
-@sessionApi.notForAuth
+@sessionApi.requiredAuth
 export class ChangePasswordPage extends Component {
   constructor() {
     super('div');

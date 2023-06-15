@@ -1,5 +1,5 @@
-import { router } from './router';
+import { Router } from './router';
 
 export function useParams<T extends Record<string, string> = Record<string, string>>() {
-  return router.useParams<T>();
+  return new Router('#root', window).useParams<T>();
 }

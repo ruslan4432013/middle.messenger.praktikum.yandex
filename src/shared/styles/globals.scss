@@ -1,4 +1,9 @@
-@use 'index' as *;
+@import 'theme/breakpoints';
+@import 'theme/colors';
+@import 'theme/fonts';
+@import 'theme/effects';
+@import 'theme/mixins';
+@import 'theme/center';
 
 html,
 body {

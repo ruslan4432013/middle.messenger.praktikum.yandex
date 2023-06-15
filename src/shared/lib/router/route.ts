@@ -14,7 +14,7 @@ type RouteProp = {
 };
 
 export class Route<P extends RouteProp = RouteProp> {
-  private _pathname: string;
+  public _pathname: string;
 
   private readonly _blockClass: new () => BaseView | Component;
 

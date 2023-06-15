@@ -2,8 +2,7 @@
 
 ## [UI-прототип](https://www.figma.com/file/XjLCnx3RgYuH5lHkmZGzqt/YaChat-Wireframing?node-id=676973%3A432&t=wfzKhXANJILdxos6-1)
 
-## [Посмотреть сайт](https://deploy-preview-4--dapper-yeot-dc4450.netlify.app)
-
+## [Посмотреть сайт](https://chat.rodrigo-hub.ru/)
 
 ## Описание
 
@@ -23,18 +22,86 @@
 выбрать чат и обмениваться сообщениями с другими участниками.
 Он имеет простой, интуитивно понятный интерфейс, который будет удобен в использовании.
 
+## Основные команды
+
+#### Важно!!! Вначале необходимо установить зависимости проекта
+
+- `yarn install` — установка зависимо,
+
+#### Проект запускается на порту 3000 - убедитесь, что порт не занят
+
+`127.0.0.1:3000`
+
+#### Команды:
+
+- `yarn serve` - Сборка и раздача проекта с помощью webpack-dev-server,
+- `yarn preview` - Собирает проект в dev режиме и запускает сборку через сервер ts-node,
+- `yarn lint` — запускает проверку типов и линтинг кода,
+- `yarn test` — запускает тесты на mocha,
+- `yarn full-check` — запускает команды yarn lint и yarn test параллельно,
+- `yarn build` — сборка стабильной версии.
+
+## Деплой на сервер
+
+1. Заходим на VPS сервер, устанавливаем docker
+   compose [Инструкция по установке](https://docs.docker.com/compose/install/)
+2. Клонируем проект (https://github.com/ruslan4432013/middle.messenger.praktikum.yandex.git)
+3. Дальше в зависимости от того, будете ли вы использовать ssl:
+
+#### Без SSL:
+
+4. Переходим в директорию с докер-файлом ```cd middle.messenger.praktikum.yandex/docker/development```
+5. Запускаем сборку ```docker compose --build -d```, проект запустится по адресу VPS или
+по localhost(если у себя на компьютере запускаете) на 3000 порту
+
+#### Через SSL(Необходим домен и VPS):
+
+4. Переходим в директорию с докер-файлом ```cd middle.messenger.praktikum.yandex/docker/production```
+5. В init-letsencrypt.sh и в data/nginx/app.conf везде меняете ```chat.rodrigo-hub.ru``` на ваш домен
+6. Для init-letsencrypt.sh устанавливаем права на исполнение ```sudo chmod +x init-letsencrypt.sh```
+7. Запускаете приложение командой ```./init-letsencrypt.sh``` этот скрипт сам выпустит сертификаты и запустит контейнеры
+8. После успешного первого запуска дальше при изменении достаточно запускать просто сборку через ```docker compose --build -d```
+
+
+## Используемые технологии:
+1. ***TypeScript***: Язык программирования, расширяющий возможности JavaScript с помощью статической типизации.
+
+2. ***@swc/core***: Компилятор TypeScript и JavaScript, обеспечивающий быструю компиляцию и оптимизацию кода.
+
+3. ***Chai***: Библиотека для тестирования кода, предоставляющая удобные методы для создания утверждений (assertions).
+
+4. ***Express***: Фреймворк для создания веб-приложений на Node.js.
+
+5. ***Webpack***: Сборщик модулей, используемый для упаковки и оптимизации ресурсов веб-приложения.
+
+6. ***ESLint***: Инструмент статического анализа кода, который помогает обнаруживать и исправлять ошибки и несоответствия стилю кодирования.
+
+7. ***Handlebars***: Шаблонизатор, позволяющий создавать динамические HTML-шаблоны.
+
+8. ***Mocha***: Фреймворк для тестирования JavaScript-кода, предоставляющий удобные средства для написания и запуска тестов.
+
+9. ***Sass***: Препроцессор CSS, который позволяет использовать переменные, миксины и другие возможности для упрощения разработки стилей.
+
+10. ***Stylelint***: Инструмент для проверки и поддержки стиля кода в CSS.
+
+11. ***Docker*** Compose: Инструмент, позволяющий определить и запускать множество связанных контейнеров Docker вместе.
+
+12. ***Nginx***: Веб-сервер и обратный прокси-сервер, используемый для обслуживания статических ресурсов и маршрутизации запросов.
+
 ## Использование навигации
 
 Для использования навигации по странице используется объект router, который импортируется
 из ```@shared/lib```
 
 #### Пример использования
+
 Чтоб добавить по определенному пути, используйте декоратор @router.use
 
 ```typescript
 import { Path } from '@shared/config';
 import { Component, router } from '@shared/lib';
 import { Error } from '@widgets/error';
+
 // пример Path
 enum Path {
   LOGIN = '/',
@@ -56,7 +123,10 @@ export class ClientErrorPage extends Component {
   }
 
   public render(): DocumentFragment {
-    const error = new Error({ errorCode: 404, errorMessage: 'Не туда попали' });
+    const error = new Error({
+      errorCode: 404,
+      errorMessage: 'Не туда попали'
+    });
     return error.render();
   }
 }
@@ -74,9 +144,11 @@ const { chatId } = useParams<{ chatId: string }>();
 ```
 
 ## Store
+
 В проекте используется декоратор connect для пробрасывания данных из хранилища в props
 
 #### Сигнатура использования
+
 ```typescript
 import { sessionApi } from '@entities/session';
 import { Path } from '@shared/config';
@@ -112,8 +184,8 @@ export class ProfilePage extends Component {
 }
 ```
 
-
 ## loginRequired
+
 Декоратор, для проверки доступности страницы,
 первым аргументом, принимает функцию, проверающая, что пользователь в сети (может быть асинхронной), вторым аргументом
 принимается путь, по которому будет осуществлен редирект, если проверка вернет false
@@ -186,6 +258,7 @@ apiInstance.post(`${BASE_URL}/api/users`, {
 ```
 
 ## Пример MVC по странице LogIn
+
 ```
     ├── pages/                        # Слой: Страницы приложения
     |   ├── login/                    # Слайс: (пример: Логин страница)
@@ -203,7 +276,9 @@ apiInstance.post(`${BASE_URL}/api/users`, {
     |   |   └── index.ts             # Входная точка в слой
 ...
 ```
+
 #### pages/login/model/index.ts
+
 ```typescript
 import { BaseController } from '@shared/lib';
 
@@ -224,12 +299,13 @@ export class LoginController extends BaseController<LoginData> {
 ```
 
 #### pages/login/model/login-model.ts
+
 ```typescript
 import { BaseModel } from '@shared/lib';
 
 import { type LoginData } from './types';
 
-const getInitialData = () : LoginData => ({
+const getInitialData = (): LoginData => ({
   login: '',
   password: '',
 });
@@ -242,14 +318,18 @@ export class LoginModel extends BaseModel<LoginData> {
   }
 }
 ```
+
 #### pages/login/model/types.ts
+
 ```typescript
 export type LoginData = {
   login: string,
   password: string,
 };
 ```
+
 #### pages/login/ui/index.ts
+
 ```typescript
 import { LoginController } from '@pages/login/model';
 import { BaseView } from '@shared/lib';
@@ -278,7 +358,9 @@ export class LoginPageView extends BaseView<LoginData> {
   }
 }
 ```
+
 #### pages/login/ui/block.ts
+
 ```typescript
 import { AuthForm } from '@features/auth-form';
 import { type PropType, validate } from '@shared/lib';
@@ -353,12 +435,15 @@ export class LoginPage extends Component<Props> {
   }
 }
 ```
+
 #### pages/login/index.ts
+
 ```typescript
 export { LoginPageView } from './ui';
 ```
 
 ### Использование
+
 ```typescript
 import { LoginPageView } from '@pages/login'
 
@@ -367,22 +452,8 @@ const container = document.querySelector('#root')!
 new LoginPageView(container).mount()
 ```
 
-
-## Основные команды
-
-#### Важно!!! Вначале необходимо установить зависимости проекта
-- `yarn install` — установка зависимо,
-
-#### Проект запускается на порту 3000 - убедитесь, что порт не занят
-`127.0.0.1:3000`
-
-#### Команды:
-- `yarn start` - сборка и раздача проекта с помощью express сервера,
-- `yarn ts-check` - проверка проекта на валидность типов,
-- `yarn dev` — запуск версии для разработчика,
-- `yarn build` — сборка стабильной версии.
-
 ## Структура проекта
+
 [По архитектуре FSD](https://feature-sliced.design/blog/rebranding-stable)
 
 Структура проекта выглядит следующим образом:

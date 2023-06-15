@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "ES5",
     "lib": [
       "dom",
       "es2021"
     ],
     "strictPropertyInitialization": false,
-    "module": "commonjs",
+    "module": "CommonJS",
     "baseUrl": "./",
     "paths": {
       "@shared/*": [
@@ -30,6 +30,7 @@
     },
     "isolatedModules": true,
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -40,10 +41,17 @@
     "strict": true,
     "skipLibCheck": true
   },
+  "ts-node": {
+    "compilerOptions": { "module": "commonjs" },
+    "swc": true
+  },
   "include": [
     "src",
     "server",
-    "typings"
+    "typings",
+    "webpack",
+    "webpack.config.ts",
+    "mocha-aliases.ts",
   ],
   "exclude": [
     "node_modules"

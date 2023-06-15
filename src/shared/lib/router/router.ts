@@ -5,23 +5,26 @@ import { Path, ROOT_SELECTOR } from '../../config';
 import { isCorrectPopStateEvent } from '../type-guards';
 
 export class Router {
-  private static __instance: Router;
+  public static __instance: Router | null;
 
   private _routes: Route[];
 
-  private _history: History;
+  public _history: History;
 
-  private _currentRoute: null | Route;
+  public _currentRoute: null | Route;
 
   private readonly _rootQuery: string;
 
-  constructor(rootQuery?: string) {
+  public _routeWindow: Window | null;
+
+  constructor(rootQuery?: string, routeWindow?: Window) {
     if (Router.__instance) {
       return Router.__instance;
     }
 
     this._routes = [];
-    this._history = window.history;
+    this._routeWindow = routeWindow || null;
+    this._history = (routeWindow || window).history;
     this._currentRoute = null;
     if (!rootQuery) throw new Error('Root query not implemented');
     this._rootQuery = rootQuery;
@@ -41,6 +44,7 @@ export class Router {
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
+      if (this._routes.length === 0) return;
       this._onRoute(Path.CLIENT_ERROR);
       return;
     }
@@ -56,13 +60,13 @@ export class Router {
   }
 
   public start() {
-    window.onpopstate = (event: PopStateEvent) => {
+    (this._routeWindow || window).onpopstate = (event: PopStateEvent) => {
       if (isCorrectPopStateEvent(event)) {
         this._onRoute(event.currentTarget.location.pathname);
       }
     };
 
-    this._onRoute(window.location.pathname);
+    this._onRoute((this._routeWindow || window).location.pathname);
   }
 
   public go(pathname: string) {
@@ -79,4 +83,11 @@ export class Router {
   }
 }
 
-export const router = new Router(ROOT_SELECTOR);
+const getRouter = () => {
+  if (typeof window !== 'undefined') {
+    return new Router(ROOT_SELECTOR);
+  }
+  return null;
+};
+
+export const router = getRouter()!;

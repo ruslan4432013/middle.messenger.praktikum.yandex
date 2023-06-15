@@ -3,7 +3,7 @@ export interface ChatDto {
   title: string;
   avatar: string;
   unread_count: number;
-  last_message: LastMessage;
+  last_message?: LastMessage;
 }
 
 interface LastMessage {

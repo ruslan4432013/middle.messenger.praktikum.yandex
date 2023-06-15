@@ -45,7 +45,7 @@ export class ActionsDropdown extends Component<ActionProps> {
         });
         self.setProps({
           dropdown_menu: dropdownMenuStyle,
-          Overlay: overlay,
+          OverlayComponent: overlay,
         });
       },
     });

@@ -86,21 +86,16 @@ export class UpdateProfilePage extends Component<Props> {
     };
 
     super('div', { ...components, fields });
-    this._fields = fields;
-  }
-
-  protected getAdditionalProps(clearProps: Props): Partial<Props> {
     const self = this;
     const editProfile = new EditProfile({
       onSubmit(evt) {
         self._onUpdateProfile(evt);
       },
-      fields: clearProps.fields || [],
+      fields: fields || [],
     });
     this._editProfile = editProfile;
-    return {
-      EditProfile: editProfile,
-    };
+    this._fields = fields;
+    this.setProps({ EditProfile: editProfile });
   }
 
   private _onUpdateProfile(evt: Event) {
